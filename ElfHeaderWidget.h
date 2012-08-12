@@ -2,6 +2,7 @@
 	#define ElfHeaderWidget_H
 
 	#include <QtGui>
+	#include <elf.h>
 
 	const QString field_names[] =
 	{
@@ -35,6 +36,7 @@
 		public:
 			ElfHeaderWidget();
 			~ElfHeaderWidget();
+			void GetValues( char *elfheader );
 
 	};
 #endif

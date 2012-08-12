@@ -50,3 +50,8 @@ ElfHeaderWidget::~ElfHeaderWidget()
 	delete table;
 	delete layout;
 }
+
+void ElfHeaderWidget::GetValues( char *elfheader )
+{
+
+}

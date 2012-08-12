@@ -79,14 +79,22 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	char *filedata;
 	unsigned long dataread;
 
+	// TODO 32 bit int?
+	unsigned int signature = 0;
+
 	if( !file_opened )
 		throw 1;
 
 	filedata = new char[ actual_file->size() ];
 	dataread = actual_file->read( filedata, actual_file->size() );
 
-	// TODO Validation
+	signature = * ( int * )filedata;
 
+	if( signature != 0x464C457F )
+	{
+		delete filedata;
+		throw 2;
+	}
 
 	//test
 	QWidget *temp = new ElfHeaderWidget();
@@ -145,7 +153,19 @@ void ElfHunterMainWidget::SetFile()
 	{
 		CloseFile();
 
-		QMessageBox msg( QMessageBox::Critical, "Error", "No file selected" );
+		QMessageBox msg( QMessageBox::Critical, "Error", "" );
+
+		switch( ErrorNum )
+		{
+			case 1:
+				msg.setText( "Error: no file opened. Code 1" );
+				break;
+
+			case 2:
+				msg.setText( "Error: no valid ELF file. Code 2" );
+				break;
+		}
+
 		msg.exec();
 
 		return;
