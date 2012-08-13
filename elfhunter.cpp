@@ -9,7 +9,7 @@ QToolBar *toolbar;
 
 char *rawdata;
 
-
+QToolBar *SetupToolBar();
 QMenuBar *SetupMenu( QApplication *a );
 void Cleaner();
 
@@ -26,6 +26,7 @@ int main( int argc, char *argv[] )
 	mw = new ElfHunterMainWidget( w );
 
 	menu = SetupMenu( &main_app );
+	toolbar = SetupToolBar();
 
 	w->setMenuBar( menu );
 	w->setStatusBar( statusbar );
@@ -62,6 +63,29 @@ QMenuBar *SetupMenu( QApplication *a )
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 
 	return m;
+}
+
+QToolBar *SetupToolBar()
+{
+	QAction *temp;
+
+	QToolBar *t = new QToolBar( "Main Toolbar", w );
+
+	//TODO Add icons
+
+	temp = new QAction( "Open", w );
+	t->addAction( temp );
+	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
+
+	temp = new QAction( "Close", w );
+
+	//TODO bi-state button-like
+	//temp->setEnabled( false );
+
+	t->addAction( temp );
+	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
+
+	return t;
 }
 
 void Cleaner()
