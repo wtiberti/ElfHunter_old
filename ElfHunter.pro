@@ -11,10 +11,12 @@ INCLUDEPATH += .
 HEADERS += ElfHeaderWidget.h \
            ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \
-           ElfHunterSideWidget.h
+           ElfHunterSideWidget.h \
+           AboutWidget.h
 SOURCES += ElfHeaderWidget.cpp \
            elfhunter.cpp \
            ElfHunterHexWidget.cpp \
            ElfHunterMainWidget.cpp \
-           ElfHunterSideWidget.cpp
+           ElfHunterSideWidget.cpp \
+           AboutWidget.cpp
 LIBS += -lkdecore

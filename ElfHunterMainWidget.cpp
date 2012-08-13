@@ -171,3 +171,10 @@ void ElfHunterMainWidget::SetFile()
 		return;
 	}
 }
+
+void ElfHunterMainWidget::DisplayAbout()
+{
+	AboutWidget about;
+
+	about.exec();
+}

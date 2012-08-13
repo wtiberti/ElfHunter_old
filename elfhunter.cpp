@@ -59,7 +59,7 @@ QMenuBar *SetupMenu( QApplication *a )
 	im = m->addMenu( "&?" );
 	temp = new QAction( "&About ElfHunter", w );
 	im->addAction( temp );
-	//QObject::connect();
+	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 
 	return m;
 }

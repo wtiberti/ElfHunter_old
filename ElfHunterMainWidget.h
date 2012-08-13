@@ -3,6 +3,7 @@
 
 	#include "ElfHunterSideWidget.h"
 	#include "ElfHunterHexWidget.h"
+	#include "AboutWidget.h"
 
 	#include <vector>
 
@@ -32,6 +33,7 @@
 	public slots:
 		void SetFile();
 		void CloseFile();
+		void DisplayAbout();
 	};
 
 #endif

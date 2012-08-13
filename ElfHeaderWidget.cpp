@@ -53,5 +53,6 @@ ElfHeaderWidget::~ElfHeaderWidget()
 
 void ElfHeaderWidget::GetValues( char *elfheader )
 {
-
+	//TODO QString Methods for parsing numbers
+	//TODO QTableWidgetItems are deleted upon deletion of QTableWidget?
 }
