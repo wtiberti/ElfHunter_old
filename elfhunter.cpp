@@ -47,18 +47,18 @@ QMenuBar *SetupMenu( QApplication *a )
 	QAction *temp;
 
 	QMenu *im = m->addMenu( "&File" );
-	temp = new QAction( "&Open", w );
+	temp = new QAction( "&Open", im );
 	im->addAction( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
-	temp = new QAction( "&Close", w );
+	temp = new QAction( "&Close", im );
 	im->addAction( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
-	temp = new QAction( "&Exit", w );
+	temp = new QAction( "&Exit", im );
 	im->addAction( temp );
 	QObject::connect( temp, SIGNAL(triggered()), a, SLOT(quit()) );
 
 	im = m->addMenu( "&?" );
-	temp = new QAction( "&About ElfHunter", w );
+	temp = new QAction( "&About ElfHunter", im );
 	im->addAction( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 
@@ -73,11 +73,11 @@ QToolBar *SetupToolBar()
 
 	//TODO Add icons
 
-	temp = new QAction( "Open", w );
+	temp = new QAction( "Open", t );
 	t->addAction( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
 
-	temp = new QAction( "Close", w );
+	temp = new QAction( "Close", t );
 
 	//TODO bi-state button-like
 	//temp->setEnabled( false );
