@@ -96,18 +96,15 @@ unsigned long ElfHunterMainWidget::ReadFile()
 		throw 2;
 	}
 
-	//test
-	QWidget *temp = new ElfHeaderWidget();
-	sidewidget->addTab( temp, "ELF Header" );
-	tabselem.push_back( temp );
+	//TEST
+	ElfHeaderWidget *temp = new ElfHeaderWidget();
+	sidewidget->addTab( (QWidget *)temp, "ELF Header" );
+	tabselem.push_back( (QWidget *)temp );
+	temp->GetValues( filedata );
 
-	temp = new ElfHeaderWidget();
-	sidewidget->addTab( temp, "Program Header 1" );
-	tabselem.push_back( temp );
+
 
 	hexdump->SetData( filedata, dataread );
-	// end test
-
 	return dataread;
 }
 

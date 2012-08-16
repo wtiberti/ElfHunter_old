@@ -1,13 +1,17 @@
 #include "ElfHeaderWidget.h"
 
+#include <elf.h>
+#include <cstdio>
+#include <cstring>
+
 ElfHeaderWidget::ElfHeaderWidget()
 {
 	QTableWidgetItem *tempitem;
 
 	layout = new QVBoxLayout();
 	table = new QTableWidget( TABLEROWS, TABLECOLUMNS, this );
+	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
 
-	//table->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
 
 	for( int i=0; i<TABLECOLUMNS; i++ )
 	{
@@ -25,6 +29,9 @@ ElfHeaderWidget::ElfHeaderWidget()
 		tempitem->setFlags( Qt::NoItemFlags );
 		table->setVerticalHeaderItem( i, tempitem );
 	}
+
+	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
 
 	layout->addWidget( table );
 
@@ -47,12 +54,63 @@ ElfHeaderWidget::~ElfHeaderWidget()
 	for( int i=0; i<TABLEROWS; i++ )
 		delete table->verticalHeaderItem( i );
 
+
+	/*
+	for( int i=0; i<stringlist.size(); i++ )
+	{
+		delete stringlist[i];
+	}*/
+
+	stringlist.clear();
+
 	delete table;
 	delete layout;
 }
 
 void ElfHeaderWidget::GetValues( char *elfheader )
 {
-	//TODO QString Methods for parsing numbers
-	//TODO QTableWidgetItems are deleted upon deletion of QTableWidget?
+	//Makes item being enabled, selectable and drag-able
+	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
+
+	QTableWidgetItem *temp_item;
+	QString *temp_string;
+	Elf32_Ehdr *header = (Elf32_Ehdr *)elfheader;
+
+
+	// e_ident magic field
+	temp_string = ToHexString( elfheader, 4 );
+	stringlist << *temp_string;
+
+
+	for( int i=0; i<stringlist.size(); i++ )
+	{
+		temp_item = new QTableWidgetItem( stringlist[i] );
+		temp_item->setFlags( EHW_ITEMFLAGS );
+		table->setItem( i, 0, temp_item );
+	}
+}
+
+QString *ElfHeaderWidget::ToHexString( char *stream, unsigned int size )
+{
+	// well, each byte to parse is in the form 0xXX<space>
+	// so we need 5 chars per byte plus a zero ending byte
+	char *buffer = new char[5*size+1];
+	char temp_buffer[10];
+	QString *result;
+
+	memset( buffer, 0, sizeof(char)*(5*size+1) );
+
+	for( int i=0; i<size; i++ )
+	{
+		memset( temp_buffer, 0, sizeof(char)*10 );
+		snprintf( temp_buffer, 6, "0x%.2X ", (unsigned char)stream[i] );
+		strncat( buffer, temp_buffer, 6 );
+	}
+
+	result = new QString( buffer );
+	//result->trimmed();
+
+	delete buffer;
+
+	return result;
 }

@@ -20,10 +20,10 @@
 		QFile *actual_file;
 		bool file_opened;
 
+		std::vector< QWidget * > tabselem;
+
 		unsigned long OpenFile();
 		unsigned long ReadFile();
-
-		std::vector< QWidget * > tabselem;
 
 	public:
 		ElfHunterMainWidget( QWidget *parent = 0);

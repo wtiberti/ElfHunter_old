@@ -6,7 +6,13 @@
 
 	const QString field_names[] =
 	{
-		"e_ident",
+		"e_ident[MAG]",
+		"e_ident[CLASS]",
+		"e_ident[DATA]",
+		"e_ident[VERSION]",
+		"e_ident[OS ABI]",
+		"e_ident[ABI VERSION]",
+		"e_ident[IDENT SIZE]",
 		"e_type",
 		"e_machine",
 		"e_version",
@@ -22,7 +28,7 @@
 		"e_shstrndx"
 	};
 
-	#define TABLEROWS 14
+	#define TABLEROWS 20
 	#define TABLECOLUMNS 1
 
 	class ElfHeaderWidget : public QWidget
@@ -31,12 +37,14 @@
 
 		private:
 			QVBoxLayout *layout;
-
 			QTableWidget *table;
+			QStringList stringlist;
+
+			QString *ToHexString( char *stream, unsigned int size );
+
 		public:
 			ElfHeaderWidget();
 			~ElfHeaderWidget();
 			void GetValues( char *elfheader );
-
 	};
 #endif
