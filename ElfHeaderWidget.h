@@ -40,7 +40,7 @@
 			QTableWidget *table;
 			QStringList stringlist;
 
-			QString *ToHexString( char *stream, unsigned int size );
+			QString *ToHexString( unsigned char *stream, unsigned int size );
 
 		public:
 			ElfHeaderWidget();
