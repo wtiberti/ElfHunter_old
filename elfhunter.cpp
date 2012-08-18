@@ -1,13 +1,15 @@
 #include <QtGui>
+#include <vector>
 #include "ElfHunterMainWidget.h"
 
 QMainWindow *w;
 ElfHunterMainWidget *mw;
 QStatusBar *statusbar;
 QMenuBar *menu;
-QToolBar *toolbar;
+std::vector< QAction * > menuactions;
 
-char *rawdata;
+QToolBar *toolbar;
+std::vector< QAction * > tbactions;
 
 QToolBar *SetupToolBar();
 QMenuBar *SetupMenu( QApplication *a );
@@ -19,7 +21,6 @@ int main( int argc, char *argv[] )
 
 	w = new QMainWindow();
 	w->resize( 1000, 700 );
-
 
 	statusbar = new QStatusBar( w );
 	toolbar = new QToolBar( w );
@@ -46,20 +47,29 @@ QMenuBar *SetupMenu( QApplication *a )
 	QMenuBar *m = new QMenuBar();
 	QAction *temp;
 
+	menuactions.clear();
+
 	QMenu *im = m->addMenu( "&File" );
 	temp = new QAction( "&Open", im );
 	im->addAction( temp );
+	menuactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
+
 	temp = new QAction( "&Close", im );
+	temp->setEnabled( false );
 	im->addAction( temp );
+	menuactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
+
 	temp = new QAction( "&Exit", im );
 	im->addAction( temp );
+	menuactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), a, SLOT(quit()) );
 
 	im = m->addMenu( "&?" );
 	temp = new QAction( "&About ElfHunter", im );
 	im->addAction( temp );
+	menuactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 
 	return m;
@@ -69,20 +79,21 @@ QToolBar *SetupToolBar()
 {
 	QAction *temp;
 
+	tbactions.clear();
+
 	QToolBar *t = new QToolBar( "Main Toolbar", w );
 
 	//TODO Add icons
 
 	temp = new QAction( "Open", t );
 	t->addAction( temp );
+	tbactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
 
 	temp = new QAction( "Close", t );
-
-	//TODO bi-state button-like
-	//temp->setEnabled( false );
-
+	temp->setEnabled( false );
 	t->addAction( temp );
+	tbactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
 
 	return t;
@@ -90,8 +101,12 @@ QToolBar *SetupToolBar()
 
 void Cleaner()
 {
+	menuactions.clear();
 	delete menu;
+
+	tbactions.clear();
 	delete toolbar;
+
 	delete statusbar;
 	delete mw;
 	delete w;

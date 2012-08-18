@@ -1,4 +1,8 @@
 #include "ElfHunterMainWidget.h"
+#include <vector>
+
+extern std::vector< QAction * > menuactions;
+extern std::vector< QAction * > tbactions;
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent )
 	: QWidget(parent)
@@ -71,6 +75,11 @@ unsigned long ElfHunterMainWidget::OpenFile()
 
 	file_opened = true;
 
+	menuactions[0]->setEnabled( false );
+	menuactions[1]->setEnabled( true );
+	tbactions[0]->setEnabled( false );
+	tbactions[1]->setEnabled( true );
+
 	return actual_file->size();
 }
 
@@ -96,7 +105,6 @@ unsigned long ElfHunterMainWidget::ReadFile()
 		throw 2;
 	}
 
-	//TEST
 	ElfHeaderWidget *temp = new ElfHeaderWidget();
 	sidewidget->addTab( (QWidget *)temp, "ELF Header" );
 	tabselem.push_back( (QWidget *)temp );
@@ -123,6 +131,11 @@ void ElfHunterMainWidget::CloseFile()
 		file_opened = false;
 		delete actual_file;
 	}
+
+	menuactions[0]->setEnabled( true );
+	menuactions[1]->setEnabled( false );
+	tbactions[0]->setEnabled( true );
+	tbactions[1]->setEnabled( false );
 
 	hexdump->ClearData();
 }

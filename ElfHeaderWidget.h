@@ -9,7 +9,7 @@
 		"e_ident[MAG]",
 		"e_ident[CLASS]",
 		"e_ident[DATA]",
-		"e_ident[VERSION]",
+		"e_ident[ELF VERSION]",
 		"e_ident[OS ABI]",
 		"e_ident[ABI VERSION]",
 		"e_ident[IDENT SIZE]",
