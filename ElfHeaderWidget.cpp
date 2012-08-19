@@ -39,12 +39,7 @@ ElfHeaderWidget::ElfHeaderWidget()
 
 	setLayout( layout );
 
-	read = false;
 	is64bit = false;
-	ph_num = 0;
-	sh_num = 0;
-	ph_size = 0;
-	sh_size = 0;
 }
 
 ElfHeaderWidget::~ElfHeaderWidget()
@@ -62,13 +57,6 @@ ElfHeaderWidget::~ElfHeaderWidget()
 
 	for( int i=0; i<ELFHDRTABLEROWS; i++ )
 		delete table->verticalHeaderItem( i );
-
-
-	/*
-	for( int i=0; i<stringlist.size(); i++ )
-	{
-		delete stringlist[i];
-	}*/
 
 	stringlist.clear();
 
@@ -89,7 +77,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident class
-	temp_string = new QString();
+	//temp_string = new QString();
 	switch( header->e_ident[EI_CLASS] )
 	{
 		case ELFCLASS32:
@@ -105,7 +93,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	//e_ident byte endian
-	temp_string = new QString();
+	//temp_string = new QString();
 	switch( header->e_ident[EI_DATA] )
 	{
 		case ELFDATA2LSB:
@@ -120,7 +108,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident Version
-	temp_string = new QString();
+	//temp_string = new QString();
 	if( header->e_ident[EI_VERSION]==EV_CURRENT )
 		temp_string = new QString( "Current Version" );
 	else
@@ -128,7 +116,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident ABI
-	temp_string = new QString();
+	//temp_string = new QString();
 	switch( header->e_ident[EI_OSABI] )
 	{
 		case ELFOSABI_SYSV:
@@ -177,7 +165,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_type
-	temp_string = new QString();
+	//temp_string = new QString();
 	switch( header->e_type )
 	{
 		case ET_REL:
@@ -198,7 +186,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_machine
-	temp_string = new QString();
+	//temp_string = new QString();
 	switch( header->e_machine )
 	{
 		case EM_NONE:
@@ -249,7 +237,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_version
-	temp_string = new QString();
+	//temp_string = new QString();
 	if( header->e_version==EV_CURRENT )
 		temp_string = new QString( "Current Version" );
 	else
@@ -267,29 +255,17 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	// e_phoff
 	temp_string = new QString();
 	if( is64bit )
-	{
-		ph_off = header64->e_phoff;
 		temp_string->setNum( header64->e_phoff, 16 );
-	}
 	else
-	{
-		ph_off = (uint64_t) header->e_phoff;
 		temp_string->setNum( header->e_phoff, 16 );
-	}
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// e_shoff
 	temp_string = new QString();
 	if( is64bit )
-	{
-		sh_off = header64->e_shoff;
 		temp_string->setNum( header64->e_shoff, 16 );
-	}
 	else
-	{
-		sh_off = (uint64_t) header->e_shoff;
 		temp_string->setNum( header->e_shoff, 16 );
-	}
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// e_flags
@@ -311,59 +287,35 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	// e_phentsize
 	temp_string = new QString();
 	if( is64bit )
-	{
-		ph_size = header64->e_phentsize;
 		temp_string->setNum( header64->e_phentsize );
-	}
 	else
-	{
-		ph_size = header->e_phentsize;
 		temp_string->setNum( header->e_phentsize );
-	}
 	stringlist << *temp_string;
 
 	// e_phnum
 	//TODO see man elf
 	temp_string = new QString();
 	if( is64bit )
-	{
-		ph_num = header64->e_phnum;
 		temp_string->setNum( header64->e_phnum );
-	}
 	else
-	{
-		ph_num = header->e_phnum;
 		temp_string->setNum( header->e_phnum );
-	}
 	stringlist << *temp_string;
 
 	// e_shentsize
 	temp_string = new QString();
 	if( is64bit )
-	{
-		sh_size = header64->e_shentsize;
 		temp_string->setNum( header64->e_shentsize );
-	}
 	else
-	{
-		sh_size = header->e_shentsize;
 		temp_string->setNum( header->e_shentsize );
-	}
 	stringlist << *temp_string;
 
-	// e_phnum
+	// e_shnum
 	//TODO see man elf
 	temp_string = new QString();
 	if( is64bit )
-	{
-		sh_num = header64->e_shnum;
 		temp_string->setNum( header64->e_shnum );
-	}
 	else
-	{
-		sh_num = header->e_shnum;
 		temp_string->setNum( header->e_shnum );
-	}
 	stringlist << *temp_string;
 
 	// e_shstrndx
@@ -386,7 +338,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 // ------  Inserting
-	read = true;
 
 	for( int i=0; i<stringlist.size(); i++ )
 	{
@@ -396,34 +347,8 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	}
 }
 
-int ElfHeaderWidget::GetNumOfSections()
-{
-	return read?sh_num:-1;
-}
-
-int ElfHeaderWidget::GetNumOfProgHeaders()
-{
-	return read?ph_num:-1;
-}
-
 bool ElfHeaderWidget::IsELF64()
 {
 	// TODO check exeptions
 	return is64bit;
-}
-
-uint64_t ElfHeaderWidget::GetProgHeaderOff( uint16_t i )
-{
-	if( !read || i>=ph_num )
-		return -1;
-
-	return ( ph_off + i*ph_size );
-}
-
-uint64_t ElfHeaderWidget::GetSectHeaderOff( uint16_t i )
-{
-	if( !read || i>=sh_num )
-		return -1;
-
-	return ( sh_off + i*sh_size );
 }

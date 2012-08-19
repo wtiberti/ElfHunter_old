@@ -8,13 +8,25 @@
 
 	const QString proghdr_field_names[] =
 	{
-		"[Offset]",
 		"p_type",
 		"p_offset",
 		"p_vaddr",
+		"p_paddr",
 		"p_filesz",
 		"p_memsz",
 		"p_flags",
+		"p_align"
+	};
+
+	const QString proghdr_field_names64[] =
+	{
+		"p_type",
+		"p_flags",
+		"p_offset",
+		"p_vaddr",
+		"p_paddr",
+		"p_filesz",
+		"p_memsz",
 		"p_align"
 	};
 
@@ -27,16 +39,21 @@
 
 		private:
 			QVBoxLayout *layout;
+			QSpinBox *spin;
 			QTableWidget *table;
 			QStringList stringlist;
-
 			bool is64bit;
-			__uint64_t base_offset;
+			unsigned char *base;
+			__uint64_t phoff;
+			int entry_size;
+			void SetValues( int index );
 
 		public:
 			ElfProgHeaderWidget();
 			~ElfProgHeaderWidget();
-			void GetValues( char *progheader );
+			void SelectData( char *elffile );
+		public slots:
+			void Changed();
 	};
 
 #endif

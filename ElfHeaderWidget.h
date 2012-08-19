@@ -42,26 +42,12 @@
 			QVBoxLayout *layout;
 			QTableWidget *table;
 			QStringList stringlist;
-
-			uint64_t ph_off;
-			uint64_t sh_off;
-			uint16_t ph_num;
-			uint16_t sh_num;
-			uint16_t ph_size;
-			uint16_t sh_size;
-
 			bool is64bit;
-
-			bool read;
 
 		public:
 			ElfHeaderWidget();
 			~ElfHeaderWidget();
 			void GetValues( char *elfheader );
-			int GetNumOfSections();
-			int GetNumOfProgHeaders();
-			uint64_t GetProgHeaderOff( uint16_t i );
-			uint64_t GetSectHeaderOff( uint16_t i );
 			bool IsELF64();
 	};
 #endif

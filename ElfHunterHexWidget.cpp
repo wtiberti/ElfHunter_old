@@ -32,7 +32,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 			khe_charvalues->setSubstituteChar( '.' );
 		}
 
-		/*
+		/* TODO
 		KHE::ClipboardInterface *clipboard = KHE::clipboardInterface( khe_widget );
 
 		if( clipboard )
@@ -69,9 +69,6 @@ ElfHunterHexWidget::~ElfHunterHexWidget()
 
 void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 {
-	//if( hexdata!=NULL )
-		//delete hexdata;
-
 	khe_interface->setData( data, datasize );
 	khe_interface->setMaxDataSize( datasize );
 	hexdata = data;
