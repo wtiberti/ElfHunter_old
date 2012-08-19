@@ -4,7 +4,10 @@
 	#include <QtGui>
 	#include <elf.h>
 
-	const QString field_names[] =
+	//Makes item being enabled, selectable and drag-able
+	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
+
+	const QString elfhdr_field_names[] =
 	{
 		"e_ident[MAG]",
 		"e_ident[CLASS]",
@@ -21,15 +24,15 @@
 		"e_shoff",
 		"e_flags",
 		"e_ehsize",
-		"e_pentsize",
+		"e_phentsize",
 		"e_phnum",
 		"e_shentsize",
 		"e_shnum",
 		"e_shstrndx"
 	};
 
-	#define TABLEROWS 20
-	#define TABLECOLUMNS 1
+	#define ELFHDRTABLEROWS 20
+	#define ELFHDRTABLECOLUMNS 1
 
 	class ElfHeaderWidget : public QWidget
 	{
@@ -40,11 +43,25 @@
 			QTableWidget *table;
 			QStringList stringlist;
 
-			QString *ToHexString( unsigned char *stream, unsigned int size );
+			uint64_t ph_off;
+			uint64_t sh_off;
+			uint16_t ph_num;
+			uint16_t sh_num;
+			uint16_t ph_size;
+			uint16_t sh_size;
+
+			bool is64bit;
+
+			bool read;
 
 		public:
 			ElfHeaderWidget();
 			~ElfHeaderWidget();
 			void GetValues( char *elfheader );
+			int GetNumOfSections();
+			int GetNumOfProgHeaders();
+			uint64_t GetProgHeaderOff( uint16_t i );
+			uint64_t GetSectHeaderOff( uint16_t i );
+			bool IsELF64();
 	};
 #endif

@@ -7,12 +7,6 @@ ElfHunterSideWidget::ElfHunterSideWidget( QWidget *parent ) : QWidget(parent)
 
 	tabs = new QTabWidget();
 	layout->addWidget( tabs );
-
-	//test
-	//elfhdr_w = new ElfHeaderWidget();
-	//tabs->addTab( elfhdr_w, "Elf Header" );
-	//end test
-
 	setLayout( layout );
 }
 

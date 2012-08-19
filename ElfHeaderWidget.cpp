@@ -4,16 +4,18 @@
 #include <cstdio>
 #include <cstring>
 
+extern QString *ToHexString( unsigned char *stream, unsigned int size );
+
 ElfHeaderWidget::ElfHeaderWidget()
 {
 	QTableWidgetItem *tempitem;
 
 	layout = new QVBoxLayout();
-	table = new QTableWidget( TABLEROWS, TABLECOLUMNS, this );
+	table = new QTableWidget( ELFHDRTABLEROWS, ELFHDRTABLECOLUMNS, this );
 	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
 
 
-	for( int i=0; i<TABLECOLUMNS; i++ )
+	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
 	{
 		// Horizontal table headers
 		tempitem = new QTableWidgetItem( "Value" );
@@ -22,9 +24,9 @@ ElfHeaderWidget::ElfHeaderWidget()
 		table->setHorizontalHeaderItem( i, tempitem );
 	}
 
-	for( int i=0; i<TABLEROWS; i++ )
+	for( int i=0; i<ELFHDRTABLEROWS; i++ )
 	{
-		tempitem = new QTableWidgetItem( field_names[i] );
+		tempitem = new QTableWidgetItem( elfhdr_field_names[i] );
 		//tempitem->setTextAlignment( Qt::AlignHCenter );
 		tempitem->setFlags( Qt::NoItemFlags );
 		table->setVerticalHeaderItem( i, tempitem );
@@ -36,22 +38,29 @@ ElfHeaderWidget::ElfHeaderWidget()
 	layout->addWidget( table );
 
 	setLayout( layout );
+
+	read = false;
+	is64bit = false;
+	ph_num = 0;
+	sh_num = 0;
+	ph_size = 0;
+	sh_size = 0;
 }
 
 ElfHeaderWidget::~ElfHeaderWidget()
 {
-	for( int i=0; i<TABLECOLUMNS; i++ )
+	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
 	{
-		for( int j=0; j<TABLEROWS; j++ )
+		for( int j=0; j<ELFHDRTABLEROWS; j++ )
 		{
 			delete table->item( j, i );
 		}
 	}
 
-	for( int i=0; i<TABLECOLUMNS; i++ )
+	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
 		delete table->horizontalHeaderItem( i );
 
-	for( int i=0; i<TABLEROWS; i++ )
+	for( int i=0; i<ELFHDRTABLEROWS; i++ )
 		delete table->verticalHeaderItem( i );
 
 
@@ -69,12 +78,8 @@ ElfHeaderWidget::~ElfHeaderWidget()
 
 void ElfHeaderWidget::GetValues( char *elfheader )
 {
-	//Makes item being enabled, selectable and drag-able
-	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
-
 	QTableWidgetItem *temp_item;
 	QString *temp_string;
-	bool is64bit = false;
 	Elf32_Ehdr *header = (Elf32_Ehdr *)elfheader;
 	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elfheader;
 
@@ -262,17 +267,29 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	// e_phoff
 	temp_string = new QString();
 	if( is64bit )
+	{
+		ph_off = header64->e_phoff;
 		temp_string->setNum( header64->e_phoff, 16 );
+	}
 	else
+	{
+		ph_off = (uint64_t) header->e_phoff;
 		temp_string->setNum( header->e_phoff, 16 );
+	}
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// e_shoff
 	temp_string = new QString();
 	if( is64bit )
+	{
+		sh_off = header64->e_shoff;
 		temp_string->setNum( header64->e_shoff, 16 );
+	}
 	else
+	{
+		sh_off = (uint64_t) header->e_shoff;
 		temp_string->setNum( header->e_shoff, 16 );
+	}
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// e_flags
@@ -294,35 +311,59 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	// e_phentsize
 	temp_string = new QString();
 	if( is64bit )
+	{
+		ph_size = header64->e_phentsize;
 		temp_string->setNum( header64->e_phentsize );
+	}
 	else
+	{
+		ph_size = header->e_phentsize;
 		temp_string->setNum( header->e_phentsize );
+	}
 	stringlist << *temp_string;
 
 	// e_phnum
 	//TODO see man elf
 	temp_string = new QString();
 	if( is64bit )
+	{
+		ph_num = header64->e_phnum;
 		temp_string->setNum( header64->e_phnum );
+	}
 	else
+	{
+		ph_num = header->e_phnum;
 		temp_string->setNum( header->e_phnum );
+	}
 	stringlist << *temp_string;
 
 	// e_shentsize
 	temp_string = new QString();
 	if( is64bit )
+	{
+		sh_size = header64->e_shentsize;
 		temp_string->setNum( header64->e_shentsize );
+	}
 	else
+	{
+		sh_size = header->e_shentsize;
 		temp_string->setNum( header->e_shentsize );
+	}
 	stringlist << *temp_string;
 
 	// e_phnum
 	//TODO see man elf
 	temp_string = new QString();
 	if( is64bit )
+	{
+		sh_num = header64->e_shnum;
 		temp_string->setNum( header64->e_shnum );
+	}
 	else
+	{
+		sh_num = header->e_shnum;
 		temp_string->setNum( header->e_shnum );
+	}
 	stringlist << *temp_string;
 
 	// e_shstrndx
@@ -345,6 +386,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 // ------  Inserting
+	read = true;
 
 	for( int i=0; i<stringlist.size(); i++ )
 	{
@@ -354,27 +396,34 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	}
 }
 
-QString *ElfHeaderWidget::ToHexString( unsigned char *stream, unsigned int size )
+int ElfHeaderWidget::GetNumOfSections()
 {
-	// well, each byte to parse is in the form 0xXX<space>
-	// so we need 5 chars per byte plus a zero ending byte
-	char *buffer = new char[5*size+1];
-	char temp_buffer[10];
-	QString *result;
+	return read?sh_num:-1;
+}
 
-	memset( buffer, 0, sizeof(char)*(5*size+1) );
+int ElfHeaderWidget::GetNumOfProgHeaders()
+{
+	return read?ph_num:-1;
+}
 
-	for( int i=0; i<size; i++ )
-	{
-		memset( temp_buffer, 0, sizeof(char)*10 );
-		snprintf( temp_buffer, 6, "0x%.2X ", stream[i] );
-		strncat( buffer, temp_buffer, 6 );
-	}
+bool ElfHeaderWidget::IsELF64()
+{
+	// TODO check exeptions
+	return is64bit;
+}
 
-	result = new QString( buffer );
-	*result = result->trimmed();
+uint64_t ElfHeaderWidget::GetProgHeaderOff( uint16_t i )
+{
+	if( !read || i>=ph_num )
+		return -1;
 
-	delete buffer;
+	return ( ph_off + i*ph_size );
+}
 
-	return result;
+uint64_t ElfHeaderWidget::GetSectHeaderOff( uint16_t i )
+{
+	if( !read || i>=sh_num )
+		return -1;
+
+	return ( sh_off + i*sh_size );
 }

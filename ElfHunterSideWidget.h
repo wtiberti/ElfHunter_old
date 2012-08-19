@@ -3,6 +3,7 @@
 
 	#include <QtGui>
 	#include "ElfHeaderWidget.h"
+	#include "ElfProgHeaderWidget.h"
 
 	class ElfHunterSideWidget : public QWidget
 	{

@@ -12,11 +12,13 @@ HEADERS += ElfHeaderWidget.h \
            ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \
            ElfHunterSideWidget.h \
-           AboutWidget.h
+           AboutWidget.h \
+           ElfProgHeaderWidget.h
 SOURCES += ElfHeaderWidget.cpp \
            elfhunter.cpp \
            ElfHunterHexWidget.cpp \
            ElfHunterMainWidget.cpp \
            ElfHunterSideWidget.cpp \
-           AboutWidget.cpp
+           AboutWidget.cpp \
+           ElfProgHeaderWidget.cpp
 LIBS += -lkdecore

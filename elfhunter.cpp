@@ -7,12 +7,12 @@ ElfHunterMainWidget *mw;
 QStatusBar *statusbar;
 QMenuBar *menu;
 std::vector< QAction * > menuactions;
-
 QToolBar *toolbar;
 std::vector< QAction * > tbactions;
 
 QToolBar *SetupToolBar();
 QMenuBar *SetupMenu( QApplication *a );
+QString *ToHexString( unsigned char *stream, unsigned int size );
 void Cleaner();
 
 int main( int argc, char *argv[] )
@@ -97,6 +97,29 @@ QToolBar *SetupToolBar()
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
 
 	return t;
+}
+
+QString *ToHexString( unsigned char *stream, unsigned int size )
+{
+	char *buffer = new char[5*size+1];
+	char temp_buffer[10];
+	QString *result;
+
+	memset( buffer, 0, sizeof(char)*(5*size+1) );
+
+	for( int i=0; i<size; i++ )
+	{
+		memset( temp_buffer, 0, sizeof(char)*10 );
+		snprintf( temp_buffer, 6, "0x%.2X ", stream[i] );
+		strncat( buffer, temp_buffer, 6 );
+	}
+
+	result = new QString( buffer );
+	*result = result->trimmed();
+
+	delete buffer;
+
+	return result;
 }
 
 void Cleaner()

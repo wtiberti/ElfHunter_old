@@ -1,8 +1,10 @@
 #include "ElfHunterMainWidget.h"
-#include <vector>
 
+#ifndef ELFHUNTER_STANDALONE
+#include <vector>
 extern std::vector< QAction * > menuactions;
 extern std::vector< QAction * > tbactions;
+#endif
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent )
 	: QWidget(parent)
@@ -11,11 +13,15 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent )
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
 
-	layout->setColumnStretch( 0, 2 );
-	layout->setColumnStretch( 1, 3 );
+	// VERTICAL LAYOUT
+	//layout->setColumnStretch( 0, 2 );
+	//layout->setColumnStretch( 1, 3 );
+	//layout->addWidget( sidewidget, 0, 0 );
+	//layout->addWidget( hexdump, 0, 1 );
 
+	// HORIZONTAL LAYOUT
 	layout->addWidget( sidewidget, 0, 0 );
-	layout->addWidget( hexdump, 0, 1 );
+	layout->addWidget( hexdump, 1, 0 );
 
 	file_opened = false;
 	actual_file = NULL;
@@ -75,10 +81,12 @@ unsigned long ElfHunterMainWidget::OpenFile()
 
 	file_opened = true;
 
+	#ifndef ELFHUNTER_STANDALONE
 	menuactions[0]->setEnabled( false );
 	menuactions[1]->setEnabled( true );
 	tbactions[0]->setEnabled( false );
 	tbactions[1]->setEnabled( true );
+	#endif
 
 	return actual_file->size();
 }
@@ -88,8 +96,7 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	char *filedata;
 	unsigned long dataread;
 
-	// TODO 32 bit int?
-	unsigned int signature = 0;
+	uint32_t signature = 0;
 
 	if( !file_opened )
 		throw 1;
@@ -105,11 +112,31 @@ unsigned long ElfHunterMainWidget::ReadFile()
 		throw 2;
 	}
 
-	ElfHeaderWidget *temp = new ElfHeaderWidget();
-	sidewidget->addTab( (QWidget *)temp, "ELF Header" );
-	tabselem.push_back( (QWidget *)temp );
-	temp->GetValues( filedata );
+	ElfHeaderWidget *temp_elfhdr = new ElfHeaderWidget();
+	sidewidget->addTab( (QWidget *)temp_elfhdr, "ELF Hdr" );
+	tabselem.push_back( (QWidget *)temp_elfhdr );
+	temp_elfhdr->GetValues( filedata );
 
+	int n_sh = temp_elfhdr->GetNumOfSections();
+	int n_ph = temp_elfhdr->GetNumOfProgHeaders();
+
+	/*
+	qDebug() << temp_elfhdr->IsELF64();
+	qDebug() << n_ph;
+	qDebug() << n_sh;
+	qDebug() << temp_elfhdr->GetProgHeaderOff( 0 );
+	qDebug() << temp_elfhdr->GetProgHeaderOff( 1 );
+	qDebug() << temp_elfhdr->GetSectHeaderOff( 0 );
+	qDebug() << temp_elfhdr->GetSectHeaderOff( 1 );
+	*/
+
+	for( int i=0; i<n_ph; i++ )
+	{
+		ElfProgHeaderWidget *temp_proghdr = new ElfProgHeaderWidget();
+		sidewidget->addTab( (QWidget *)temp_proghdr, "Prog Hdr "+QString::number(i) );
+		tabselem.push_back( (QWidget *)temp_proghdr );
+		temp_proghdr->GetValues( filedata );
+	}
 
 
 	hexdump->SetData( filedata, dataread );
@@ -132,10 +159,12 @@ void ElfHunterMainWidget::CloseFile()
 		delete actual_file;
 	}
 
+	#ifndef ELFHUNTER_STANDALONE
 	menuactions[0]->setEnabled( true );
 	menuactions[1]->setEnabled( false );
 	tbactions[0]->setEnabled( true );
 	tbactions[1]->setEnabled( false );
+	#endif
 
 	hexdump->ClearData();
 }
