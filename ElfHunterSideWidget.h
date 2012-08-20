@@ -4,6 +4,7 @@
 	#include <QtGui>
 	#include "ElfHeaderWidget.h"
 	#include "ElfProgHeaderWidget.h"
+	#include "ElfSectionHeaderWidget.h"
 
 	class ElfHunterSideWidget : public QWidget
 	{

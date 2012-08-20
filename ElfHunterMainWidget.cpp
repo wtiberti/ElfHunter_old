@@ -122,6 +122,10 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
 	tabselem.push_back( (QWidget *)temp_proghdr );
 
+	ElfSectionHeaderWidget *temp_secthdr = new ElfSectionHeaderWidget();
+	temp_secthdr->SelectData( filedata );
+	sidewidget->addTab( (QWidget *)temp_secthdr, "Section Headers" );
+	tabselem.push_back( (QWidget *)temp_secthdr );
 
 	hexdump->SetData( filedata, dataread );
 	return dataread;

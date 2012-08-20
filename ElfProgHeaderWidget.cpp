@@ -111,14 +111,11 @@ void ElfProgHeaderWidget::SetValues( int index )
 		case PT_PHDR:
 			temp_string = new QString( "Program Header Info" );
 			break;
-		case PT_LOPROC:
-			temp_string = new QString( "Lower Limit" );
-			break;
-		case PT_HIPROC:
-			temp_string = new QString( "Higher Limit" );
-			break;
 		default:
-			temp_string = new QString( "[Invalid]" );
+			if( prgtype>=PT_LOPROC && prgtype<=PT_HIPROC )
+				temp_string = new QString( "Processor-specific" );
+			else
+				temp_string = new QString( "[Invalid]" );
 	}
 	stringlist << *temp_string;
 
