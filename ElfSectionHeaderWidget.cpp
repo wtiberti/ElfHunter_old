@@ -2,74 +2,19 @@
 #include <elf.h>
 
 
-ElfSectionHeaderWidget::ElfSectionHeaderWidget()
+ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfGenericHeader( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS )
 {
-	QTableWidgetItem *tempitem;
-
-	layout = new QVBoxLayout();
-
-	spin = new QSpinBox();
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Section Header # " );
 
-	table = new QTableWidget( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS, this );
-	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
-
-	for( int i=0; i<SECTHDRTABLECOLUMNS; i++ )
-	{
-		// Horizontal table headers
-		tempitem = new QTableWidgetItem( "Value" );
-		tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setHorizontalHeaderItem( i, tempitem );
-	}
-
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 	{
-		tempitem = new QTableWidgetItem( secthdr_field_names[i] );
-		//tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setVerticalHeaderItem( i, tempitem );
+		table->verticalHeaderItem( i )->setText( secthdr_field_names[i] );
 	}
-
-	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
-	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
-
-	for( int i=0; i<SECTHDRTABLEROWS; i++ )
-	{
-		tempitem = new QTableWidgetItem();
-		tempitem->setFlags( EHW_ITEMFLAGS );
-		table->setItem( i, 0, tempitem );
-	}
-
-	layout->addWidget( spin );
-	layout->addWidget( table );
-
-	setLayout( layout );
 }
 
 ElfSectionHeaderWidget::~ElfSectionHeaderWidget()
-{
-	for( int i=0; i<SECTHDRTABLECOLUMNS; i++ )
-	{
-		for( int j=0; j<SECTHDRTABLEROWS; j++ )
-		{
-			delete table->item( j, i );
-		}
-	}
-
-	for( int i=0; i<SECTHDRTABLECOLUMNS; i++ )
-		delete table->horizontalHeaderItem( i );
-
-	for( int i=0; i<SECTHDRTABLEROWS; i++ )
-		delete table->verticalHeaderItem( i );
-
-	stringlist.clear();
-
-	delete spin;
-	delete table;
-	delete layout;
-}
+{}
 
 void ElfSectionHeaderWidget::SetValues( int index )
 {
@@ -83,7 +28,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	stringlist.clear();
 
 	temp_string = new QString();
-	temp_string->setNum( shoff+index*entry_size, 16 );
+	temp_string->setNum( offset+index*entry_size, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// sh_name
@@ -225,24 +170,19 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	}
 }
 
-void ElfSectionHeaderWidget::Changed()
+void ElfSectionHeaderWidget::SelectData( char *data )
 {
-	SetValues( spin->value() );
-}
+	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
+	Elf64_Ehdr *header64 = (Elf64_Ehdr *)data;
 
-void ElfSectionHeaderWidget::SelectData( char *elffile )
-{
-	Elf32_Ehdr *header = (Elf32_Ehdr *)elffile;
-	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elffile;
-
-	base = (unsigned char *) elffile;
+	base = (unsigned char *) data;
 
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
 
 	if( is64bit )
 	{
-		shoff = header64->e_shoff;
-		base += shoff;
+		offset = header64->e_shoff;
+		base += offset;
 		entry_size = header64->e_shentsize;
 
 		if( header64->e_shnum==0 )
@@ -252,8 +192,8 @@ void ElfSectionHeaderWidget::SelectData( char *elffile )
 	}
 	else
 	{
-		shoff = header->e_shoff;
-		base += shoff;
+		offset = header->e_shoff;
+		base += offset;
 		entry_size = header->e_shentsize;
 
 		if( header->e_shnum==0 )

@@ -1,10 +1,7 @@
 #ifndef ElfProgHeaderWidget_H
 	#define ElfProgHeaderWidget_H
 
-	#include <QtGui>
-
-	//Makes item being enabled, selectable and drag-able
-	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
+	#include "ElfGenericHeader.h"
 
 	const QString proghdr_field_names[] =
 	{
@@ -33,27 +30,17 @@
 	#define PROGHDRTABLEROWS 8
 	#define PROGHDRTABLECOLUMNS 1
 
-	class ElfProgHeaderWidget : public QWidget
+	class ElfProgHeaderWidget : public ElfGenericHeader
 	{
 		Q_OBJECT
 
-		private:
-			QVBoxLayout *layout;
-			QSpinBox *spin;
-			QTableWidget *table;
-			QStringList stringlist;
-			bool is64bit;
-			unsigned char *base;
-			__uint64_t phoff;
-			int entry_size;
+		protected:
 			void SetValues( int index );
 
 		public:
 			ElfProgHeaderWidget();
 			~ElfProgHeaderWidget();
-			void SelectData( char *elffile );
-		public slots:
-			void Changed();
+			void SelectData( char *data );
 	};
 
 #endif

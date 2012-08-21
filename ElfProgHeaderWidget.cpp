@@ -1,74 +1,17 @@
 #include "ElfProgHeaderWidget.h"
 #include <elf.h>
 
-ElfProgHeaderWidget::ElfProgHeaderWidget()
+ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfGenericHeader( PROGHDRTABLEROWS, PROGHDRTABLECOLUMNS )
 {
-	QTableWidgetItem *tempitem;
-
-	layout = new QVBoxLayout();
-
-	spin = new QSpinBox();
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Program Header # " );
 
-	table = new QTableWidget( PROGHDRTABLEROWS, PROGHDRTABLECOLUMNS, this );
-	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
-
-	for( int i=0; i<PROGHDRTABLECOLUMNS; i++ )
-	{
-		// Horizontal table headers
-		tempitem = new QTableWidgetItem( "Value" );
-		tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setHorizontalHeaderItem( i, tempitem );
-	}
-
 	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-	{
-		tempitem = new QTableWidgetItem( proghdr_field_names[i] );
-		//tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setVerticalHeaderItem( i, tempitem );
-	}
-
-	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
-	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
-
-	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-	{
-		tempitem = new QTableWidgetItem();
-		tempitem->setFlags( EHW_ITEMFLAGS );
-		table->setItem( i, 0, tempitem );
-	}
-
-	layout->addWidget( spin );
-	layout->addWidget( table );
-
-	setLayout( layout );
+		table->verticalHeaderItem( i )->setText( proghdr_field_names[i] );
 }
 
 ElfProgHeaderWidget::~ElfProgHeaderWidget()
-{
-	for( int i=0; i<PROGHDRTABLECOLUMNS; i++ )
-	{
-		for( int j=0; j<PROGHDRTABLEROWS; j++ )
-		{
-			delete table->item( j, i );
-		}
-	}
-
-	for( int i=0; i<PROGHDRTABLECOLUMNS; i++ )
-		delete table->horizontalHeaderItem( i );
-
-	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-		delete table->verticalHeaderItem( i );
-
-	stringlist.clear();
-
-	delete spin;
-	delete table;
-	delete layout;
-}
+{}
 
 void ElfProgHeaderWidget::SetValues( int index )
 {
@@ -184,35 +127,26 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_align, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
-	//qDebug() << stringlist;
-
 	if( is64bit )
 		stringlist.move( 6, 1 );
 
 	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-	{
 		table->item( i, 0 )->setText( stringlist[i] );
-	}
 }
 
-void ElfProgHeaderWidget::Changed()
+void ElfProgHeaderWidget::SelectData( char *data )
 {
-	SetValues( spin->value() );
-}
+	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
+	Elf64_Ehdr *header64 = (Elf64_Ehdr *)data;
 
-void ElfProgHeaderWidget::SelectData( char *elffile )
-{
-	Elf32_Ehdr *header = (Elf32_Ehdr *)elffile;
-	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elffile;
-
-	base = (unsigned char *) elffile;
+	base = (unsigned char *) data;
 
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
 
 	if( is64bit )
 	{
-		phoff = header64->e_phoff;
-		base += phoff;
+		offset = header64->e_phoff;
+		base += offset;
 		entry_size = header64->e_phentsize;
 
 		if( header64->e_phnum==0 )
@@ -222,8 +156,8 @@ void ElfProgHeaderWidget::SelectData( char *elffile )
 	}
 	else
 	{
-		phoff = header->e_phoff;
-		base += phoff;
+		offset = header->e_phoff;
+		base += offset;
 		entry_size = header->e_phentsize;
 
 		if( header->e_phnum==0 )
@@ -241,4 +175,5 @@ void ElfProgHeaderWidget::SelectData( char *elffile )
 	}
 
 	SetValues( 0 );
+
 }

@@ -1,10 +1,7 @@
 #ifndef ElfSectionHeaderWidget_H
 	#define ElfSectionHeaderWidget_H
 
-	#include <QtGui>
-
-	//Makes item being enabled, selectable and drag-able
-	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
+	#include "ElfGenericHeader.h"
 
 	const QString secthdr_field_names[] =
 	{
@@ -24,27 +21,17 @@
 	#define SECTHDRTABLEROWS 11
 	#define SECTHDRTABLECOLUMNS 1
 
-	class ElfSectionHeaderWidget : public QWidget
+	class ElfSectionHeaderWidget : public ElfGenericHeader
 	{
 		Q_OBJECT
 
-		private:
-			QVBoxLayout *layout;
-			QSpinBox *spin;
-			QTableWidget *table;
-			QStringList stringlist;
-			bool is64bit;
-			unsigned char *base;
-			__uint64_t shoff;
-			int entry_size;
+		protected:
 			void SetValues( int index );
 
 		public:
 			ElfSectionHeaderWidget();
 			~ElfSectionHeaderWidget();
-			void SelectData( char *elffile );
-		public slots:
-			void Changed();
+			void SelectData( char *data );
 	};
 
 #endif
