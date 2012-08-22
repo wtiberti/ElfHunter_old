@@ -1,5 +1,4 @@
 #include "ElfHeaderWidget.h"
-
 #include <elf.h>
 #include <cstdio>
 #include <cstring>
@@ -77,7 +76,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident class
-	//temp_string = new QString();
 	switch( header->e_ident[EI_CLASS] )
 	{
 		case ELFCLASS32:
@@ -93,7 +91,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	//e_ident byte endian
-	//temp_string = new QString();
 	switch( header->e_ident[EI_DATA] )
 	{
 		case ELFDATA2LSB:
@@ -108,7 +105,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident Version
-	//temp_string = new QString();
 	if( header->e_ident[EI_VERSION]==EV_CURRENT )
 		temp_string = new QString( "Current Version" );
 	else
@@ -116,7 +112,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_ident ABI
-	//temp_string = new QString();
 	switch( header->e_ident[EI_OSABI] )
 	{
 		case ELFOSABI_SYSV:
@@ -152,6 +147,7 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 		default:
 			temp_string = new QString( "[unknown]" );
 	}
+
 	stringlist << *temp_string;
 
 	// e_ident abiversion
@@ -165,7 +161,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_type
-	//temp_string = new QString();
 	switch( header->e_type )
 	{
 		case ET_REL:
@@ -186,7 +181,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_machine
-	//temp_string = new QString();
 	switch( header->e_machine )
 	{
 		case EM_NONE:
@@ -237,7 +231,6 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 	// e_version
-	//temp_string = new QString();
 	if( header->e_version==EV_CURRENT )
 		temp_string = new QString( "Current Version" );
 	else
@@ -324,20 +317,20 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	if( is64bit )
 	{
 		if( header64->e_shstrndx == SHN_UNDEF )
-			*temp_string = "[No name string table]";
+			*temp_string = "[No section name string table]";
 		else
 			temp_string->setNum( header64->e_shstrndx );
 	}
 	else
 	{
 		if( header->e_shstrndx == SHN_UNDEF )
-			*temp_string = "[No name string table]";
+			*temp_string = "[No section name string table]";
 		else
 			temp_string->setNum( header->e_shstrndx );
 	}
 	stringlist << *temp_string;
 
-// ------  Inserting
+
 
 	for( int i=0; i<stringlist.size(); i++ )
 	{

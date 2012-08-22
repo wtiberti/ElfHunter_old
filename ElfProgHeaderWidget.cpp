@@ -29,8 +29,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 	if( is64bit )
 		prgtype = prog64->p_type;
 	else
-		prgtype = prog->p_type
-		;
+		prgtype = prog->p_type;
 	switch( prgtype )
 	{
 		case PT_NULL:
@@ -92,6 +91,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_filesz, 16 );
 	else
 		temp_string->setNum( prog->p_filesz, 16 );
+	;
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// p_memsz
@@ -100,6 +100,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_memsz, 16 );
 	else
 		temp_string->setNum( prog->p_memsz, 16 );
+	;
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// flags
@@ -117,6 +118,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 	if( prgflags & PF_X )
 		temp_string->push_back( "Executable ");
 
+	;
 	stringlist << temp_string->trimmed();
 
 	// p_align
@@ -125,6 +127,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_align, 16 );
 	else
 		temp_string->setNum( prog->p_align, 16 );
+	;
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	if( is64bit )
@@ -161,7 +164,10 @@ void ElfProgHeaderWidget::SelectData( char *data )
 		entry_size = header->e_phentsize;
 
 		if( header->e_phnum==0 )
+		{
+			spin->setMaximum( 0 );
 			return;
+		}
 
 		spin->setMaximum( header->e_phnum-1 );
 	}
@@ -175,5 +181,4 @@ void ElfProgHeaderWidget::SelectData( char *data )
 	}
 
 	SetValues( 0 );
-
 }

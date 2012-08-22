@@ -8,9 +8,7 @@ ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfGenericHeader( SECTHDRTABL
 	spin->setPrefix( "Section Header # " );
 
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
-	{
 		table->verticalHeaderItem( i )->setText( secthdr_field_names[i] );
-	}
 }
 
 ElfSectionHeaderWidget::~ElfSectionHeaderWidget()
@@ -32,14 +30,12 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	stringlist << temp_string->toUpper().prepend( "0x" );
 
 	// sh_name
-	//TODO stringa
-	temp_string = new QString();
+	__uint64_t name_index;
 	if( is64bit )
-		temp_string->setNum( sect64->sh_name, 16 );
+		name_index = sect64->sh_name;
 	else
-		temp_string->setNum( sect->sh_name, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
-
+		name_index = sect64->sh_name;
+	stringlist << *(new QString( (char*)(str_offset+name_index) ) );
 
 	//sh_type
 	__uint64_t secttype;
@@ -86,10 +82,15 @@ void ElfSectionHeaderWidget::SetValues( int index )
 			temp_string = new QString( "Dynamic linking symbols" );
 			break;
 		default:
-			if( sect->sh_type>=SHT_LOPROC && sect->sh_type<=SHT_HIPROC )
-				temp_string = new QString( "Processor-specific" );
+			if( sect->sh_type>=SHT_LOPROC )
+			{
+				if( sect->sh_type>=SHT_LOUSER && sect->sh_type<=SHT_HIUSER )
+					temp_string = new QString( "User-specific" );
+				else
+					temp_string = new QString( "Processor-specific" );
+			}
 			else
-				temp_string = new QString( "[Invalid]" );
+				temp_string = new QString( "[unknown]" );
 	}
 	stringlist << *temp_string;
 
@@ -184,9 +185,13 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 		offset = header64->e_shoff;
 		base += offset;
 		entry_size = header64->e_shentsize;
+		strsectnx = header64->e_shstrndx;
 
 		if( header64->e_shnum==0 )
+		{
+			spin->setMaximum( 0 );
 			return;
+		}
 
 		spin->setMaximum( header64->e_shnum-1 );
 	}
@@ -195,14 +200,35 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 		offset = header->e_shoff;
 		base += offset;
 		entry_size = header->e_shentsize;
+		strsectnx = header->e_shstrndx;
 
 		if( header->e_shnum==0 )
+		{
+			spin->setMaximum( 0 );
 			return;
+		}
 
 		spin->setMaximum( header->e_shnum-1 );
 	}
 
-	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+	GetShStrTable();
 
+	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 	SetValues( 0 );
+}
+
+
+void ElfSectionHeaderWidget::GetShStrTable()
+{
+	Elf64_Shdr *sect64 = (Elf64_Shdr *)base;
+	Elf32_Shdr *sect = (Elf32_Shdr *)base;
+	sect += strsectnx;
+	sect64 += strsectnx;
+
+	if( is64bit )
+		str_offset = sect64->sh_offset;
+	else
+		str_offset = sect->sh_offset;
+
+	str_offset = (__uint64_t)base - offset + str_offset;
 }

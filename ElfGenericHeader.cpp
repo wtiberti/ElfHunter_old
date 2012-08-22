@@ -14,7 +14,7 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 
 	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
 
-	for( int i=0; i<columns; i++ )
+	for( unsigned int i=0; i<columns; i++ )
 	{
 		tempitem = new QTableWidgetItem( "Value" );
 		tempitem->setTextAlignment( Qt::AlignHCenter );
@@ -22,7 +22,7 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 		table->setHorizontalHeaderItem( i, tempitem );
 	}
 
-	for( int i=0; i<rows; i++ )
+	for( unsigned int i=0; i<rows; i++ )
 	{
 		tempitem = new QTableWidgetItem( QString( i ) );
 		tempitem->setFlags( Qt::NoItemFlags );
@@ -32,7 +32,7 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
 	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
 
-	for( int i=0; i<rows; i++ )
+	for( unsigned int i=0; i<rows; i++ )
 	{
 		tempitem = new QTableWidgetItem();
 		tempitem->setFlags( (Qt::ItemFlag)37 );
@@ -47,18 +47,14 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 
 ElfGenericHeader::~ElfGenericHeader()
 {
-	for( int i=0; i<columns; i++ )
-	{
-		for( int j=0; j<rows; j++ )
-		{
+	for( unsigned int i=0; i<columns; i++ )
+		for( unsigned int j=0; j<rows; j++ )
 			delete table->item( j, i );
-		}
-	}
 
-	for( int i=0; i<rows; i++ )
+	for( unsigned int i=0; i<rows; i++ )
 		delete table->horizontalHeaderItem( i );
 
-	for( int i=0; i<rows; i++ )
+	for( unsigned int i=0; i<rows; i++ )
 		delete table->verticalHeaderItem( i );
 
 	stringlist.clear();

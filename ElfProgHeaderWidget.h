@@ -32,15 +32,15 @@
 
 	class ElfProgHeaderWidget : public ElfGenericHeader
 	{
-		Q_OBJECT
+	Q_OBJECT
 
-		protected:
-			void SetValues( int index );
+	protected:
+		void SetValues( int index );
 
-		public:
-			ElfProgHeaderWidget();
-			~ElfProgHeaderWidget();
-			void SelectData( char *data );
+	public:
+		ElfProgHeaderWidget();
+		~ElfProgHeaderWidget();
+		void SelectData( char *data );
 	};
 
 #endif

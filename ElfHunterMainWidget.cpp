@@ -6,8 +6,7 @@ extern std::vector< QAction * > menuactions;
 extern std::vector< QAction * > tbactions;
 #endif
 
-ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent )
-	: QWidget(parent)
+ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
 	layout = new QGridLayout();
 	sidewidget = new ElfHunterSideWidget( this );
@@ -65,9 +64,7 @@ unsigned long ElfHunterMainWidget::OpenFile()
 	}
 
 	if( file_opened )
-	{
 		CloseFile();
-	}
 
 	actual_file = new QFile( filename );
 	actual_file->open( QIODevice::ReadOnly );
@@ -133,10 +130,8 @@ unsigned long ElfHunterMainWidget::ReadFile()
 
 void ElfHunterMainWidget::CloseFile()
 {
-	for( int i=0; i<tabselem.size(); i++ )
-	{
+	for( unsigned int i=0; i<tabselem.size(); i++ )
 		delete tabselem[ i ];
-	}
 
 	tabselem.clear();
 
@@ -166,9 +161,7 @@ void ElfHunterMainWidget::SetFile()
 	catch( int ErrorNum )
 	{
 		if( ErrorNum==2 )
-		{
 			CloseFile();
-		}
 		return;
 	}
 
@@ -194,14 +187,11 @@ void ElfHunterMainWidget::SetFile()
 		}
 
 		msg.exec();
-
-		return;
 	}
 }
 
 void ElfHunterMainWidget::DisplayAbout()
 {
 	AboutWidget about;
-
 	about.exec();
 }

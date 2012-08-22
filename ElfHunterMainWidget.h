@@ -35,5 +35,4 @@
 		void CloseFile();
 		void DisplayAbout();
 	};
-
 #endif

@@ -8,20 +8,19 @@
 
 	class ElfHunterSideWidget : public QWidget
 	{
-		Q_OBJECT
+	Q_OBJECT
 
-		private:
-			QVBoxLayout *layout;
-			QTabWidget *tabs;
+	private:
+		QVBoxLayout *layout;
+		QTabWidget *tabs;
 
-			ElfHeaderWidget *elfhdr_w;
+		ElfHeaderWidget *elfhdr_w;
 
-		public:
-			ElfHunterSideWidget( QWidget *parent = 0 );
-			~ElfHunterSideWidget();
+	public:
+		ElfHunterSideWidget( QWidget *parent = 0 );
+		~ElfHunterSideWidget();
 
-		public slots:
-			void addTab( QWidget *w, QString title );
+	public slots:
+		void addTab( QWidget *w, QString title );
 	};
-
 #endif

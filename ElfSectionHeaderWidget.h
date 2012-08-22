@@ -23,15 +23,19 @@
 
 	class ElfSectionHeaderWidget : public ElfGenericHeader
 	{
-		Q_OBJECT
+	Q_OBJECT
 
-		protected:
-			void SetValues( int index );
+	private:
+		unsigned int strsectnx;
+		__uint64_t str_offset;
+		void GetShStrTable();
 
-		public:
-			ElfSectionHeaderWidget();
-			~ElfSectionHeaderWidget();
-			void SelectData( char *data );
+	protected:
+		void SetValues( int index );
+
+	public:
+		ElfSectionHeaderWidget();
+		~ElfSectionHeaderWidget();
+		void SelectData( char *data );
 	};
-
 #endif

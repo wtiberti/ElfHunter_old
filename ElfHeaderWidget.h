@@ -3,6 +3,7 @@
 
 	#include <QtGui>
 	#include <elf.h>
+	#include <vector>
 
 	//Makes item being enabled, selectable and drag-able
 	#define EHW_ITEMFLAGS (Qt::ItemFlag)37

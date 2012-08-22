@@ -10,7 +10,7 @@
 
 	class ElfHunterHexWidget : public QWidget
 	{
-		Q_OBJECT
+	Q_OBJECT
 
 	private:
 		QWidget *khe_widget;
@@ -30,5 +30,4 @@
 		void SetData( char *data, unsigned long datasize );
 		void ClearData();
 	};
-
 #endif

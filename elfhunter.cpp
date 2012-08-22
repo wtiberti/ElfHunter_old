@@ -4,9 +4,12 @@
 
 QMainWindow *w;
 ElfHunterMainWidget *mw;
+
 QStatusBar *statusbar;
+
 QMenuBar *menu;
 std::vector< QAction * > menuactions;
+
 QToolBar *toolbar;
 std::vector< QAction * > tbactions;
 
@@ -107,7 +110,7 @@ QString *ToHexString( unsigned char *stream, unsigned int size )
 
 	memset( buffer, 0, sizeof(char)*(5*size+1) );
 
-	for( int i=0; i<size; i++ )
+	for( unsigned int i=0; i<size; i++ )
 	{
 		memset( temp_buffer, 0, sizeof(char)*10 );
 		snprintf( temp_buffer, 6, "0x%.2X ", stream[i] );
