@@ -3,6 +3,12 @@
 
 	#include <QtGui>
 
+	const QString generic_horizontal_labels[] =
+	{
+		"Value",
+		"Meaning"
+	};
+
 	class ElfGenericHeader : public QWidget
 	{
 	Q_OBJECT
@@ -16,6 +22,7 @@
 		QSpinBox *spin;
 		QTableWidget *table;
 		QStringList stringlist;
+		QStringList valueslist;
 		bool is64bit;
 
 		unsigned char *base;

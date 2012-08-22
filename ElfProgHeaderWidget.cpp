@@ -16,6 +16,7 @@ ElfProgHeaderWidget::~ElfProgHeaderWidget()
 void ElfProgHeaderWidget::SetValues( int index )
 {
 	QString *temp_string;
+	QString *temp_value;
 	Elf64_Phdr *prog64 = (Elf64_Phdr *)base;
 	Elf32_Phdr *prog = (Elf32_Phdr *)base;
 
@@ -23,6 +24,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 	prog64 += index;
 
 	stringlist.clear();
+	valueslist.clear();
 
 	// p_type
 	__uint64_t prgtype;
@@ -30,6 +32,9 @@ void ElfProgHeaderWidget::SetValues( int index )
 		prgtype = prog64->p_type;
 	else
 		prgtype = prog->p_type;
+	temp_value = new QString();
+	temp_value->setNum( prgtype, 16 );
+	valueslist << temp_value->toUpper().prepend( "0x" );
 	switch( prgtype )
 	{
 		case PT_NULL:
@@ -67,7 +72,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_offset, 16 );
 	else
 		temp_string->setNum( prog->p_offset, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// Virtual Address
 	temp_string = new QString();
@@ -75,7 +81,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_vaddr, 16 );
 	else
 		temp_string->setNum( prog->p_vaddr, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// Physical Address
 	temp_string = new QString();
@@ -83,7 +90,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_paddr, 16 );
 	else
 		temp_string->setNum( prog->p_paddr, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// p_filesz
 	temp_string = new QString();
@@ -91,8 +99,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_filesz, 16 );
 	else
 		temp_string->setNum( prog->p_filesz, 16 );
-	;
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// p_memsz
 	temp_string = new QString();
@@ -100,8 +108,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_memsz, 16 );
 	else
 		temp_string->setNum( prog->p_memsz, 16 );
-	;
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// flags
 	temp_string = new QString("");
@@ -111,14 +119,16 @@ void ElfProgHeaderWidget::SetValues( int index )
 	else
 		prgflags = prog->p_flags;
 
+	temp_value = new QString();
+	temp_value->setNum( prgflags, 16 );
+	valueslist << temp_value->toUpper().prepend( "0x" );
+
 	if( prgflags & PF_R )
 		temp_string->push_back( "Readable " );
 	if( prgflags & PF_W )
 		temp_string->push_back( "Writeable " );
 	if( prgflags & PF_X )
 		temp_string->push_back( "Executable ");
-
-	;
 	stringlist << temp_string->trimmed();
 
 	// p_align
@@ -127,14 +137,20 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog64->p_align, 16 );
 	else
 		temp_string->setNum( prog->p_align, 16 );
-	;
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	if( is64bit )
+	{
+		valueslist.move( 6, 1 );
 		stringlist.move( 6, 1 );
+	}
 
 	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-		table->item( i, 0 )->setText( stringlist[i] );
+	{
+		table->item( i, 0 )->setText( valueslist[i] );
+		table->item( i, 1 )->setText( stringlist[i] );
+	}
 }
 
 void ElfProgHeaderWidget::SelectData( char *data )

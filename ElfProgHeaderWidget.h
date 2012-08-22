@@ -28,7 +28,7 @@
 	};
 
 	#define PROGHDRTABLEROWS 8
-	#define PROGHDRTABLECOLUMNS 1
+	#define PROGHDRTABLECOLUMNS 2
 
 	class ElfProgHeaderWidget : public ElfGenericHeader
 	{

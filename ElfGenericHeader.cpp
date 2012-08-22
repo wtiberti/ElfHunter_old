@@ -16,7 +16,7 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 
 	for( unsigned int i=0; i<columns; i++ )
 	{
-		tempitem = new QTableWidgetItem( "Value" );
+		tempitem = new QTableWidgetItem( generic_horizontal_labels[i] );
 		tempitem->setTextAlignment( Qt::AlignHCenter );
 		tempitem->setFlags( Qt::NoItemFlags );
 		table->setHorizontalHeaderItem( i, tempitem );
@@ -32,12 +32,13 @@ ElfGenericHeader::ElfGenericHeader( int r, int c )
 	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
 	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
 
-	for( unsigned int i=0; i<rows; i++ )
-	{
-		tempitem = new QTableWidgetItem();
-		tempitem->setFlags( (Qt::ItemFlag)37 );
-		table->setItem( i, 0, tempitem );
-	}
+	for( unsigned int j=0; j<columns; j++ )
+		for( unsigned int i=0; i<rows; i++ )
+		{
+			tempitem = new QTableWidgetItem();
+			tempitem->setFlags( (Qt::ItemFlag)37 );
+			table->setItem( i, j, tempitem );
+		}
 
 	layout->addWidget( spin );
 	layout->addWidget( table );
@@ -58,6 +59,7 @@ ElfGenericHeader::~ElfGenericHeader()
 		delete table->verticalHeaderItem( i );
 
 	stringlist.clear();
+	valueslist.clear();
 
 	delete spin;
 	delete table;

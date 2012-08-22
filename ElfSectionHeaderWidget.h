@@ -19,7 +19,7 @@
 	};
 
 	#define SECTHDRTABLEROWS 11
-	#define SECTHDRTABLECOLUMNS 1
+	#define SECTHDRTABLECOLUMNS 2
 
 	class ElfSectionHeaderWidget : public ElfGenericHeader
 	{

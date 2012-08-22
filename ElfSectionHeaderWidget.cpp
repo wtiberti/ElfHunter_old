@@ -24,10 +24,12 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	sect64 += index;
 
 	stringlist.clear();
+	valueslist.clear();
 
 	temp_string = new QString();
 	temp_string->setNum( offset+index*entry_size, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_name
 	__uint64_t name_index;
@@ -35,6 +37,9 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		name_index = sect64->sh_name;
 	else
 		name_index = sect64->sh_name;
+	temp_string = new QString();
+	temp_string->setNum( name_index, 16 );
+	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << *(new QString( (char*)(str_offset+name_index) ) );
 
 	//sh_type
@@ -43,6 +48,9 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		secttype = sect64->sh_type;
 	else
 		secttype = sect->sh_type;
+	temp_string = new QString();
+	temp_string->setNum( secttype, 16 );
+	valueslist << temp_string->toUpper().prepend( "0x" );
 	switch( secttype )
 	{
 		case SHT_NULL:
@@ -95,12 +103,15 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	stringlist << *temp_string;
 
 	// sh_flags
-	temp_string = new QString("");
 	__uint64_t sectflags;
 	if( is64bit )
 		sectflags = sect64->sh_flags;
 	else
 		sectflags = sect->sh_flags;
+	temp_string = new QString();
+	temp_string->setNum( sectflags, 16 );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	temp_string = new QString("");
 	if( sectflags & SHF_WRITE )
 		temp_string->push_back( "Writeable " );
 	if( sectflags & SHF_ALLOC )
@@ -115,7 +126,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_addr, 16 );
 	else
 		temp_string->setNum( sect->sh_addr, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_offset
 	temp_string = new QString();
@@ -123,7 +135,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_offset, 16 );
 	else
 		temp_string->setNum( sect->sh_offset, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_size
 	temp_string = new QString();
@@ -131,7 +144,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_size, 10 );
 	else
 		temp_string->setNum( sect->sh_size, 10 );
-	stringlist << *temp_string;
+	valueslist << *temp_string;
+	stringlist << "";
 
 	// sh_link
 	temp_string = new QString();
@@ -139,7 +153,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_link, 16 );
 	else
 		temp_string->setNum( sect->sh_link, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_info
 	temp_string = new QString();
@@ -147,7 +162,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_info, 16 );
 	else
 		temp_string->setNum( sect->sh_info, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_addralign
 	temp_string = new QString();
@@ -155,7 +171,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_addralign, 16 );
 	else
 		temp_string->setNum( sect->sh_addralign, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	// sh_entsize
 	temp_string = new QString();
@@ -163,11 +180,13 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect64->sh_entsize, 16 );
 	else
 		temp_string->setNum( sect->sh_entsize, 16 );
-	stringlist << temp_string->toUpper().prepend( "0x" );
+	valueslist << temp_string->toUpper().prepend( "0x" );
+	stringlist << "";
 
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 	{
-		table->item( i, 0 )->setText( stringlist[i] );
+		table->item( i, 0 )->setText( valueslist[i] );
+		table->item( i, 1 )->setText( stringlist[i] );
 	}
 }
 
