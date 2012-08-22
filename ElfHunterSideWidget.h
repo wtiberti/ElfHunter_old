@@ -5,6 +5,7 @@
 	#include "ElfHeaderWidget.h"
 	#include "ElfProgHeaderWidget.h"
 	#include "ElfSectionHeaderWidget.h"
+	#include "ElfStringTable.h"
 
 	class ElfHunterSideWidget : public QWidget
 	{

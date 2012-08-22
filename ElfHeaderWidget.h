@@ -37,6 +37,7 @@
 
 	class ElfHeaderWidget : public QWidget
 	{
+
 		Q_OBJECT
 
 		private:
@@ -50,5 +51,7 @@
 			~ElfHeaderWidget();
 			void GetValues( char *elfheader );
 			bool IsELF64();
+			static bool HasSections( char *data );
+
 	};
 #endif

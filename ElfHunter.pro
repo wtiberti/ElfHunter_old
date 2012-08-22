@@ -15,7 +15,8 @@ HEADERS += ElfHeaderWidget.h \
            AboutWidget.h \
            ElfGenericHeader.h \
            ElfProgHeaderWidget.h \
-           ElfSectionHeaderWidget.h
+           ElfSectionHeaderWidget.h \
+           ElfStringTable.h
 SOURCES += ElfHeaderWidget.cpp \
            elfhunter.cpp \
            ElfHunterHexWidget.cpp \
@@ -24,5 +25,6 @@ SOURCES += ElfHeaderWidget.cpp \
            AboutWidget.cpp \
            ElfGenericHeader.cpp \
            ElfProgHeaderWidget.cpp \
-           ElfSectionHeaderWidget.cpp
+           ElfSectionHeaderWidget.cpp \
+           ElfStringTable.cpp
 LIBS += -lkdecore

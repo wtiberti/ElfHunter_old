@@ -119,10 +119,18 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
 	tabselem.push_back( (QWidget *)temp_proghdr );
 
-	ElfSectionHeaderWidget *temp_secthdr = new ElfSectionHeaderWidget();
-	temp_secthdr->SelectData( filedata );
-	sidewidget->addTab( (QWidget *)temp_secthdr, "Section Headers" );
-	tabselem.push_back( (QWidget *)temp_secthdr );
+	if( ElfHeaderWidget::HasSections( filedata ) )
+	{
+		ElfSectionHeaderWidget *temp_secthdr = new ElfSectionHeaderWidget();
+		temp_secthdr->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_secthdr, "Section Headers" );
+		tabselem.push_back( (QWidget *)temp_secthdr );
+
+		ElfStringTable *temp_strtbl = new ElfStringTable();
+		temp_strtbl->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_strtbl, "String Tables" );
+		tabselem.push_back( (QWidget *)temp_strtbl );
+	}
 
 	hexdump->SetData( filedata, dataread );
 	return dataread;
