@@ -13,8 +13,10 @@
 
 	typedef struct
 	{
+		int sect_n;
 		__uint64_t index_name;
 		__uint64_t offset;
+		char * addr;
 		__uint64_t size;
 	} SectStruct;
 
@@ -25,6 +27,8 @@
 	private:
 		char *hdrstrings;
 		std::vector< SectStruct > ss;
+
+		void AddString( QString v, QString s );
 
 	protected:
 		void SetValues( int index );

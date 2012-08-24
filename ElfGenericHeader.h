@@ -16,6 +16,7 @@
 	private:
 		unsigned int columns;
 		unsigned int rows;
+		bool tableheaders;
 
 	protected:
 		QVBoxLayout *layout;
@@ -32,8 +33,13 @@
 		virtual void SetValues( int index ) = 0;
 
 	public:
-		ElfGenericHeader( int r, int c );
+		ElfGenericHeader( int r, int c, bool h=true );
 		~ElfGenericHeader();
+		void AddHeader_H();
+		void AddHeader_V();
+		int AddRow();
+		int AddCol();
+		void ClearRows();
 		virtual void SelectData( char *data ) = 0;
 
 	public slots:
