@@ -9,8 +9,7 @@
 
 	class ElfHunterMainWidget : public QWidget
 	{
-		Q_OBJECT
-
+	Q_OBJECT
 	private:
 		QGridLayout *layout;
 

@@ -13,8 +13,8 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	hexdump = new ElfHunterHexWidget( this );
 
 	// VERTICAL LAYOUT
-	layout->setColumnStretch( 0, 2 );
-	layout->setColumnStretch( 1, 3 );
+	//layout->setColumnStretch( 0, 5 );
+	//layout->setColumnStretch( 1, 4 );
 	layout->addWidget( sidewidget, 0, 0 );
 	layout->addWidget( hexdump, 0, 1 );
 

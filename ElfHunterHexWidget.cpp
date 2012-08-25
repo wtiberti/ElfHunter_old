@@ -21,7 +21,8 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 			khe_hexvalues->setCoding( KHE::ValueColumnInterface::HexadecimalCoding );
 			khe_hexvalues->setByteSpacingWidth( 4 );
 			khe_hexvalues->setNoOfGroupedBytes( 4 );
-			khe_hexvalues->setGroupSpacingWidth( 8 );;
+			khe_hexvalues->setGroupSpacingWidth( 8 );
+			khe_hexvalues->setNoOfBytesPerLine( 16 );
 		}
 
 		khe_charvalues = KHE::charColumnInterface( khe_widget );

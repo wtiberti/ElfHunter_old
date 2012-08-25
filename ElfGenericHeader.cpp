@@ -43,10 +43,10 @@ void ElfGenericHeader::AddHeader_H()
 	{
 		tempitem = new QTableWidgetItem( generic_horizontal_labels[i] );
 		tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
 		table->setHorizontalHeaderItem( i, tempitem );
 	}
-	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
+	//table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
+	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch );
 }
 
 void ElfGenericHeader::AddHeader_V()
@@ -56,7 +56,6 @@ void ElfGenericHeader::AddHeader_V()
 	for( unsigned int i=0; i<rows; i++ )
 	{
 		tempitem = new QTableWidgetItem( QString::number( i ) );
-		tempitem->setFlags( Qt::NoItemFlags );
 		table->setVerticalHeaderItem( i, tempitem );
 	}
 	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
