@@ -11,7 +11,8 @@
 	const QString generic_horizontal_labels[] =
 	{
 		"Value",
-		"Meaning"
+		"Meaning",
+		"Info"
 	};
 
 	class ElfGenericHeader : public QWidget
