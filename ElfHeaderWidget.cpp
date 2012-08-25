@@ -5,15 +5,27 @@
 
 extern QString *ToHexString( unsigned char *stream, unsigned int size );
 
-ElfHeaderWidget::ElfHeaderWidget()
+
+ElfHeaderWidget::ElfHeaderWidget( int r, int c, bool h )
 {
 	QTableWidgetItem *tempitem;
 
+	rows = r;
+	columns = c;
+
 	layout = new QVBoxLayout();
-	table = new QTableWidget( ELFHDRTABLEROWS, ELFHDRTABLECOLUMNS, this );
+	table = new QTableWidget( r, c, this );
 	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
 
+	tableheaders = h;
 
+	if( h )
+	{
+		AddHeader_H();
+		AddHeader_V();
+	}
+
+	/*
 	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
 	{
 		// Horizontal table headers
@@ -29,10 +41,17 @@ ElfHeaderWidget::ElfHeaderWidget()
 		//tempitem->setTextAlignment( Qt::AlignHCenter );
 		tempitem->setFlags( Qt::NoItemFlags );
 		table->setVerticalHeaderItem( i, tempitem );
-	}
+	}*/
+	for( unsigned int j=0; j<columns; j++ )
+		for( unsigned int i=0; i<rows; i++ )
+		{
+			tempitem = new QTableWidgetItem();
+			tempitem->setFlags( (Qt::ItemFlag)37 );
+			table->setItem( i, j, tempitem );
+		}
 
-	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
-	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
+	//table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+	//table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
 
 	layout->addWidget( table );
 
@@ -41,26 +60,77 @@ ElfHeaderWidget::ElfHeaderWidget()
 	is64bit = false;
 }
 
+void ElfHeaderWidget::AddHeader_H()
+{
+	QTableWidgetItem *tempitem;
+
+	for( unsigned int i=0; i<columns; i++ )
+	{
+		tempitem = new QTableWidgetItem( generic_horizontal_labels[i] );
+		tempitem->setTextAlignment( Qt::AlignHCenter );
+		tempitem->setFlags( Qt::NoItemFlags );
+		table->setHorizontalHeaderItem( i, tempitem );
+	}
+	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
+}
+
+void ElfHeaderWidget::AddHeader_V()
+{
+	QTableWidgetItem *tempitem;
+
+	for( unsigned int i=0; i<rows; i++ )
+	{
+		tempitem = new QTableWidgetItem( QString::number( i ) );
+		tempitem->setFlags( Qt::NoItemFlags );
+		table->setVerticalHeaderItem( i, tempitem );
+	}
+	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
+}
+
 ElfHeaderWidget::~ElfHeaderWidget()
 {
-	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
-	{
-		for( int j=0; j<ELFHDRTABLEROWS; j++ )
-		{
+	for( unsigned int i=0; i<columns; i++ )
+		for( unsigned int j=0; j<rows; j++ )
 			delete table->item( j, i );
-		}
+
+	if( tableheaders )
+	{
+	for( unsigned int i=0; i<rows; i++ )
+			delete table->horizontalHeaderItem( i );
+
+		for( unsigned int i=0; i<rows; i++ )
+			delete table->verticalHeaderItem( i );
 	}
 
-	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
-		delete table->horizontalHeaderItem( i );
-
-	for( int i=0; i<ELFHDRTABLEROWS; i++ )
-		delete table->verticalHeaderItem( i );
-
 	stringlist.clear();
+	valueslist.clear();
 
 	delete table;
 	delete layout;
+}
+
+int ElfHeaderWidget::AddRow()
+{
+	table->setRowCount( table->rowCount()+1 );
+	rows = table->rowCount();
+	return rows;
+}
+
+int ElfHeaderWidget::AddCol()
+{
+	table->setColumnCount( table->columnCount()+1 );
+	columns = table->columnCount();
+	return columns;
+}
+
+void ElfHeaderWidget::ClearRows()
+{
+	for( unsigned int i=0; i<columns; i++ )
+		for( unsigned int j=0; j<rows; j++ )
+			delete table->item( j, i );
+
+	table->setRowCount( 0 );
+	rows = 0;
 }
 
 void ElfHeaderWidget::GetValues( char *elfheader )

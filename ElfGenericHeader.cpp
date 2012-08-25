@@ -2,26 +2,28 @@
 #include <elf.h>
 
 ElfGenericHeader::ElfGenericHeader( int r, int c, bool h )
+	: ElfHeaderWidget( r, c, h );
 {
-	QTableWidgetItem *tempitem;
+	//QTableWidgetItem *tempitem;
 
-	rows = r;
-	columns = c;
+	//rows = r;
+	//columns = c;
 
-	layout = new QVBoxLayout();
+	//layout = new QVBoxLayout();
 	spin = new QSpinBox();
-	table = new QTableWidget( rows, columns, this );
+	//table = new QTableWidget( rows, columns, this );
 
-	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
+	//table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
 
-	tableheaders = h;
+	//tableheaders = h;
 
-	if( h )
+	/*if( h )
 	{
 		AddHeader_H();
 		AddHeader_V();
-	}
+	}*/
 
+	/*
 	for( unsigned int j=0; j<columns; j++ )
 		for( unsigned int i=0; i<rows; i++ )
 		{
@@ -29,13 +31,15 @@ ElfGenericHeader::ElfGenericHeader( int r, int c, bool h )
 			tempitem->setFlags( (Qt::ItemFlag)37 );
 			table->setItem( i, j, tempitem );
 		}
+	*/
 
 	layout->addWidget( spin );
-	layout->addWidget( table );
+	//layout->addWidget( table );
 
-	setLayout( layout );
+	//setLayout( layout );
 }
 
+/*
 void ElfGenericHeader::AddHeader_H()
 {
 	QTableWidgetItem *tempitem;
@@ -62,29 +66,31 @@ void ElfGenericHeader::AddHeader_V()
 	}
 	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
 }
+*/
 
 ElfGenericHeader::~ElfGenericHeader()
 {
+	/*
 	for( unsigned int i=0; i<columns; i++ )
 		for( unsigned int j=0; j<rows; j++ )
 			delete table->item( j, i );
 
+	if( tableheaders )
+	{
 	for( unsigned int i=0; i<rows; i++ )
 			delete table->horizontalHeaderItem( i );
 
-
-	if( tableheaders )
-	{
 		for( unsigned int i=0; i<rows; i++ )
 			delete table->verticalHeaderItem( i );
 	}
 
 	stringlist.clear();
-	valueslist.clear();
+	*/
+	//valueslist.clear();
 
 	delete spin;
-	delete table;
-	delete layout;
+	//delete table;
+	//delete layout;
 }
 
 void ElfGenericHeader::Changed()
@@ -92,6 +98,7 @@ void ElfGenericHeader::Changed()
 	SetValues( spin->value() );
 }
 
+/*
 int ElfGenericHeader::AddRow()
 {
 	table->setRowCount( table->rowCount()+1 );
@@ -114,4 +121,4 @@ void ElfGenericHeader::ClearRows()
 
 	table->setRowCount( 0 );
 	rows = 0;
-}
+}*/
