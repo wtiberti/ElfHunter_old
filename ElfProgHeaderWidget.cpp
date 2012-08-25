@@ -1,7 +1,7 @@
 #include "ElfProgHeaderWidget.h"
 #include <elf.h>
 
-ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfGenericHeader( PROGHDRTABLEROWS, PROGHDRTABLECOLUMNS )
+ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfMultiHeader( PROGHDRTABLEROWS, PROGHDRTABLECOLUMNS )
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Program Header # " );

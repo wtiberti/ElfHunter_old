@@ -8,22 +8,24 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += ElfHeaderWidget.h \
-           ElfHunterHexWidget.h \
+HEADERS += ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \
            ElfHunterSideWidget.h \
            AboutWidget.h \
            ElfGenericHeader.h \
+           ElfMultiHeader.h \
+           ElfELFHeaderWidget.h \
            ElfProgHeaderWidget.h \
            ElfSectionHeaderWidget.h \
            ElfStringTable.h
-SOURCES += ElfHeaderWidget.cpp \
-           elfhunter.cpp \
+SOURCES += elfhunter.cpp \
            ElfHunterHexWidget.cpp \
            ElfHunterMainWidget.cpp \
            ElfHunterSideWidget.cpp \
            AboutWidget.cpp \
            ElfGenericHeader.cpp \
+           ElfMultiHeader.cpp \
+           ElfELFHeaderWidget.cpp \
            ElfProgHeaderWidget.cpp \
            ElfSectionHeaderWidget.cpp \
            ElfStringTable.cpp

@@ -2,7 +2,7 @@
 #include <elf.h>
 
 
-ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfGenericHeader( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS )
+ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfMultiHeader( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS )
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Section Header # " );

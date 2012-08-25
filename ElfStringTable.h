@@ -1,7 +1,7 @@
 #ifndef ElfStringTable_H
 	#define ElfStringTable_H
 
-	#include "ElfGenericHeader.h"
+	#include "ElfMultiHeader.h"
 
 	#include <vector>
 
@@ -20,7 +20,7 @@
 		__uint64_t size;
 	} SectStruct;
 
-	class ElfStringTable : public ElfGenericHeader
+	class ElfStringTable : public ElfMultiHeader
 	{
 	Q_OBJECT
 

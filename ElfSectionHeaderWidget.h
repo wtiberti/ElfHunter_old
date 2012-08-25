@@ -1,7 +1,7 @@
 #ifndef ElfSectionHeaderWidget_H
 	#define ElfSectionHeaderWidget_H
 
-	#include "ElfGenericHeader.h"
+	#include "ElfMultiHeader.h"
 
 	const QString secthdr_field_names[] =
 	{
@@ -21,7 +21,7 @@
 	#define SECTHDRTABLEROWS 11
 	#define SECTHDRTABLECOLUMNS 2
 
-	class ElfSectionHeaderWidget : public ElfGenericHeader
+	class ElfSectionHeaderWidget : public ElfMultiHeader
 	{
 	Q_OBJECT
 

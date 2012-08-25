@@ -1,7 +1,7 @@
 #ifndef ElfProgHeaderWidget_H
 	#define ElfProgHeaderWidget_H
 
-	#include "ElfGenericHeader.h"
+	#include "ElfMultiHeader.h"
 
 	const QString proghdr_field_names[] =
 	{
@@ -30,7 +30,7 @@
 	#define PROGHDRTABLEROWS 8
 	#define PROGHDRTABLECOLUMNS 2
 
-	class ElfProgHeaderWidget : public ElfGenericHeader
+	class ElfProgHeaderWidget : public ElfMultiHeader
 	{
 	Q_OBJECT
 

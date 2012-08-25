@@ -1,5 +1,6 @@
 #include "ElfHunterSideWidget.h"
-#include "ElfHeaderWidget.h"
+
+//#include "ElfHWidget.h"
 
 ElfHunterSideWidget::ElfHunterSideWidget( QWidget *parent ) : QWidget(parent)
 {

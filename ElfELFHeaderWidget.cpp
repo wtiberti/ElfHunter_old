@@ -1,145 +1,21 @@
-#include "ElfHeaderWidget.h"
-#include <elf.h>
-#include <cstdio>
-#include <cstring>
-
-extern QString *ToHexString( unsigned char *stream, unsigned int size );
+#include "ElfELFHeaderWidget.h"
 
 
-ElfHeaderWidget::ElfHeaderWidget( int r, int c, bool h )
+ElfELFHeaderWidget::ElfELFHeaderWidget() : ElfGenericHeader( 20, 2 )
 {
-	QTableWidgetItem *tempitem;
-
-	rows = r;
-	columns = c;
-
-	layout = new QVBoxLayout();
-	table = new QTableWidget( r, c, this );
-	table->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
-
-	tableheaders = h;
-
-	if( h )
-	{
-		AddHeader_H();
-		AddHeader_V();
-	}
-
-	/*
-	for( int i=0; i<ELFHDRTABLECOLUMNS; i++ )
-	{
-		// Horizontal table headers
-		tempitem = new QTableWidgetItem( "Value" );
-		tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setHorizontalHeaderItem( i, tempitem );
-	}
-
-	for( int i=0; i<ELFHDRTABLEROWS; i++ )
-	{
-		tempitem = new QTableWidgetItem( elfhdr_field_names[i] );
-		//tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setVerticalHeaderItem( i, tempitem );
-	}*/
-	for( unsigned int j=0; j<columns; j++ )
-		for( unsigned int i=0; i<rows; i++ )
-		{
-			tempitem = new QTableWidgetItem();
-			tempitem->setFlags( (Qt::ItemFlag)37 );
-			table->setItem( i, j, tempitem );
-		}
-
-	//table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
-	//table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
-
-	layout->addWidget( table );
-
-	setLayout( layout );
-
-	is64bit = false;
+	for( int i=0; i<20; i++ )
+		table->verticalHeaderItem( i )->setText( elfhdr_field_names[i] );
 }
 
-void ElfHeaderWidget::AddHeader_H()
-{
-	QTableWidgetItem *tempitem;
+ElfELFHeaderWidget::~ElfELFHeaderWidget()
+{}
 
-	for( unsigned int i=0; i<columns; i++ )
-	{
-		tempitem = new QTableWidgetItem( generic_horizontal_labels[i] );
-		tempitem->setTextAlignment( Qt::AlignHCenter );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setHorizontalHeaderItem( i, tempitem );
-	}
-	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch  );
-}
-
-void ElfHeaderWidget::AddHeader_V()
-{
-	QTableWidgetItem *tempitem;
-
-	for( unsigned int i=0; i<rows; i++ )
-	{
-		tempitem = new QTableWidgetItem( QString::number( i ) );
-		tempitem->setFlags( Qt::NoItemFlags );
-		table->setVerticalHeaderItem( i, tempitem );
-	}
-	table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
-}
-
-ElfHeaderWidget::~ElfHeaderWidget()
-{
-	for( unsigned int i=0; i<columns; i++ )
-		for( unsigned int j=0; j<rows; j++ )
-			delete table->item( j, i );
-
-	if( tableheaders )
-	{
-	for( unsigned int i=0; i<rows; i++ )
-			delete table->horizontalHeaderItem( i );
-
-		for( unsigned int i=0; i<rows; i++ )
-			delete table->verticalHeaderItem( i );
-	}
-
-	stringlist.clear();
-	valueslist.clear();
-
-	delete table;
-	delete layout;
-}
-
-int ElfHeaderWidget::AddRow()
-{
-	table->setRowCount( table->rowCount()+1 );
-	rows = table->rowCount();
-	return rows;
-}
-
-int ElfHeaderWidget::AddCol()
-{
-	table->setColumnCount( table->columnCount()+1 );
-	columns = table->columnCount();
-	return columns;
-}
-
-void ElfHeaderWidget::ClearRows()
-{
-	for( unsigned int i=0; i<columns; i++ )
-		for( unsigned int j=0; j<rows; j++ )
-			delete table->item( j, i );
-
-	table->setRowCount( 0 );
-	rows = 0;
-}
-
-void ElfHeaderWidget::GetValues( char *elfheader )
+void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 {
 	QTableWidgetItem *temp_item;
 	QString *temp_string;
 	Elf32_Ehdr *header = (Elf32_Ehdr *)elfheader;
 	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elfheader;
-
 
 	// e_ident magic field
 	temp_string = ToHexString( header->e_ident, 4 );
@@ -401,28 +277,10 @@ void ElfHeaderWidget::GetValues( char *elfheader )
 	stringlist << *temp_string;
 
 
-
 	for( int i=0; i<stringlist.size(); i++ )
 	{
 		temp_item = new QTableWidgetItem( stringlist[i] );
 		temp_item->setFlags( EHW_ITEMFLAGS );
 		table->setItem( i, 0, temp_item );
 	}
-}
-
-bool ElfHeaderWidget::IsELF64()
-{
-	// TODO check exeptions
-	return is64bit;
-}
-
-bool ElfHeaderWidget::HasSections( char *data )
-{
-	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
-	Elf64_Ehdr *header64 = (Elf64_Ehdr *)data;
-
-	if( header->e_ident[EI_CLASS]==ELFCLASS64 )
-		return header64->e_shnum==0?false:true;
-	else
-		return header->e_shnum==0?false:true;
 }

@@ -109,17 +109,17 @@ unsigned long ElfHunterMainWidget::ReadFile()
 		throw 2;
 	}
 
-	ElfHeaderWidget *temp_elfhdr = new ElfHeaderWidget();
+	ElfELFHeaderWidget *temp_elfhdr = new ElfELFHeaderWidget();
 	sidewidget->addTab( (QWidget *)temp_elfhdr, "ELF Header" );
 	tabselem.push_back( (QWidget *)temp_elfhdr );
-	temp_elfhdr->GetValues( filedata );
+	temp_elfhdr->SetElfValues( filedata );
 
 	ElfProgHeaderWidget *temp_proghdr = new ElfProgHeaderWidget();
 	temp_proghdr->SelectData( filedata );
 	sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
 	tabselem.push_back( (QWidget *)temp_proghdr );
 
-	if( ElfHeaderWidget::HasSections( filedata ) )
+	if( ElfGenericHeader::HasSections( filedata ) )
 	{
 		ElfSectionHeaderWidget *temp_secthdr = new ElfSectionHeaderWidget();
 		temp_secthdr->SelectData( filedata );

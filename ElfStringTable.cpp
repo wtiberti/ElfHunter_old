@@ -1,7 +1,7 @@
 #include "ElfStringTable.h"
 #include <elf.h>
 
-ElfStringTable::ElfStringTable() : ElfGenericHeader( 0, 2 )
+ElfStringTable::ElfStringTable() : ElfMultiHeader( 0, 2 )
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "String table # " );

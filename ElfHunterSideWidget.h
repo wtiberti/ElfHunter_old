@@ -2,7 +2,7 @@
 	#define ElfHunterSideWidget_H
 
 	#include <QtGui>
-	#include "ElfHeaderWidget.h"
+	#include "ElfELFHeaderWidget.h"
 	#include "ElfProgHeaderWidget.h"
 	#include "ElfSectionHeaderWidget.h"
 	#include "ElfStringTable.h"
@@ -15,7 +15,7 @@
 		QVBoxLayout *layout;
 		QTabWidget *tabs;
 
-		ElfHeaderWidget *elfhdr_w;
+		//ElfHeaderWidget *elfhdr_w;
 
 	public:
 		ElfHunterSideWidget( QWidget *parent = 0 );

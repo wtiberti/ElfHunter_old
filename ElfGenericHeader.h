@@ -1,7 +1,12 @@
-#ifndef ElfHeader_H
-	#define ElfHeader_H
+#ifndef ElfGenericHeader_H
+	#define ElfGenericHeader_H
 
 	#include <QtGui>
+	#include <elf.h>
+	#include <vector>
+
+	//Makes item being enabled, selectable and drag-able
+	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
 
 	const QString generic_horizontal_labels[] =
 	{
@@ -9,42 +14,35 @@
 		"Meaning"
 	};
 
-	class ElfGenericHeader : public ElfHeaderWidget//public QWidget
+	class ElfGenericHeader : public QWidget
 	{
 	Q_OBJECT
-
-	//private:
-		//unsigned int columns;
-		//unsigned int rows;
-		// bool tableheaders;
+	private:
+		unsigned int columns;
+		unsigned int rows;
+		bool tableheaders;
 
 	protected:
-		//QVBoxLayout *layout;
-		QSpinBox *spin;
-		//QTableWidget *table;
-		//QStringList stringlist;
-		//QStringList valueslist;
-		//bool is64bit;
-
-		unsigned char *base;
-		int entry_size;
-		__uint64_t offset;
-
-		virtual void SetValues( int index ) = 0;
+		QVBoxLayout *layout;
+		QTableWidget *table;
+		QStringList stringlist;
+		QStringList valueslist;
+		bool is64bit;
 
 	public:
 		ElfGenericHeader( int r, int c, bool h=true );
 		~ElfGenericHeader();
-		/*void AddHeader_H();
+
+		bool IsELF64();
+		void AddHeader_H();
 		void AddHeader_V();
 		int AddRow();
 		int AddCol();
-		void ClearRows();*/
-		virtual void SelectData( char *data ) = 0;
+		void ClearRows();
 
-	public slots:
-		void Changed();
+		static bool HasSections( char *data );
+		static QString *ToHexString( unsigned char *stream, unsigned int size );
+
+		virtual void SetElfValues( char *elfheader ) = 0;
 	};
-
-
 #endif
