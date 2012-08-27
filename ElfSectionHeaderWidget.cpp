@@ -36,7 +36,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	if( is64bit )
 		name_index = sect64->sh_name;
 	else
-		name_index = sect64->sh_name;
+		name_index = sect->sh_name;
 	temp_string = new QString();
 	temp_string->setNum( name_index, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );

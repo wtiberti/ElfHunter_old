@@ -42,6 +42,7 @@
 		void ClearRows();
 
 		static bool HasSections( char *data );
+		static bool HasSegments( char *data );
 		static QString *ToHexString( unsigned char *stream, unsigned int size );
 
 		virtual void SetElfValues( char *elfheader ) = 0;

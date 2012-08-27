@@ -114,10 +114,13 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	tabselem.push_back( (QWidget *)temp_elfhdr );
 	temp_elfhdr->SetElfValues( filedata );
 
-	ElfProgHeaderWidget *temp_proghdr = new ElfProgHeaderWidget();
-	temp_proghdr->SelectData( filedata );
-	sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
-	tabselem.push_back( (QWidget *)temp_proghdr );
+	if( ElfGenericHeader::HasSegments( filedata ) )
+	{
+		ElfProgHeaderWidget *temp_proghdr = new ElfProgHeaderWidget();
+		temp_proghdr->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
+		tabselem.push_back( (QWidget *)temp_proghdr );
+	}
 
 	if( ElfGenericHeader::HasSections( filedata ) )
 	{

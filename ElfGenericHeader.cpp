@@ -109,19 +109,27 @@ void ElfGenericHeader::ClearRows()
 
 bool ElfGenericHeader::IsELF64()
 {
-	// TODO check exeptions
 	return is64bit;
 }
 
 bool ElfGenericHeader::HasSections( char *data )
 {
 	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
-	Elf64_Ehdr *header64 = (Elf64_Ehdr *)data;
 
 	if( header->e_ident[EI_CLASS]==ELFCLASS64 )
-		return header64->e_shnum==0?false:true;
+		return ((Elf64_Ehdr *)header)->e_shnum==0?false:true;
 	else
 		return header->e_shnum==0?false:true;
+}
+
+bool ElfGenericHeader::HasSegments( char *data )
+{
+	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
+
+	if( header->e_ident[EI_CLASS]==ELFCLASS64 )
+		return ((Elf64_Ehdr *)header)->e_phnum==0?false:true;
+	else
+		return header->e_phnum==0?false:true;
 }
 
 QString *ElfGenericHeader::ToHexString( unsigned char *stream, unsigned int size )
