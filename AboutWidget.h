@@ -1,6 +1,5 @@
 /** @file AboutWidget.h
- * @brief AboutWidget class definition
- */
+ * @brief AboutWidget class definition*/
 
 #ifndef AboutWidget_H
 	#define AboutWidget_H
@@ -12,8 +11,7 @@
 	 *
 	 * Create a QDialog and put some info on it.
 	 * At the moment, it only contains a QLabel with dummy text, but in the
-	 * future, will be also a picture and maybe scrolling text
-	 */
+	 * future, will be also a picture and maybe scrolling text*/
 	class AboutWidget : public QDialog
 	{
 	private:
@@ -22,14 +20,12 @@
 	public:
 		/** @brief Constructor
 		 *
-		 * Adjust the layout and set the information text into the label
-		 */
+		 * Adjust the layout and set the information text into the label*/
 		AboutWidget();
 
 		/** @brief Destructor
 		 *
-		 * Destroy the QLabel item contening the information text
-		 */
+		 * Destroy the QLabel item contening the information text*/
 		~AboutWidget();
 	};
 #endif

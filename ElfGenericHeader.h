@@ -1,3 +1,6 @@
+/** @file ElfGenericHeader.h
+ * @brief ElfGenericHeader class definition */
+
 #ifndef ElfGenericHeader_H
 	#define ElfGenericHeader_H
 
@@ -8,6 +11,7 @@
 	//Makes item being enabled, selectable and drag-able
 	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
 
+	/** Array of QString used as horizontal labels in the table  */
 	const QString generic_horizontal_labels[] =
 	{
 		"Value",
@@ -15,36 +19,59 @@
 		"Info"
 	};
 
+	/** @class ElfGenericHeader
+	 * @brief Generic ELF header widget
+	 *
+	 * It provides basic attributes and mathods common to each header
+	 * in the ELF files. */
 	class ElfGenericHeader : public QWidget
 	{
 	Q_OBJECT
 	private:
-		unsigned int columns;
-		unsigned int rows;
-		bool tableheaders;
+		unsigned int columns; ///< Contains the actual number of rows
+		unsigned int rows; ///< Contains the actual number of columns
+		bool tableheaders; ///< Flag that indicates whenever table headers are present or not
 
 	protected:
-		QVBoxLayout *layout;
-		QTableWidget *table;
-		QStringList stringlist;
-		QStringList valueslist;
-		bool is64bit;
+		QVBoxLayout *layout; ///< Layput of the widget
+		QTableWidget *table; ///< Table widget used to display data
+		QStringList stringlist; ///< Array of informations string (one for each field)
+		QStringList valueslist; ///< Array of value string (one for each field)
+		bool is64bit; ///< 64-bit flag
 
 	public:
+		/** @brief Constructor
+		 * @param[in] r Number of rows requested
+		 * @param[in] c Number of columns requested
+		 * @param[in] h Table header flag. (default true) */
 		ElfGenericHeader( int r, int c, bool h=true );
-		~ElfGenericHeader();
+		~ElfGenericHeader(); ///< Destructor
 
-		bool IsELF64();
-		void AddHeader_H();
-		void AddHeader_V();
-		int AddRow();
-		int AddCol();
-		void ClearRows();
+		bool IsELF64(); ///< Returns true if the data resambles a 64-bit ELF file
+		void AddHeader_H(); ///< Adds horizontal table headers
+		void AddHeader_V(); ///< Adds vertical table headers
+		int AddRow(); ///< Adds a row to the table
+		int AddCol(); ///< Adds a column to the table
+		void ClearRows(); ///< Delete all the rows int the table
 
+		/** @brief Verify the presence of Section Headers in the selected data
+		 * @param[in] data Data to be verified */
 		static bool HasSections( char *data );
+
+		/** @brief Verify the presence of Program Headers in the selected data
+		 * @param[in] data Data to be verified */
 		static bool HasSegments( char *data );
+
+		/** @brief Convert a sequence of bytes in a hex-string
+		 * @param[in] stream Pointer to data to be converted
+		 * @param[in] size Size in bytes of data */
 		static QString *ToHexString( unsigned char *stream, unsigned int size );
 
+		/** @brief Special method for the main ELF Header
+		 * @param[in] elfheader Pointer to data
+		 *
+		 * This is a virtual function that is implemented *only* in the @ref ElfELFHeaderWidget
+		 * Other header *should* implement it as a dummy methos (eg. empty body) */
 		virtual void SetElfValues( char *elfheader ) = 0;
 	};
 #endif
