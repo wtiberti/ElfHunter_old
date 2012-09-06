@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -69,23 +69,100 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="ElfHunterSideWidget" -->
+<p>Handles the QTabWidget on the right side.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_hunter_side_widget_8h_source.html">ElfHunterSideWidget.h</a>&gt;</code></p>
+
 <p><a href="class_elf_hunter_side_widget-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a54ec64e0c649a098e4feb1f58370c54f"></a><!-- doxytag: member="ElfHunterSideWidget::addTab" ref="a54ec64e0c649a098e4feb1f58370c54f" args="(QWidget *w, QString title)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addTab</b> (QWidget *w, QString title)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_side_widget.html#a54ec64e0c649a098e4feb1f58370c54f">addTab</a> (QWidget *w, QString title)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new widget in a new tab.  <a href="#a54ec64e0c649a098e4feb1f58370c54f"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0e838e9338aebc9ecbcc849308882cd"></a><!-- doxytag: member="ElfHunterSideWidget::ElfHunterSideWidget" ref="ab0e838e9338aebc9ecbcc849308882cd" args="(QWidget *parent=0)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ElfHunterSideWidget</b> (QWidget *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_side_widget.html#ab0e838e9338aebc9ecbcc849308882cd">ElfHunterSideWidget</a> (QWidget *parent=0)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ab0e838e9338aebc9ecbcc849308882cd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4a2d9c15d79afde15caedd3a5214514"></a><!-- doxytag: member="ElfHunterSideWidget::~ElfHunterSideWidget" ref="ab4a2d9c15d79afde15caedd3a5214514" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_side_widget.html#ab4a2d9c15d79afde15caedd3a5214514">~ElfHunterSideWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49ea170ba8f24bedc68397b8e21f9cf6"></a><!-- doxytag: member="ElfHunterSideWidget::layout" ref="a49ea170ba8f24bedc68397b8e21f9cf6" args="" -->
-QVBoxLayout *&#160;</td><td class="memItemRight" valign="bottom"><b>layout</b></td></tr>
+QVBoxLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_side_widget.html#a49ea170ba8f24bedc68397b8e21f9cf6">layout</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout for the widget. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afeb0149a06c99c86c2ec7852b38fae87"></a><!-- doxytag: member="ElfHunterSideWidget::tabs" ref="afeb0149a06c99c86c2ec7852b38fae87" args="" -->
-QTabWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>tabs</b></td></tr>
+QTabWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_side_widget.html#afeb0149a06c99c86c2ec7852b38fae87">tabs</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">QTabWidget. <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Handles the QTabWidget on the right side. </p>
+<p>It create the QTabWidget and offer a public slot for adding new tabs. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ab0e838e9338aebc9ecbcc849308882cd"></a><!-- doxytag: member="ElfHunterSideWidget::ElfHunterSideWidget" ref="ab0e838e9338aebc9ecbcc849308882cd" args="(QWidget *parent=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ElfHunterSideWidget::ElfHunterSideWidget </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Constructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>The parent widget (optional) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a54ec64e0c649a098e4feb1f58370c54f"></a><!-- doxytag: member="ElfHunterSideWidget::addTab" ref="a54ec64e0c649a098e4feb1f58370c54f" args="(QWidget *w, QString title)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfHunterSideWidget::addTab </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>title</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Adds a new widget in a new tab. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>The widget to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">title</td><td>The name of the new tab</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Just a wrapper for QTabWidget::addTab </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_hunter_side_widget_8h_source.html">ElfHunterSideWidget.h</a></li>
 <li>ElfHunterSideWidget.cpp</li>
@@ -105,7 +182,7 @@ QTabWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>tabs</b></td>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

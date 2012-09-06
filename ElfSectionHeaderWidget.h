@@ -1,8 +1,11 @@
+/** @file ElfSectionHeaderWidget.h
+ * @brief ElfSectionHeaderWidget class definition */
 #ifndef ElfSectionHeaderWidget_H
 	#define ElfSectionHeaderWidget_H
 
 	#include "ElfMultiHeader.h"
 
+	/** Section Header fields */
 	const QString secthdr_field_names[] =
 	{
 		"[offset]",
@@ -21,21 +24,25 @@
 	#define SECTHDRTABLEROWS 11
 	#define SECTHDRTABLECOLUMNS 2
 
+	/** @class ElfSectionHeaderWidget
+	 * @brief Class for Section Headers
+	 *
+	 * This class aims to read and show all the Section Headers and their fields */
 	class ElfSectionHeaderWidget : public ElfMultiHeader
 	{
 	Q_OBJECT
 
 	private:
-		unsigned int strsectnx;
-		__uint64_t str_offset;
-		void GetShStrTable();
+		unsigned int strsectnx; ///< Index of the section headers' string table
+		__uint64_t str_offset; ///<  Offset to the section headers' string table
+		void GetShStrTable(); ///< Gets the offset to the section headers' string table
 
 	protected:
-		void SetValues( int index );
+		void SetValues( int index ); ///< @ref ElfMultiHeader::SetValues
 
 	public:
-		ElfSectionHeaderWidget();
-		~ElfSectionHeaderWidget();
-		void SelectData( char *data );
+		ElfSectionHeaderWidget(); ///< Constructor
+		~ElfSectionHeaderWidget(); ///< Destructor
+		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 	};
 #endif

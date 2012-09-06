@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -69,7 +69,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfMultiHeader Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ElfMultiHeader" --><!-- doxytag: inherits="ElfGenericHeader" --><div class="dynheader">
+<!-- doxytag: class="ElfMultiHeader" --><!-- doxytag: inherits="ElfGenericHeader" -->
+<p>Generic class for various ELF header.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_multi_header_8h_source.html">ElfMultiHeader.h</a>&gt;</code></p>
+<div class="dynheader">
 Inheritance diagram for ElfMultiHeader:</div>
 <div class="dyncontent">
  <div class="center">
@@ -86,31 +91,183 @@ Inheritance diagram for ElfMultiHeader:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a173d29ebef87261898354ab8fb2045ed"></a><!-- doxytag: member="ElfMultiHeader::Changed" ref="a173d29ebef87261898354ab8fb2045ed" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Changed</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a173d29ebef87261898354ab8fb2045ed">Changed</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">React to QSpinBox value-change (QT slot)  <a href="#a173d29ebef87261898354ab8fb2045ed"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4cbc08e4e216edbbb62871b9675215f9"></a><!-- doxytag: member="ElfMultiHeader::ElfMultiHeader" ref="a4cbc08e4e216edbbb62871b9675215f9" args="(int r, int c, bool h=true)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ElfMultiHeader</b> (int r, int c, bool h=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7d8e0d24294f8ffa8fd194576e0cad2"></a><!-- doxytag: member="ElfMultiHeader::SetElfValues" ref="aa7d8e0d24294f8ffa8fd194576e0cad2" args="(char *elfheader)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetElfValues</b> (char *elfheader)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28f24e889f64b09abb53d318eb662514"></a><!-- doxytag: member="ElfMultiHeader::SelectData" ref="a28f24e889f64b09abb53d318eb662514" args="(char *data)=0" -->
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SelectData</b> (char *data)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a4cbc08e4e216edbbb62871b9675215f9">ElfMultiHeader</a> (int r, int c, bool h=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a4cbc08e4e216edbbb62871b9675215f9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f96e5634036a494bcb8c3d710bac2b8"></a><!-- doxytag: member="ElfMultiHeader::~ElfMultiHeader" ref="a3f96e5634036a494bcb8c3d710bac2b8" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a3f96e5634036a494bcb8c3d710bac2b8">~ElfMultiHeader</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#aa7d8e0d24294f8ffa8fd194576e0cad2">SetElfValues</a> (char *elfheader)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">reserved method.  <a href="#aa7d8e0d24294f8ffa8fd194576e0cad2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a28f24e889f64b09abb53d318eb662514">SelectData</a> (char *data)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose the headers to show.  <a href="#a28f24e889f64b09abb53d318eb662514"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab856771d8fcf2934bb9fb6b6c53f70fb"></a><!-- doxytag: member="ElfMultiHeader::SetValues" ref="ab856771d8fcf2934bb9fb6b6c53f70fb" args="(int index)=0" -->
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetValues</b> (int index)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">SetValues</a> (int index)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert values inside the table.  <a href="#ab856771d8fcf2934bb9fb6b6c53f70fb"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae58845abc8c7d134d2ef0a8a7ab01801"></a><!-- doxytag: member="ElfMultiHeader::spin" ref="ae58845abc8c7d134d2ef0a8a7ab01801" args="" -->
-QSpinBox *&#160;</td><td class="memItemRight" valign="bottom"><b>spin</b></td></tr>
+QSpinBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#ae58845abc8c7d134d2ef0a8a7ab01801">spin</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">QSpinBox widget to switch between headers. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04f843c393afdb0b616254c5ccbcc43e"></a><!-- doxytag: member="ElfMultiHeader::base" ref="a04f843c393afdb0b616254c5ccbcc43e" args="" -->
-unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>base</b></td></tr>
+unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a04f843c393afdb0b616254c5ccbcc43e">base</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">base address of header table <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96e25794d1082e35e05d633e8716dc68"></a><!-- doxytag: member="ElfMultiHeader::entry_size" ref="a96e25794d1082e35e05d633e8716dc68" args="" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>entry_size</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a96e25794d1082e35e05d633e8716dc68">entry_size</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of a single header. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaaacf94e77e34044f9d3222f35f497b"></a><!-- doxytag: member="ElfMultiHeader::offset" ref="acaaacf94e77e34044f9d3222f35f497b" args="" -->
-__uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>offset</b></td></tr>
+__uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#acaaacf94e77e34044f9d3222f35f497b">offset</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">offset inside the file of the header table <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Generic class for various ELF header. </p>
+<p>It handles those situation with multiple headers of the same type (for example, Section header, Program headers etc.) It adds a QSpinBox to switch from one header to another and offers some methods to handle other aspects </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a4cbc08e4e216edbbb62871b9675215f9"></a><!-- doxytag: member="ElfMultiHeader::ElfMultiHeader" ref="a4cbc08e4e216edbbb62871b9675215f9" args="(int r, int c, bool h=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ElfMultiHeader::ElfMultiHeader </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>h</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Constructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>Number of rows requested </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>Number of columns requested </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">h</td><td>Table header flag. (default true) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a173d29ebef87261898354ab8fb2045ed"></a><!-- doxytag: member="ElfMultiHeader::Changed" ref="a173d29ebef87261898354ab8fb2045ed" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfMultiHeader::Changed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>React to QSpinBox value-change (QT slot) </p>
+<p>After user change the value inside the QSpinBox widget, it calls <a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">SetValues</a> with the index specified by user </p>
+
+</div>
+</div>
+<a class="anchor" id="a28f24e889f64b09abb53d318eb662514"></a><!-- doxytag: member="ElfMultiHeader::SelectData" ref="a28f24e889f64b09abb53d318eb662514" args="(char *data)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ElfMultiHeader::SelectData </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Choose the headers to show. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>The ELF file data</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method takes the pointer to the ELF file and fills class attributes such <a class="el" href="class_elf_multi_header.html#a04f843c393afdb0b616254c5ccbcc43e">base</a>, size and <a class="el" href="class_elf_multi_header.html#acaaacf94e77e34044f9d3222f35f497b">offset</a>. In this way, <a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">SetValues</a> can navigate through headers. </p>
+
+<p>Implemented in <a class="el" href="class_elf_prog_header_widget.html#ade4670d791d4ee736be328e439805d62">ElfProgHeaderWidget</a>, <a class="el" href="class_elf_section_header_widget.html#a5c7b47f87f6b6a4b1b7d4abcd4f65f41">ElfSectionHeaderWidget</a>, and <a class="el" href="class_elf_string_table.html#a30cb9c5f87a287a75804a93d6d1c740a">ElfStringTable</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa7d8e0d24294f8ffa8fd194576e0cad2"></a><!-- doxytag: member="ElfMultiHeader::SetElfValues" ref="aa7d8e0d24294f8ffa8fd194576e0cad2" args="(char *elfheader)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfMultiHeader::SetElfValues </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>elfheader</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>reserved method. </p>
+<p>This method is empty and it is reserved. </p>
+
+<p>Implements <a class="el" href="class_elf_generic_header.html#aede47e15918435ee204569ce4416c650">ElfGenericHeader</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab856771d8fcf2934bb9fb6b6c53f70fb"></a><!-- doxytag: member="ElfMultiHeader::SetValues" ref="ab856771d8fcf2934bb9fb6b6c53f70fb" args="(int index)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ElfMultiHeader::SetValues </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td><code> [protected, pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Insert values inside the table. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>The header number (relative to its position in the file)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method is called automatically by <a class="el" href="class_elf_multi_header.html#a173d29ebef87261898354ab8fb2045ed">Changed</a> </p>
+
+<p>Implemented in <a class="el" href="class_elf_prog_header_widget.html#a3417be90c5123e5085df7478c4d22efb">ElfProgHeaderWidget</a>, <a class="el" href="class_elf_section_header_widget.html#a8e18cc39853e538e7ba83157ef1f1fc4">ElfSectionHeaderWidget</a>, and <a class="el" href="class_elf_string_table.html#a9f238da74a0aa35fdb22f9d21824996e">ElfStringTable</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_multi_header_8h_source.html">ElfMultiHeader.h</a></li>
 <li>ElfMultiHeader.cpp</li>
@@ -130,7 +287,7 @@ __uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>offset</b></td>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

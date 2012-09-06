@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -69,7 +69,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfSectionHeaderWidget Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ElfSectionHeaderWidget" --><!-- doxytag: inherits="ElfMultiHeader" --><div class="dynheader">
+<!-- doxytag: class="ElfSectionHeaderWidget" --><!-- doxytag: inherits="ElfMultiHeader" -->
+<p>Class for Section Headers.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_section_header_widget_8h_source.html">ElfSectionHeaderWidget.h</a>&gt;</code></p>
+<div class="dynheader">
 Inheritance diagram for ElfSectionHeaderWidget:</div>
 <div class="dyncontent">
  <div class="center">
@@ -84,24 +89,38 @@ Inheritance diagram for ElfSectionHeaderWidget:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad91e0d2fbd6bd0ecf353590afe24072d"></a><!-- doxytag: member="ElfSectionHeaderWidget::ElfSectionHeaderWidget" ref="ad91e0d2fbd6bd0ecf353590afe24072d" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#ad91e0d2fbd6bd0ecf353590afe24072d">ElfSectionHeaderWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acacacde1517830c93cdb5639452a2558"></a><!-- doxytag: member="ElfSectionHeaderWidget::~ElfSectionHeaderWidget" ref="acacacde1517830c93cdb5639452a2558" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#acacacde1517830c93cdb5639452a2558">~ElfSectionHeaderWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c7b47f87f6b6a4b1b7d4abcd4f65f41"></a><!-- doxytag: member="ElfSectionHeaderWidget::SelectData" ref="a5c7b47f87f6b6a4b1b7d4abcd4f65f41" args="(char *data)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SelectData</b> (char *data)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#a5c7b47f87f6b6a4b1b7d4abcd4f65f41">SelectData</a> (char *data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_elf_multi_header.html#a28f24e889f64b09abb53d318eb662514">ElfMultiHeader::SelectData</a> <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e18cc39853e538e7ba83157ef1f1fc4"></a><!-- doxytag: member="ElfSectionHeaderWidget::SetValues" ref="a8e18cc39853e538e7ba83157ef1f1fc4" args="(int index)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetValues</b> (int index)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#a8e18cc39853e538e7ba83157ef1f1fc4">SetValues</a> (int index)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">ElfMultiHeader::SetValues</a> <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3567795a40a6d395e4266619b4a00f93"></a><!-- doxytag: member="ElfSectionHeaderWidget::GetShStrTable" ref="a3567795a40a6d395e4266619b4a00f93" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetShStrTable</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#a3567795a40a6d395e4266619b4a00f93">GetShStrTable</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the offset to the section headers' string table. <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa13aa9bb7b37b03d471af41d549dc0f7"></a><!-- doxytag: member="ElfSectionHeaderWidget::strsectnx" ref="aa13aa9bb7b37b03d471af41d549dc0f7" args="" -->
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>strsectnx</b></td></tr>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#aa13aa9bb7b37b03d471af41d549dc0f7">strsectnx</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of the section headers' string table. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc26208c4b7c6fcd698e8bf5ecb4a702"></a><!-- doxytag: member="ElfSectionHeaderWidget::str_offset" ref="afc26208c4b7c6fcd698e8bf5ecb4a702" args="" -->
-__uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>str_offset</b></td></tr>
+__uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_section_header_widget.html#afc26208c4b7c6fcd698e8bf5ecb4a702">str_offset</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset to the section headers' string table. <br/></td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Class for Section Headers. </p>
+<p>This class aims to read and show all the Section Headers and their fields </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_section_header_widget_8h_source.html">ElfSectionHeaderWidget.h</a></li>
 <li>ElfSectionHeaderWidget.cpp</li>
 </ul>
@@ -120,7 +139,7 @@ __uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>str_offset</b><
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

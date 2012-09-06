@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -69,7 +69,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfGenericHeader Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ElfGenericHeader" --><div class="dynheader">
+<!-- doxytag: class="ElfGenericHeader" -->
+<p>Generic ELF header widget.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_generic_header_8h_source.html">ElfGenericHeader.h</a>&gt;</code></p>
+<div class="dynheader">
 Inheritance diagram for ElfGenericHeader:</div>
 <div class="dyncontent">
  <div class="center">
@@ -87,51 +92,230 @@ Inheritance diagram for ElfGenericHeader:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37e27d28816e000ba3d8ac286088c9aa"></a><!-- doxytag: member="ElfGenericHeader::ElfGenericHeader" ref="a37e27d28816e000ba3d8ac286088c9aa" args="(int r, int c, bool h=true)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ElfGenericHeader</b> (int r, int c, bool h=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a37e27d28816e000ba3d8ac286088c9aa">ElfGenericHeader</a> (int r, int c, bool h=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a37e27d28816e000ba3d8ac286088c9aa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67075eccae976f29f00ce5cf9f537e92"></a><!-- doxytag: member="ElfGenericHeader::~ElfGenericHeader" ref="a67075eccae976f29f00ce5cf9f537e92" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a67075eccae976f29f00ce5cf9f537e92">~ElfGenericHeader</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84a6dedb5d8fc06a7db65ce86d77777e"></a><!-- doxytag: member="ElfGenericHeader::IsELF64" ref="a84a6dedb5d8fc06a7db65ce86d77777e" args="()" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsELF64</b> ()</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a84a6dedb5d8fc06a7db65ce86d77777e">IsELF64</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the data resambles a 64-bit ELF file. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94a08e1ac1a35dc649e96d0b917333ed"></a><!-- doxytag: member="ElfGenericHeader::AddHeader_H" ref="a94a08e1ac1a35dc649e96d0b917333ed" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddHeader_H</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a94a08e1ac1a35dc649e96d0b917333ed">AddHeader_H</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds horizontal table headers. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06888d84c30d55dc324919108ca2a1cd"></a><!-- doxytag: member="ElfGenericHeader::AddHeader_V" ref="a06888d84c30d55dc324919108ca2a1cd" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddHeader_V</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a06888d84c30d55dc324919108ca2a1cd">AddHeader_V</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds vertical table headers. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5cdac799c50067ea13811a4da7106b3"></a><!-- doxytag: member="ElfGenericHeader::AddRow" ref="ac5cdac799c50067ea13811a4da7106b3" args="()" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AddRow</b> ()</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#ac5cdac799c50067ea13811a4da7106b3">AddRow</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a row to the table. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80f308f5cae7089823216ed367cc7abf"></a><!-- doxytag: member="ElfGenericHeader::AddCol" ref="a80f308f5cae7089823216ed367cc7abf" args="()" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AddCol</b> ()</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a80f308f5cae7089823216ed367cc7abf">AddCol</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a column to the table. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa509bfd0f1bb9237dcc810c191e40de7"></a><!-- doxytag: member="ElfGenericHeader::ClearRows" ref="aa509bfd0f1bb9237dcc810c191e40de7" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearRows</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aede47e15918435ee204569ce4416c650"></a><!-- doxytag: member="ElfGenericHeader::SetElfValues" ref="aede47e15918435ee204569ce4416c650" args="(char *elfheader)=0" -->
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetElfValues</b> (char *elfheader)=0</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#aa509bfd0f1bb9237dcc810c191e40de7">ClearRows</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all the rows int the table. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#aede47e15918435ee204569ce4416c650">SetElfValues</a> (char *elfheader)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Special method for the main ELF Header.  <a href="#aede47e15918435ee204569ce4416c650"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6b49c59dea22dfc6d8cc7c1bced1fa5"></a><!-- doxytag: member="ElfGenericHeader::HasSections" ref="ab6b49c59dea22dfc6d8cc7c1bced1fa5" args="(char *data)" -->
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasSections</b> (char *data)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf1dc59c188ff62cb7d011bbb48aa288"></a><!-- doxytag: member="ElfGenericHeader::HasSegments" ref="adf1dc59c188ff62cb7d011bbb48aa288" args="(char *data)" -->
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasSegments</b> (char *data)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21a9511cb6b6b5f94c94a17647cc5e5d"></a><!-- doxytag: member="ElfGenericHeader::ToHexString" ref="a21a9511cb6b6b5f94c94a17647cc5e5d" args="(unsigned char *stream, unsigned int size)" -->
-static QString *&#160;</td><td class="memItemRight" valign="bottom"><b>ToHexString</b> (unsigned char *stream, unsigned int size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#ab6b49c59dea22dfc6d8cc7c1bced1fa5">HasSections</a> (char *data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the presence of Section Headers in the selected data.  <a href="#ab6b49c59dea22dfc6d8cc7c1bced1fa5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#adf1dc59c188ff62cb7d011bbb48aa288">HasSegments</a> (char *data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the presence of Program Headers in the selected data.  <a href="#adf1dc59c188ff62cb7d011bbb48aa288"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static QString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a21a9511cb6b6b5f94c94a17647cc5e5d">ToHexString</a> (unsigned char *stream, unsigned int size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a sequence of bytes in a hex-string.  <a href="#a21a9511cb6b6b5f94c94a17647cc5e5d"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11e2f2597f1468d2af99911904e33b79"></a><!-- doxytag: member="ElfGenericHeader::layout" ref="a11e2f2597f1468d2af99911904e33b79" args="" -->
-QVBoxLayout *&#160;</td><td class="memItemRight" valign="bottom"><b>layout</b></td></tr>
+QVBoxLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a11e2f2597f1468d2af99911904e33b79">layout</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Layput of the widget. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ec18e6be4a07d97c6f57981dff15e11"></a><!-- doxytag: member="ElfGenericHeader::table" ref="a9ec18e6be4a07d97c6f57981dff15e11" args="" -->
-QTableWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>table</b></td></tr>
+QTableWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a9ec18e6be4a07d97c6f57981dff15e11">table</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Table widget used to display data. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa07c655adf98afe67b69e62cb89930ab"></a><!-- doxytag: member="ElfGenericHeader::stringlist" ref="aa07c655adf98afe67b69e62cb89930ab" args="" -->
-QStringList&#160;</td><td class="memItemRight" valign="bottom"><b>stringlist</b></td></tr>
+QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#aa07c655adf98afe67b69e62cb89930ab">stringlist</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of informations string (one for each field) <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abaf968b3117a1ed7db44a3be46051289"></a><!-- doxytag: member="ElfGenericHeader::valueslist" ref="abaf968b3117a1ed7db44a3be46051289" args="" -->
-QStringList&#160;</td><td class="memItemRight" valign="bottom"><b>valueslist</b></td></tr>
+QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#abaf968b3117a1ed7db44a3be46051289">valueslist</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of value string (one for each field) <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5e24acd743440c434a028490ee255d4"></a><!-- doxytag: member="ElfGenericHeader::is64bit" ref="ad5e24acd743440c434a028490ee255d4" args="" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is64bit</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#ad5e24acd743440c434a028490ee255d4">is64bit</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">64-bit flag <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bfbe2a3a2b78a25838e4be82b01616b"></a><!-- doxytag: member="ElfGenericHeader::columns" ref="a4bfbe2a3a2b78a25838e4be82b01616b" args="" -->
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>columns</b></td></tr>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#a4bfbe2a3a2b78a25838e4be82b01616b">columns</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the actual number of rows. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8174d4b1bd9e808e2ee19697957ecd6"></a><!-- doxytag: member="ElfGenericHeader::rows" ref="af8174d4b1bd9e808e2ee19697957ecd6" args="" -->
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>rows</b></td></tr>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#af8174d4b1bd9e808e2ee19697957ecd6">rows</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the actual number of columns. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0826c9b450e44b8ea14ccb7bba53159"></a><!-- doxytag: member="ElfGenericHeader::tableheaders" ref="ab0826c9b450e44b8ea14ccb7bba53159" args="" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>tableheaders</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_generic_header.html#ab0826c9b450e44b8ea14ccb7bba53159">tableheaders</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag that indicates whenever table headers are present or not. <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Generic ELF header widget. </p>
+<p>It provides basic attributes and mathods common to each header in the ELF files. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a37e27d28816e000ba3d8ac286088c9aa"></a><!-- doxytag: member="ElfGenericHeader::ElfGenericHeader" ref="a37e27d28816e000ba3d8ac286088c9aa" args="(int r, int c, bool h=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ElfGenericHeader::ElfGenericHeader </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>h</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Constructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>Number of rows requested </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>Number of columns requested </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">h</td><td>Table header flag. (default true) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ab6b49c59dea22dfc6d8cc7c1bced1fa5"></a><!-- doxytag: member="ElfGenericHeader::HasSections" ref="ab6b49c59dea22dfc6d8cc7c1bced1fa5" args="(char *data)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ElfGenericHeader::HasSections </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Verify the presence of Section Headers in the selected data. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data to be verified </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="adf1dc59c188ff62cb7d011bbb48aa288"></a><!-- doxytag: member="ElfGenericHeader::HasSegments" ref="adf1dc59c188ff62cb7d011bbb48aa288" args="(char *data)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ElfGenericHeader::HasSegments </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Verify the presence of Program Headers in the selected data. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data to be verified </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aede47e15918435ee204569ce4416c650"></a><!-- doxytag: member="ElfGenericHeader::SetElfValues" ref="aede47e15918435ee204569ce4416c650" args="(char *elfheader)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ElfGenericHeader::SetElfValues </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>elfheader</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Special method for the main ELF Header. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">elfheader</td><td>Pointer to data</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This is a virtual function that is implemented *only* in the <a class="el" href="class_elf_e_l_f_header_widget.html">ElfELFHeaderWidget</a> Other header *should* implement it as a dummy methos (eg. empty body) </p>
+
+<p>Implemented in <a class="el" href="class_elf_e_l_f_header_widget.html#aab1075010504b64405ab89302ec33491">ElfELFHeaderWidget</a>, and <a class="el" href="class_elf_multi_header.html#aa7d8e0d24294f8ffa8fd194576e0cad2">ElfMultiHeader</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21a9511cb6b6b5f94c94a17647cc5e5d"></a><!-- doxytag: member="ElfGenericHeader::ToHexString" ref="a21a9511cb6b6b5f94c94a17647cc5e5d" args="(unsigned char *stream, unsigned int size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString * ElfGenericHeader::ToHexString </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Convert a sequence of bytes in a hex-string. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">stream</td><td>Pointer to data to be converted </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Size in bytes of data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_generic_header_8h_source.html">ElfGenericHeader.h</a></li>
 <li>ElfGenericHeader.cpp</li>
@@ -151,7 +335,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>tableheaders</b></td>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

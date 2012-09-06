@@ -1,8 +1,11 @@
+/** @file ElfProgHeaderWidget.h
+ * @brief ElfProgHeaderWidget class definition */
 #ifndef ElfProgHeaderWidget_H
 	#define ElfProgHeaderWidget_H
 
 	#include "ElfMultiHeader.h"
 
+	/** Program Header fields ( 32-bit version ) */
 	const QString proghdr_field_names[] =
 	{
 		"p_type",
@@ -15,6 +18,7 @@
 		"p_align"
 	};
 
+	/** Program Header fields ( 64-bit version ) */
 	const QString proghdr_field_names64[] =
 	{
 		"p_type",
@@ -30,17 +34,22 @@
 	#define PROGHDRTABLEROWS 8
 	#define PROGHDRTABLECOLUMNS 2
 
+	/** @class ElfProgHeaderWidget
+	 * @brief Class for Program Headers
+	 *
+	 * This class aims to read all the program headers and their fields. */
 	class ElfProgHeaderWidget : public ElfMultiHeader
 	{
 	Q_OBJECT
 
 	protected:
-		void SetValues( int index );
+		void SetValues( int index ); ///< @ref ElfMultiHeader::SetValues
 
 	public:
-		ElfProgHeaderWidget();
-		~ElfProgHeaderWidget();
-		void SelectData( char *data );
+		ElfProgHeaderWidget(); ///< Constructor
+		~ElfProgHeaderWidget(); ///< Destructor
+
+		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 	};
 
 #endif

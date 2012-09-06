@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -53,6 +53,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -60,52 +61,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfProgHeaderWidget.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef ElfProgHeaderWidget_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">    #define ElfProgHeaderWidget_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">    #include &quot;ElfMultiHeader.h&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006     <span class="keyword">const</span> QString proghdr_field_names[] =
-<a name="l00007"></a>00007     {
-<a name="l00008"></a>00008         <span class="stringliteral">&quot;p_type&quot;</span>,
-<a name="l00009"></a>00009         <span class="stringliteral">&quot;p_offset&quot;</span>,
-<a name="l00010"></a>00010         <span class="stringliteral">&quot;p_vaddr&quot;</span>,
-<a name="l00011"></a>00011         <span class="stringliteral">&quot;p_paddr&quot;</span>,
-<a name="l00012"></a>00012         <span class="stringliteral">&quot;p_filesz&quot;</span>,
-<a name="l00013"></a>00013         <span class="stringliteral">&quot;p_memsz&quot;</span>,
-<a name="l00014"></a>00014         <span class="stringliteral">&quot;p_flags&quot;</span>,
-<a name="l00015"></a>00015         <span class="stringliteral">&quot;p_align&quot;</span>
-<a name="l00016"></a>00016     };
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018     <span class="keyword">const</span> QString proghdr_field_names64[] =
-<a name="l00019"></a>00019     {
-<a name="l00020"></a>00020         <span class="stringliteral">&quot;p_type&quot;</span>,
-<a name="l00021"></a>00021         <span class="stringliteral">&quot;p_flags&quot;</span>,
-<a name="l00022"></a>00022         <span class="stringliteral">&quot;p_offset&quot;</span>,
-<a name="l00023"></a>00023         <span class="stringliteral">&quot;p_vaddr&quot;</span>,
-<a name="l00024"></a>00024         <span class="stringliteral">&quot;p_paddr&quot;</span>,
-<a name="l00025"></a>00025         <span class="stringliteral">&quot;p_filesz&quot;</span>,
-<a name="l00026"></a>00026         <span class="stringliteral">&quot;p_memsz&quot;</span>,
-<a name="l00027"></a>00027         <span class="stringliteral">&quot;p_align&quot;</span>
-<a name="l00028"></a>00028     };
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="preprocessor">    #define PROGHDRTABLEROWS 8</span>
-<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">    #define PROGHDRTABLECOLUMNS 2</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span>
-<a name="l00033"></a><a class="code" href="class_elf_prog_header_widget.html">00033</a>     <span class="keyword">class </span><a class="code" href="class_elf_prog_header_widget.html">ElfProgHeaderWidget</a> : <span class="keyword">public</span> <a class="code" href="class_elf_multi_header.html">ElfMultiHeader</a>
-<a name="l00034"></a>00034     {
-<a name="l00035"></a>00035     Q_OBJECT
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="keyword">protected</span>:
-<a name="l00038"></a>00038         <span class="keywordtype">void</span> SetValues( <span class="keywordtype">int</span> index );
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="keyword">public</span>:
-<a name="l00041"></a>00041         <a class="code" href="class_elf_prog_header_widget.html">ElfProgHeaderWidget</a>();
-<a name="l00042"></a>00042         ~<a class="code" href="class_elf_prog_header_widget.html">ElfProgHeaderWidget</a>();
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> SelectData( <span class="keywordtype">char</span> *data );
-<a name="l00044"></a>00044     };
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
+<a href="_elf_prog_header_widget_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00003"></a>00003 <span class="preprocessor">#ifndef ElfProgHeaderWidget_H</span>
+<a name="l00004"></a>00004 <span class="preprocessor"></span><span class="preprocessor">    #define ElfProgHeaderWidget_H</span>
+<a name="l00005"></a>00005 <span class="preprocessor"></span>
+<a name="l00006"></a>00006 <span class="preprocessor">    #include &quot;<a class="code" href="_elf_multi_header_8h.html" title="ElfMultiHeader class definition.">ElfMultiHeader.h</a>&quot;</span>
+<a name="l00007"></a>00007 
+<a name="l00009"></a><a class="code" href="_elf_prog_header_widget_8h.html#a24905409a374887b152d754a6235d6bd">00009</a>     <span class="keyword">const</span> QString <a class="code" href="_elf_prog_header_widget_8h.html#a24905409a374887b152d754a6235d6bd">proghdr_field_names</a>[] =
+<a name="l00010"></a>00010     {
+<a name="l00011"></a>00011         <span class="stringliteral">&quot;p_type&quot;</span>,
+<a name="l00012"></a>00012         <span class="stringliteral">&quot;p_offset&quot;</span>,
+<a name="l00013"></a>00013         <span class="stringliteral">&quot;p_vaddr&quot;</span>,
+<a name="l00014"></a>00014         <span class="stringliteral">&quot;p_paddr&quot;</span>,
+<a name="l00015"></a>00015         <span class="stringliteral">&quot;p_filesz&quot;</span>,
+<a name="l00016"></a>00016         <span class="stringliteral">&quot;p_memsz&quot;</span>,
+<a name="l00017"></a>00017         <span class="stringliteral">&quot;p_flags&quot;</span>,
+<a name="l00018"></a>00018         <span class="stringliteral">&quot;p_align&quot;</span>
+<a name="l00019"></a>00019     };
+<a name="l00020"></a>00020 
+<a name="l00022"></a><a class="code" href="_elf_prog_header_widget_8h.html#a70dc4f34b465201c3590955d1c96fcbe">00022</a>     <span class="keyword">const</span> QString <a class="code" href="_elf_prog_header_widget_8h.html#a70dc4f34b465201c3590955d1c96fcbe">proghdr_field_names64</a>[] =
+<a name="l00023"></a>00023     {
+<a name="l00024"></a>00024         <span class="stringliteral">&quot;p_type&quot;</span>,
+<a name="l00025"></a>00025         <span class="stringliteral">&quot;p_flags&quot;</span>,
+<a name="l00026"></a>00026         <span class="stringliteral">&quot;p_offset&quot;</span>,
+<a name="l00027"></a>00027         <span class="stringliteral">&quot;p_vaddr&quot;</span>,
+<a name="l00028"></a>00028         <span class="stringliteral">&quot;p_paddr&quot;</span>,
+<a name="l00029"></a>00029         <span class="stringliteral">&quot;p_filesz&quot;</span>,
+<a name="l00030"></a>00030         <span class="stringliteral">&quot;p_memsz&quot;</span>,
+<a name="l00031"></a>00031         <span class="stringliteral">&quot;p_align&quot;</span>
+<a name="l00032"></a>00032     };
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="preprocessor">    #define PROGHDRTABLEROWS 8</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">    #define PROGHDRTABLECOLUMNS 2</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span>
+<a name="l00041"></a><a class="code" href="class_elf_prog_header_widget.html">00041</a>     <span class="keyword">class </span><a class="code" href="class_elf_prog_header_widget.html" title="Class for Program Headers.">ElfProgHeaderWidget</a> : <span class="keyword">public</span> <a class="code" href="class_elf_multi_header.html" title="Generic class for various ELF header.">ElfMultiHeader</a>
+<a name="l00042"></a>00042     {
+<a name="l00043"></a>00043     Q_OBJECT
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="keyword">protected</span>:
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="class_elf_prog_header_widget.html#a3417be90c5123e5085df7478c4d22efb" title="ElfMultiHeader::SetValues">SetValues</a>( <span class="keywordtype">int</span> index ); 
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keyword">public</span>:
+<a name="l00049"></a>00049         <a class="code" href="class_elf_prog_header_widget.html#a0b06ad8ae914d96a318289e21786812f" title="Constructor.">ElfProgHeaderWidget</a>(); 
+<a name="l00050"></a>00050         <a class="code" href="class_elf_prog_header_widget.html#a4ad36d288b86012b590f21f040ad7e72" title="Destructor.">~ElfProgHeaderWidget</a>(); 
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="class_elf_prog_header_widget.html#ade4670d791d4ee736be328e439805d62" title="ElfMultiHeader::SelectData">SelectData</a>( <span class="keywordtype">char</span> *data ); 
+<a name="l00053"></a>00053     };
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -122,7 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

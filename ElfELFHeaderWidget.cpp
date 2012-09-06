@@ -103,7 +103,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 
 	// e_ident size
 	temp_string = new QString();
-	temp_string->setNum( header->e_ident[EI_NIDENT] );
+	temp_string->setNum( EI_NIDENT );
 	stringlist << *temp_string;
 
 	// e_type

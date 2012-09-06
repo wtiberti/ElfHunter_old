@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -68,31 +68,112 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="ElfHunterHexWidget" -->
+<p>Implementation of KHexEditor interface.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_hunter_hex_widget_8h_source.html">ElfHunterHexWidget.h</a>&gt;</code></p>
+
 <p><a href="class_elf_hunter_hex_widget-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ca5bd54ee94c5441b695998490a4cd2"></a><!-- doxytag: member="ElfHunterHexWidget::ElfHunterHexWidget" ref="a7ca5bd54ee94c5441b695998490a4cd2" args="(QWidget *parent=0)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ElfHunterHexWidget</b> (QWidget *parent=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25f8b81de7b6b57f4a4d6c4f854166ef"></a><!-- doxytag: member="ElfHunterHexWidget::SetData" ref="a25f8b81de7b6b57f4a4d6c4f854166ef" args="(char *data, unsigned long datasize)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetData</b> (char *data, unsigned long datasize)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a7ca5bd54ee94c5441b695998490a4cd2">ElfHunterHexWidget</a> (QWidget *parent=0)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructor.  <a href="#a7ca5bd54ee94c5441b695998490a4cd2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f8f9437994e9d74cfd67f8eeb00b05b"></a><!-- doxytag: member="ElfHunterHexWidget::~ElfHunterHexWidget" ref="a5f8f9437994e9d74cfd67f8eeb00b05b" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a5f8f9437994e9d74cfd67f8eeb00b05b">~ElfHunterHexWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a25f8b81de7b6b57f4a4d6c4f854166ef">SetData</a> (char *data, unsigned long datasize)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data into the widget.  <a href="#a25f8b81de7b6b57f4a4d6c4f854166ef"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26482f5fd9be06354c97d8915ee8b915"></a><!-- doxytag: member="ElfHunterHexWidget::ClearData" ref="a26482f5fd9be06354c97d8915ee8b915" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearData</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a26482f5fd9be06354c97d8915ee8b915">ClearData</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the widget and clear data. <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3a1f0313a0cec07727e34cb35e2dca7"></a><!-- doxytag: member="ElfHunterHexWidget::khe_widget" ref="ac3a1f0313a0cec07727e34cb35e2dca7" args="" -->
-QWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>khe_widget</b></td></tr>
+QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#ac3a1f0313a0cec07727e34cb35e2dca7">khe_widget</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">KHexEditor Widget. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01fe97a9660118b990ab1afb837541bb"></a><!-- doxytag: member="ElfHunterHexWidget::khe_interface" ref="a01fe97a9660118b990ab1afb837541bb" args="" -->
-KHE::BytesEditInterface *&#160;</td><td class="memItemRight" valign="bottom"><b>khe_interface</b></td></tr>
+KHE::BytesEditInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a01fe97a9660118b990ab1afb837541bb">khe_interface</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Part of KHE interface. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb18889744cb81d509ba0102abc3a85a"></a><!-- doxytag: member="ElfHunterHexWidget::khe_hexvalues" ref="aeb18889744cb81d509ba0102abc3a85a" args="" -->
-KHE::ValueColumnInterface *&#160;</td><td class="memItemRight" valign="bottom"><b>khe_hexvalues</b></td></tr>
+KHE::ValueColumnInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#aeb18889744cb81d509ba0102abc3a85a">khe_hexvalues</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Part of KHE interface. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a274f8ce163d3d394b7a8a377951f20d6"></a><!-- doxytag: member="ElfHunterHexWidget::khe_charvalues" ref="a274f8ce163d3d394b7a8a377951f20d6" args="" -->
-KHE::CharColumnInterface *&#160;</td><td class="memItemRight" valign="bottom"><b>khe_charvalues</b></td></tr>
+KHE::CharColumnInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#a274f8ce163d3d394b7a8a377951f20d6">khe_charvalues</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Part of KHE interface. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa66a81a9e72554e4bb0b2357b6cda20a"></a><!-- doxytag: member="ElfHunterHexWidget::l" ref="aa66a81a9e72554e4bb0b2357b6cda20a" args="" -->
-QGridLayout *&#160;</td><td class="memItemRight" valign="bottom"><b>l</b></td></tr>
+QGridLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#aa66a81a9e72554e4bb0b2357b6cda20a">l</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Main layout. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac9f399ac367e328057bbfae1b976bd7"></a><!-- doxytag: member="ElfHunterHexWidget::hexdata" ref="aac9f399ac367e328057bbfae1b976bd7" args="" -->
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>hexdata</b></td></tr>
+char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_hunter_hex_widget.html#aac9f399ac367e328057bbfae1b976bd7">hexdata</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to data displayed on the widget. <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Implementation of KHexEditor interface. </p>
+<p>Implements the KHE interface. It provide the standard hex-dump widget and sets up some methods to insert and clean data inside it. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a7ca5bd54ee94c5441b695998490a4cd2"></a><!-- doxytag: member="ElfHunterHexWidget::ElfHunterHexWidget" ref="a7ca5bd54ee94c5441b695998490a4cd2" args="(QWidget *parent=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ElfHunterHexWidget::ElfHunterHexWidget </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Contructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>The parent widget </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a25f8b81de7b6b57f4a4d6c4f854166ef"></a><!-- doxytag: member="ElfHunterHexWidget::SetData" ref="a25f8b81de7b6b57f4a4d6c4f854166ef" args="(char *data, unsigned long datasize)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfHunterHexWidget::SetData </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>datasize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Insert data into the widget. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to data to be inserted </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">datasize</td><td>Size in bytes of data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_hunter_hex_widget_8h_source.html">ElfHunterHexWidget.h</a></li>
 <li>ElfHunterHexWidget.cpp</li>
@@ -112,7 +193,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>hexdata</b></td></t
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

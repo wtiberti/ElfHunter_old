@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -53,6 +53,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -60,39 +61,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfHunterHexWidget.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef ElfHunterHexWidget_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">    #define ElfHunterHexWidget_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">    #include &lt;khexedit/byteseditinterface.h&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">    #include &lt;khexedit/valuecolumninterface.h&gt;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">    #include &lt;khexedit/charcolumninterface.h&gt;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">    #include &lt;khexedit/clipboardinterface.h&gt;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">    #include &lt;QtGui&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="class_elf_hunter_hex_widget.html">00011</a>     <span class="keyword">class </span><a class="code" href="class_elf_hunter_hex_widget.html">ElfHunterHexWidget</a> : <span class="keyword">public</span> QWidget
-<a name="l00012"></a>00012     {
-<a name="l00013"></a>00013     Q_OBJECT
+<a href="_elf_hunter_hex_widget_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00005"></a>00005 <span class="preprocessor">#ifndef ElfHunterHexWidget_H</span>
+<a name="l00006"></a>00006 <span class="preprocessor"></span><span class="preprocessor">    #define ElfHunterHexWidget_H</span>
+<a name="l00007"></a>00007 <span class="preprocessor"></span>
+<a name="l00008"></a>00008 <span class="preprocessor">    #include &lt;khexedit/byteseditinterface.h&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">    #include &lt;khexedit/valuecolumninterface.h&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">    #include &lt;khexedit/charcolumninterface.h&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">    #include &lt;khexedit/clipboardinterface.h&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">    #include &lt;QtGui&gt;</span>
 <a name="l00014"></a>00014 
-<a name="l00015"></a>00015     <span class="keyword">private</span>:
-<a name="l00016"></a>00016         QWidget *khe_widget;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018         KHE::BytesEditInterface *khe_interface;
-<a name="l00019"></a>00019         KHE::ValueColumnInterface *khe_hexvalues;
-<a name="l00020"></a>00020         KHE::CharColumnInterface *khe_charvalues;
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022         QGridLayout *l;
+<a name="l00020"></a><a class="code" href="class_elf_hunter_hex_widget.html">00020</a>     <span class="keyword">class </span><a class="code" href="class_elf_hunter_hex_widget.html" title="Implementation of KHexEditor interface.">ElfHunterHexWidget</a> : <span class="keyword">public</span> QWidget
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022     Q_OBJECT
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024         <span class="keywordtype">char</span> *hexdata;
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <span class="keyword">public</span>:
-<a name="l00027"></a>00027         <a class="code" href="class_elf_hunter_hex_widget.html">ElfHunterHexWidget</a>( QWidget *parent = 0 );
-<a name="l00028"></a>00028         ~<a class="code" href="class_elf_hunter_hex_widget.html">ElfHunterHexWidget</a>();
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030         <span class="keywordtype">void</span> SetData( <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> datasize );
-<a name="l00031"></a>00031         <span class="keywordtype">void</span> ClearData();
-<a name="l00032"></a>00032     };
-<a name="l00033"></a>00033 <span class="preprocessor">#endif</span>
+<a name="l00024"></a>00024     <span class="keyword">private</span>:
+<a name="l00025"></a><a class="code" href="class_elf_hunter_hex_widget.html#ac3a1f0313a0cec07727e34cb35e2dca7">00025</a>         QWidget *<a class="code" href="class_elf_hunter_hex_widget.html#ac3a1f0313a0cec07727e34cb35e2dca7" title="KHexEditor Widget.">khe_widget</a>; 
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="class_elf_hunter_hex_widget.html#a01fe97a9660118b990ab1afb837541bb">00027</a>         KHE::BytesEditInterface *<a class="code" href="class_elf_hunter_hex_widget.html#a01fe97a9660118b990ab1afb837541bb" title="Part of KHE interface.">khe_interface</a>; 
+<a name="l00028"></a><a class="code" href="class_elf_hunter_hex_widget.html#aeb18889744cb81d509ba0102abc3a85a">00028</a>         KHE::ValueColumnInterface *<a class="code" href="class_elf_hunter_hex_widget.html#aeb18889744cb81d509ba0102abc3a85a" title="Part of KHE interface.">khe_hexvalues</a>; 
+<a name="l00029"></a><a class="code" href="class_elf_hunter_hex_widget.html#a274f8ce163d3d394b7a8a377951f20d6">00029</a>         KHE::CharColumnInterface *<a class="code" href="class_elf_hunter_hex_widget.html#a274f8ce163d3d394b7a8a377951f20d6" title="Part of KHE interface.">khe_charvalues</a>; 
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="class_elf_hunter_hex_widget.html#aa66a81a9e72554e4bb0b2357b6cda20a">00031</a>         QGridLayout *<a class="code" href="class_elf_hunter_hex_widget.html#aa66a81a9e72554e4bb0b2357b6cda20a" title="Main layout.">l</a>; 
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="class_elf_hunter_hex_widget.html#aac9f399ac367e328057bbfae1b976bd7">00033</a>         <span class="keywordtype">char</span> *<a class="code" href="class_elf_hunter_hex_widget.html#aac9f399ac367e328057bbfae1b976bd7" title="Pointer to data displayed on the widget.">hexdata</a>; 
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     <span class="keyword">public</span>:
+<a name="l00038"></a>00038         <a class="code" href="class_elf_hunter_hex_widget.html#a7ca5bd54ee94c5441b695998490a4cd2" title="Contructor.">ElfHunterHexWidget</a>( QWidget *parent = 0 );
+<a name="l00039"></a>00039         <a class="code" href="class_elf_hunter_hex_widget.html#a5f8f9437994e9d74cfd67f8eeb00b05b" title="Destructor.">~ElfHunterHexWidget</a>(); 
+<a name="l00040"></a>00040 
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="class_elf_hunter_hex_widget.html#a25f8b81de7b6b57f4a4d6c4f854166ef" title="Insert data into the widget.">SetData</a>( <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> datasize );
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="class_elf_hunter_hex_widget.html#a26482f5fd9be06354c97d8915ee8b915" title="Empty the widget and clear data.">ClearData</a>(); 
+<a name="l00046"></a>00046     };
+<a name="l00047"></a>00047 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -109,7 +111,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

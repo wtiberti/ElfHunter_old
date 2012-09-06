@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -66,7 +66,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfELFHeaderWidget Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ElfELFHeaderWidget" --><!-- doxytag: inherits="ElfGenericHeader" --><div class="dynheader">
+<!-- doxytag: class="ElfELFHeaderWidget" --><!-- doxytag: inherits="ElfGenericHeader" -->
+<p>ELF Header widget class.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_e_l_f_header_widget_8h_source.html">ElfELFHeaderWidget.h</a>&gt;</code></p>
+<div class="dynheader">
 Inheritance diagram for ElfELFHeaderWidget:</div>
 <div class="dyncontent">
  <div class="center">
@@ -80,9 +85,46 @@ Inheritance diagram for ElfELFHeaderWidget:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab1075010504b64405ab89302ec33491"></a><!-- doxytag: member="ElfELFHeaderWidget::SetElfValues" ref="aab1075010504b64405ab89302ec33491" args="(char *elfheader)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetElfValues</b> (char *elfheader)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3d4a16b179a58fd26e02cb502b6eb50"></a><!-- doxytag: member="ElfELFHeaderWidget::ElfELFHeaderWidget" ref="ae3d4a16b179a58fd26e02cb502b6eb50" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_e_l_f_header_widget.html#ae3d4a16b179a58fd26e02cb502b6eb50">ElfELFHeaderWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5769cf21e6c1aa202966b45c4a4d1e63"></a><!-- doxytag: member="ElfELFHeaderWidget::~ElfELFHeaderWidget" ref="a5769cf21e6c1aa202966b45c4a4d1e63" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_e_l_f_header_widget.html#a5769cf21e6c1aa202966b45c4a4d1e63">~ElfELFHeaderWidget</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_e_l_f_header_widget.html#aab1075010504b64405ab89302ec33491">SetElfValues</a> (char *elfheader)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert ELF values in the table.  <a href="#aab1075010504b64405ab89302ec33491"></a><br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>ELF Header widget class. </p>
+<p>This class care about extracting and display the values of the ELF header fields of the loaded file </p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aab1075010504b64405ab89302ec33491"></a><!-- doxytag: member="ElfELFHeaderWidget::SetElfValues" ref="aab1075010504b64405ab89302ec33491" args="(char *elfheader)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfELFHeaderWidget::SetElfValues </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>elfheader</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Insert ELF values in the table. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">elfheader</td><td>Pointer to the ELF file data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_elf_generic_header.html#aede47e15918435ee204569ce4416c650">ElfGenericHeader</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_e_l_f_header_widget_8h_source.html">ElfELFHeaderWidget.h</a></li>
 <li>ElfELFHeaderWidget.cpp</li>
@@ -102,7 +144,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetElfValues</b> (cha
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

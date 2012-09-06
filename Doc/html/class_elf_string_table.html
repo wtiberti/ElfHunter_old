@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -69,7 +69,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfStringTable Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ElfStringTable" --><!-- doxytag: inherits="ElfMultiHeader" --><div class="dynheader">
+<!-- doxytag: class="ElfStringTable" --><!-- doxytag: inherits="ElfMultiHeader" -->
+<p>Select the string sections and extract all the strings.  
+<a href="#_details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_elf_string_table_8h_source.html">ElfStringTable.h</a>&gt;</code></p>
+<div class="dynheader">
 Inheritance diagram for ElfStringTable:</div>
 <div class="dyncontent">
  <div class="center">
@@ -84,23 +89,72 @@ Inheritance diagram for ElfStringTable:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb60778afd53eae8aafa0a029f63a190"></a><!-- doxytag: member="ElfStringTable::ElfStringTable" ref="adb60778afd53eae8aafa0a029f63a190" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#adb60778afd53eae8aafa0a029f63a190">ElfStringTable</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae218cd188475a56bc8c8aa6d7126f6db"></a><!-- doxytag: member="ElfStringTable::~ElfStringTable" ref="ae218cd188475a56bc8c8aa6d7126f6db" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#ae218cd188475a56bc8c8aa6d7126f6db">~ElfStringTable</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a30cb9c5f87a287a75804a93d6d1c740a"></a><!-- doxytag: member="ElfStringTable::SelectData" ref="a30cb9c5f87a287a75804a93d6d1c740a" args="(char *data)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SelectData</b> (char *data)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#a30cb9c5f87a287a75804a93d6d1c740a">SelectData</a> (char *data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_elf_multi_header.html#a28f24e889f64b09abb53d318eb662514">ElfMultiHeader::SelectData</a> <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f238da74a0aa35fdb22f9d21824996e"></a><!-- doxytag: member="ElfStringTable::SetValues" ref="a9f238da74a0aa35fdb22f9d21824996e" args="(int index)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetValues</b> (int index)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#a9f238da74a0aa35fdb22f9d21824996e">SetValues</a> (int index)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">ElfMultiHeader::SetValues</a> <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51adb1fbd3e35f1705bbd525df469f0a"></a><!-- doxytag: member="ElfStringTable::AddString" ref="a51adb1fbd3e35f1705bbd525df469f0a" args="(QString v, QString s)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddString</b> (QString v, QString s)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#a51adb1fbd3e35f1705bbd525df469f0a">AddString</a> (QString v, QString s)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a string to the table.  <a href="#a51adb1fbd3e35f1705bbd525df469f0a"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae023a54628ba5e5d8f0edac473197702"></a><!-- doxytag: member="ElfStringTable::hdrstrings" ref="ae023a54628ba5e5d8f0edac473197702" args="" -->
 char *&#160;</td><td class="memItemRight" valign="bottom"><b>hdrstrings</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a999ec67f17dd68801c2cc0301b56d795"></a><!-- doxytag: member="ElfStringTable::ss" ref="a999ec67f17dd68801c2cc0301b56d795" args="" -->
-std::vector&lt; <a class="el" href="struct_sect_struct.html">SectStruct</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ss</b></td></tr>
+std::vector&lt; <a class="el" href="struct_sect_struct.html">SectStruct</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_string_table.html#a999ec67f17dd68801c2cc0301b56d795">ss</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">One <a class="el" href="struct_sect_struct.html" title="SectStruct definition.">SectStruct</a> for string section. <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Select the string sections and extract all the strings. </p>
+<p>This class analyze the section headers and filter all the section marked as string table. Then, for each section, search for all the strings and display them on the table. *NOTE* This class handles *only* strings in sections. Since sections are optional in pure ELF executable file, you should refer to ElfProgStrings class for strings found in ".DYN" program headers </p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a51adb1fbd3e35f1705bbd525df469f0a"></a><!-- doxytag: member="ElfStringTable::AddString" ref="a51adb1fbd3e35f1705bbd525df469f0a" args="(QString v, QString s)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ElfStringTable::AddString </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add a string to the table. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>Offset of the string </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">s</td><td>Pointer to the string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_elf_string_table_8h_source.html">ElfStringTable.h</a></li>
 <li>ElfStringTable.cpp</li>
@@ -120,7 +174,7 @@ std::vector&lt; <a class="el" href="struct_sect_struct.html">SectStruct</a> &gt;
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

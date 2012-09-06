@@ -20,8 +20,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">ElfHunter&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">A ELF analyzer</div>
+   <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">A ELF file analyzer</div>
   </td>
  </tr>
  </tbody>
@@ -53,6 +53,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -60,33 +61,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>ElfHunterSideWidget.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef ElfHunterSideWidget_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">    #define ElfHunterSideWidget_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">    #include &lt;QtGui&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">    #include &quot;ElfELFHeaderWidget.h&quot;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">    #include &quot;ElfProgHeaderWidget.h&quot;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">    #include &quot;ElfSectionHeaderWidget.h&quot;</span>
-<a name="l00008"></a>00008 <span class="preprocessor">    #include &quot;ElfStringTable.h&quot;</span>
-<a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="class_elf_hunter_side_widget.html">00010</a>     <span class="keyword">class </span><a class="code" href="class_elf_hunter_side_widget.html">ElfHunterSideWidget</a> : <span class="keyword">public</span> QWidget
-<a name="l00011"></a>00011     {
-<a name="l00012"></a>00012     Q_OBJECT
+<a href="_elf_hunter_side_widget_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00005"></a>00005 <span class="preprocessor">#ifndef ElfHunterSideWidget_H</span>
+<a name="l00006"></a>00006 <span class="preprocessor"></span><span class="preprocessor">    #define ElfHunterSideWidget_H</span>
+<a name="l00007"></a>00007 <span class="preprocessor"></span>
+<a name="l00008"></a>00008 <span class="preprocessor">    #include &lt;QtGui&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">    #include &quot;<a class="code" href="_elf_e_l_f_header_widget_8h.html" title="ElfELFHeaderWidget class definition.">ElfELFHeaderWidget.h</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">    #include &quot;<a class="code" href="_elf_prog_header_widget_8h.html" title="ElfProgHeaderWidget class definition.">ElfProgHeaderWidget.h</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">    #include &quot;<a class="code" href="_elf_section_header_widget_8h.html" title="ElfSectionHeaderWidget class definition.">ElfSectionHeaderWidget.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">    #include &quot;ElfStringTable.h&quot;</span>
 <a name="l00013"></a>00013 
-<a name="l00014"></a>00014     <span class="keyword">private</span>:
-<a name="l00015"></a>00015         QVBoxLayout *layout;
-<a name="l00016"></a>00016         QTabWidget *tabs;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018         <span class="comment">//ElfHeaderWidget *elfhdr_w;</span>
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020     <span class="keyword">public</span>:
-<a name="l00021"></a>00021         <a class="code" href="class_elf_hunter_side_widget.html">ElfHunterSideWidget</a>( QWidget *parent = 0 );
-<a name="l00022"></a>00022         ~<a class="code" href="class_elf_hunter_side_widget.html">ElfHunterSideWidget</a>();
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024     <span class="keyword">public</span> slots:
-<a name="l00025"></a>00025         <span class="keywordtype">void</span> addTab( QWidget *w, QString title );
-<a name="l00026"></a>00026     };
-<a name="l00027"></a>00027 <span class="preprocessor">#endif</span>
+<a name="l00018"></a><a class="code" href="class_elf_hunter_side_widget.html">00018</a>     <span class="keyword">class </span><a class="code" href="class_elf_hunter_side_widget.html" title="Handles the QTabWidget on the right side.">ElfHunterSideWidget</a> : <span class="keyword">public</span> QWidget
+<a name="l00019"></a>00019     {
+<a name="l00020"></a>00020     Q_OBJECT
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022     <span class="keyword">private</span>:
+<a name="l00023"></a><a class="code" href="class_elf_hunter_side_widget.html#a49ea170ba8f24bedc68397b8e21f9cf6">00023</a>         QVBoxLayout *<a class="code" href="class_elf_hunter_side_widget.html#a49ea170ba8f24bedc68397b8e21f9cf6" title="Layout for the widget.">layout</a>; 
+<a name="l00024"></a><a class="code" href="class_elf_hunter_side_widget.html#afeb0149a06c99c86c2ec7852b38fae87">00024</a>         QTabWidget *<a class="code" href="class_elf_hunter_side_widget.html#afeb0149a06c99c86c2ec7852b38fae87" title="QTabWidget.">tabs</a>; 
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026     <span class="keyword">public</span>:
+<a name="l00029"></a>00029         <a class="code" href="class_elf_hunter_side_widget.html#ab0e838e9338aebc9ecbcc849308882cd" title="Constructor.">ElfHunterSideWidget</a>( QWidget *parent = 0 );
+<a name="l00030"></a>00030         <a class="code" href="class_elf_hunter_side_widget.html#ab4a2d9c15d79afde15caedd3a5214514" title="Destructor.">~ElfHunterSideWidget</a>(); 
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <span class="keyword">public</span> slots:
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="class_elf_hunter_side_widget.html#a54ec64e0c649a098e4feb1f58370c54f" title="Adds a new widget in a new tab.">addTab</a>( QWidget *w, QString title );
+<a name="l00039"></a>00039     };
+<a name="l00040"></a>00040 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 30 2012 19:02:40 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
