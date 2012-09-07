@@ -14,8 +14,8 @@ ElfMultiHeader::~ElfMultiHeader()
 	delete spin;
 }
 
-void ElfMultiHeader::SetElfValues( char *elfheader )
-{ /* Not needed */ }
+//void ElfMultiHeader::SetElfValues( char *elfheader )
+//{ /* Not needed */ }
 
 void ElfMultiHeader::Changed()
 {

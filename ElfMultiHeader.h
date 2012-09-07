@@ -41,11 +41,6 @@
 		/** @brief Destructor */
 		~ElfMultiHeader();
 
-		/** @brief reserved method.
-		 *
-		 * This method is empty and it is reserved. */
-		void SetElfValues( char *elfheader );
-
 		/** @brief Choose the headers to show
 		 * @param[in] data The ELF file data
 		 *

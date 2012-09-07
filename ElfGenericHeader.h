@@ -66,12 +66,5 @@
 		 * @param[in] stream Pointer to data to be converted
 		 * @param[in] size Size in bytes of data */
 		static QString *ToHexString( unsigned char *stream, unsigned int size );
-
-		/** @brief Special method for the main ELF Header
-		 * @param[in] elfheader Pointer to data
-		 *
-		 * This is a virtual function that is implemented *only* in the @ref ElfELFHeaderWidget
-		 * Other header *should* implement it as a dummy methos (eg. empty body) */
-		virtual void SetElfValues( char *elfheader ) = 0;
 	};
 #endif
