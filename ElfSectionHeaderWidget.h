@@ -21,8 +21,8 @@
 		"sh_entsize"
 	};
 
-	#define SECTHDRTABLEROWS 11
-	#define SECTHDRTABLECOLUMNS 2
+	#define SECTHDRTABLEROWS 11 ///<Number of rows needed for a section header
+	#define SECTHDRTABLECOLUMNS 2 ///<Number of columns needed for a section header
 
 	/** @class ElfSectionHeaderWidget
 	 * @brief Class for Section Headers

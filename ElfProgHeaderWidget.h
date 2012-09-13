@@ -31,8 +31,8 @@
 		"p_align"
 	};
 
-	#define PROGHDRTABLEROWS 8
-	#define PROGHDRTABLECOLUMNS 2
+	#define PROGHDRTABLEROWS 8 ///< Number of rows needed for a program header
+	#define PROGHDRTABLECOLUMNS 2 ///< Number of columns needed for a program header
 
 	/** @class ElfProgHeaderWidget
 	 * @brief Class for Program Headers

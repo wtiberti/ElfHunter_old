@@ -1,4 +1,4 @@
-/** @file ElfStringTable.hS
+/** @file ElfStringTable.h
  * @brief ElfStringTable class definition */
 #ifndef ElfStringTable_H
 	#define ElfStringTable_H
@@ -41,7 +41,7 @@
 	Q_OBJECT
 
 	private:
-		char *hdrstrings;
+		char *hdrstrings;///< Pointer to headers string table
 		std::vector< SectStruct > ss; ///< One SectStruct for string section
 
 		/** @brief Add a string to the table

@@ -18,7 +18,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="santang-rambo-tux-2036.png"></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">ElfHunter&#160;<span id="projectnumber">0.1</span></div>
    <div id="projectbrief">A ELF file analyzer</div>
@@ -100,8 +99,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f96e5634036a494bcb8c3d710bac2b8"></a><!-- doxytag: member="ElfMultiHeader::~ElfMultiHeader" ref="a3f96e5634036a494bcb8c3d710bac2b8" args="()" -->
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a3f96e5634036a494bcb8c3d710bac2b8">~ElfMultiHeader</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#aa7d8e0d24294f8ffa8fd194576e0cad2">SetElfValues</a> (char *elfheader)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">reserved method.  <a href="#aa7d8e0d24294f8ffa8fd194576e0cad2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_elf_multi_header.html#a28f24e889f64b09abb53d318eb662514">SelectData</a> (char *data)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose the headers to show.  <a href="#a28f24e889f64b09abb53d318eb662514"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
@@ -212,31 +209,9 @@ __uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
   </table>
   </dd>
 </dl>
-<p>This method takes the pointer to the ELF file and fills class attributes such <a class="el" href="class_elf_multi_header.html#a04f843c393afdb0b616254c5ccbcc43e">base</a>, size and <a class="el" href="class_elf_multi_header.html#acaaacf94e77e34044f9d3222f35f497b">offset</a>. In this way, <a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">SetValues</a> can navigate through headers. </p>
+<p>This method takes the pointer to the ELF file and fills class attributes such <a class="el" href="class_elf_multi_header.html#a04f843c393afdb0b616254c5ccbcc43e">base</a>, <a class="el" href="class_elf_multi_header.html#a96e25794d1082e35e05d633e8716dc68">entry_size</a> and <a class="el" href="class_elf_multi_header.html#acaaacf94e77e34044f9d3222f35f497b">offset</a>. In this way, <a class="el" href="class_elf_multi_header.html#ab856771d8fcf2934bb9fb6b6c53f70fb">SetValues</a> can navigate through headers. </p>
 
 <p>Implemented in <a class="el" href="class_elf_prog_header_widget.html#ade4670d791d4ee736be328e439805d62">ElfProgHeaderWidget</a>, <a class="el" href="class_elf_section_header_widget.html#a5c7b47f87f6b6a4b1b7d4abcd4f65f41">ElfSectionHeaderWidget</a>, and <a class="el" href="class_elf_string_table.html#a30cb9c5f87a287a75804a93d6d1c740a">ElfStringTable</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa7d8e0d24294f8ffa8fd194576e0cad2"></a><!-- doxytag: member="ElfMultiHeader::SetElfValues" ref="aa7d8e0d24294f8ffa8fd194576e0cad2" args="(char *elfheader)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ElfMultiHeader::SetElfValues </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>elfheader</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>reserved method. </p>
-<p>This method is empty and it is reserved. </p>
-
-<p>Implements <a class="el" href="class_elf_generic_header.html#aede47e15918435ee204569ce4416c650">ElfGenericHeader</a>.</p>
 
 </div>
 </div>
@@ -278,7 +253,7 @@ __uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -287,7 +262,7 @@ __uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 6 2012 02:52:52 for ElfHunter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 13 2012 05:33:18 for ElfHunter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

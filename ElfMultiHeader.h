@@ -45,7 +45,7 @@
 		 * @param[in] data The ELF file data
 		 *
 		 * This method takes the pointer to the ELF file and fills
-		 * class attributes such @ref base, @ref size and @ref offset.
+		 * class attributes such @ref base, @ref entry_size and @ref offset.
 		 * In this way, @ref SetValues can navigate through headers. */
 		virtual void SelectData( char *data ) = 0;
 
