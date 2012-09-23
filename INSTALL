@@ -5,6 +5,12 @@
 #  Date: 2012-09-22 6:31 GMT                                                  #
 ###############################################################################
 
+- Pre-compiled x64 ElfHunter
+ As you can see, a x64 precompiled version of ElfHunter binary has been
+ shipped with the code. Using it or re-compile it from the source is your
+ choise. Nothing change
+
+
 - Compiling from source code:
  The makefile is included in the source code distribution. So, all you need
  to do is
