@@ -5,6 +5,15 @@
 #  Date: 2012-09-22 6:31 GMT                                                  #
 ###############################################################################
 
+- Generate documentation
+Assuming that Doxygen is installed on your system, to generate documentation
+for the source code, the only thing you need to do is (from the source dir):
+
+	$ doxygen
+
+ And then, a Doc directory will appear, containing all the documentation
+
+
 - Pre-compiled x64 ElfHunter
  As you can see, a x64 precompiled version of ElfHunter binary has been
  shipped with the code. Using it or re-compile it from the source is your
@@ -15,19 +24,19 @@
  The makefile is included in the source code distribution. So, all you need
  to do is
 
-    $ make all
+	$ make all
 
 
 
 - Compiling faster:
  If you have a multi-processor/multi-core processor, you should use:
 
-    $ make -jn
+	$ make -jn
 
  Where 'n' is the number of processing units.
  Example:
 
-    $ make -j4
+	$ make -j4
 
 
 
@@ -35,6 +44,6 @@
  After compiling, the ElfHunter binary should be available. If you wish to
  install it, you can (from the source code directory):
 
-   # cp ./ElfHunter /usr/local/bin/
+	# cp ./ElfHunter /usr/local/bin/
 
  (You can change /usr/local/bin as you prefer)

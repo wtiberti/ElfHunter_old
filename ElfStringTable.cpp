@@ -103,7 +103,6 @@ void ElfStringTable::SelectData( char *data )
 	{
 		sectoff = header64->e_shoff;
 		hdrstrings = (char *) (base + sectoff + (int)(header64->e_shstrndx)*(int)(header64->e_shentsize));
-
 		hdrstrings = (char *)(base + ((Elf64_Shdr *)hdrstrings)->sh_offset);
 		sectnum = header64->e_shnum;
 	}
@@ -138,7 +137,6 @@ void ElfStringTable::SelectData( char *data )
 				qDebug() << *test;
 				delete test;
 				qDebug() << temp_s.size;*/
-
 
 				ss.push_back( temp_s );
 			}

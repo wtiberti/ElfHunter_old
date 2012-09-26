@@ -10,7 +10,8 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Source code files
-HEADERS += ElfHunterHexWidget.h \
+HEADERS += ElfAuxTypes.h \
+           ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \
            ElfHunterSideWidget.h \
            AboutWidget.h \
@@ -19,7 +20,8 @@ HEADERS += ElfHunterHexWidget.h \
            ElfELFHeaderWidget.h \
            ElfProgHeaderWidget.h \
            ElfSectionHeaderWidget.h \
-           ElfStringTable.h
+           ElfStringTable.h \
+           ElfSymTable.h
 SOURCES += elfhunter.cpp \
            ElfHunterHexWidget.cpp \
            ElfHunterMainWidget.cpp \
@@ -30,7 +32,8 @@ SOURCES += elfhunter.cpp \
            ElfELFHeaderWidget.cpp \
            ElfProgHeaderWidget.cpp \
            ElfSectionHeaderWidget.cpp \
-           ElfStringTable.cpp
+           ElfStringTable.cpp \
+           ElfSymTable.cpp
 
 # KHE Interface need this
 LIBS += -lkdecore

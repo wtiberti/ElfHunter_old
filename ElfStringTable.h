@@ -29,6 +29,7 @@
 	#define ElfStringTable_H
 
 	#include "ElfMultiHeader.h"
+	#include "ElfAuxTypes.h"
 
 	#include <vector>
 
@@ -38,20 +39,6 @@
 		"Offset",
 		"String"
 	};
-
-	/** @brief SectStruct definition
-	 *
-	 * This struct is used to store all the meaningful
-	 * values for each string section */
-	typedef struct
-	{
-		int sect_n; ///< Index of the section
-		__uint64_t index_name; ///< Index of the name (inside the section header string table)
-		__uint64_t offset; ///< Offset to section
-		char * addr; ///< Address to section
-		__uint64_t size; ///< Size of the section
-	} SectStruct;
-
 
 	/** @class ElfStringTable
 	 * @brief Select the string sections and extract all the strings
