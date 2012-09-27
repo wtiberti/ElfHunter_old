@@ -30,10 +30,31 @@
 	#define ElfSymTable_h
 
 	#include "ElfMultiHeader.h"
+	#include "ElfAuxTypes.h"
+	#include <vector>
+
+	#include <elf.h>
 
 	class ElfSymTable : public ElfMultiHeader
 	{
 	Q_OBJECT
+
+	private:
+		std::vector< SectStruct > ss;
+
+		//don't like it too much...
+		//Sure i will change it
+		SymData32 sym32;
+		SymData64 sym64;
+		unsigned int ReadSymbols();
+
+	protected:
+		void SetValues( int index );
+
+	public:
+		ElfSymTable();
+		~ElfSymTable();
+		void SelectData( char *data );
 
 	};
 #endif

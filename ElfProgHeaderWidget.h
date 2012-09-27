@@ -30,32 +30,6 @@
 
 	#include "ElfMultiHeader.h"
 
-	/** Program Header fields ( 32-bit version ) */
-	const QString proghdr_field_names[] =
-	{
-		"p_type",
-		"p_offset",
-		"p_vaddr",
-		"p_paddr",
-		"p_filesz",
-		"p_memsz",
-		"p_flags",
-		"p_align"
-	};
-
-	/** Program Header fields ( 64-bit version ) */
-	const QString proghdr_field_names64[] =
-	{
-		"p_type",
-		"p_flags",
-		"p_offset",
-		"p_vaddr",
-		"p_paddr",
-		"p_filesz",
-		"p_memsz",
-		"p_align"
-	};
-
 	#define PROGHDRTABLEROWS 8 ///< Number of rows needed for a program header
 	#define PROGHDRTABLECOLUMNS 2 ///< Number of columns needed for a program header
 

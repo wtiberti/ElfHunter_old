@@ -158,6 +158,11 @@ unsigned long ElfHunterMainWidget::ReadFile()
 		temp_strtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_strtbl, "String Tables" );
 		tabselem.push_back( (QWidget *)temp_strtbl );
+
+		ElfSymTable *temp_symtbl = new ElfSymTable();
+		temp_symtbl->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_symtbl, "Symbol Tables" );
+		tabselem.push_back( (QWidget *)temp_symtbl );
 	}
 
 	hexdump->SetData( filedata, dataread );

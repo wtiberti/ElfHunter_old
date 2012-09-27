@@ -31,8 +31,8 @@ ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfMultiHeader( PROGHDRTABLEROWS, P
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Program Header # " );
 
-	for( int i=0; i<PROGHDRTABLEROWS; i++ )
-		table->verticalHeaderItem( i )->setText( proghdr_field_names[i] );
+	//for( int i=0; i<PROGHDRTABLEROWS; i++ )
+	//	table->verticalHeaderItem( i )->setText( proghdr_field_names[i] );
 }
 
 ElfProgHeaderWidget::~ElfProgHeaderWidget()
@@ -215,10 +215,31 @@ void ElfProgHeaderWidget::SelectData( char *data )
 
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 
+
+	table->verticalHeaderItem( 0 )->setText( "p_type" );
 	if( is64bit )
 	{
-		for( int i=0; i<PROGHDRTABLEROWS; i++ )
-			table->verticalHeaderItem( i )->setText( proghdr_field_names64[i] );
+		//for( int i=0; i<PROGHDRTABLEROWS; i++ )
+			//table->verticalHeaderItem( i )->setText( proghdr_field_names64[i] );
+		table->verticalHeaderItem( 1 )->setText( "p_flags" );
+		table->verticalHeaderItem( 2 )->setText( "p_offset" );
+		table->verticalHeaderItem( 3 )->setText( "p_vaddr" );
+		table->verticalHeaderItem( 4 )->setText( "p_paddr" );
+		table->verticalHeaderItem( 5 )->setText( "p_filesz" );
+		table->verticalHeaderItem( 6 )->setText( "p_memsz" );
+		table->verticalHeaderItem( 7 )->setText( "p_align" );
+	}
+	else
+	{
+		//for( int i=0; i<PROGHDRTABLEROWS; i++ )
+			//table->verticalHeaderItem( i )->setText( proghdr_field_names[i] );
+		table->verticalHeaderItem( 1 )->setText( "p_offset" );
+		table->verticalHeaderItem( 2 )->setText( "p_vaddr" );
+		table->verticalHeaderItem( 3 )->setText( "p_paddr" );
+		table->verticalHeaderItem( 4 )->setText( "p_filesz" );
+		table->verticalHeaderItem( 5 )->setText( "p_memsz" );
+		table->verticalHeaderItem( 6 )->setText( "p_flags" );
+		table->verticalHeaderItem( 7 )->setText( "p_align" );
 	}
 
 	SetValues( 0 );

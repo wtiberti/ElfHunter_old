@@ -35,6 +35,7 @@
 	#include "ElfProgHeaderWidget.h"
 	#include "ElfSectionHeaderWidget.h"
 	#include "ElfStringTable.h"
+	#include "ElfSymTable.h"
 
 	/** @class ElfHunterSideWidget
 	 * @brief Handles the QTabWidget on the right side
