@@ -155,6 +155,7 @@ void ElfStringTable::SelectData( char *data )
 	}
 
 	spin->setMaximum( ss.size()-1 );
+	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 
 	/*TEST

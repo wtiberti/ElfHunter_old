@@ -257,6 +257,7 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 
 	GetShStrTable();
 
+	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 	SetValues( 0 );
 }
