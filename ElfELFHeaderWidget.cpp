@@ -26,7 +26,7 @@
 #include "ElfELFHeaderWidget.h"
 
 
-ElfELFHeaderWidget::ElfELFHeaderWidget() : ElfGenericHeader( 20, 2 )
+ElfELFHeaderWidget::ElfELFHeaderWidget() : ElfGenericHeader( 20, 1 )
 {
 	for( int i=0; i<20; i++ )
 		table->verticalHeaderItem( i )->setText( elfhdr_field_names[i] );

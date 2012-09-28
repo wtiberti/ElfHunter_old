@@ -43,7 +43,6 @@
 		std::vector< SectStruct > ss;
 
 		//don't like it too much...
-		//Sure i will change it
 		SymData32 sym32;
 		SymData64 sym64;
 		unsigned int ReadSymbols();

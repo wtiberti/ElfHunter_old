@@ -25,8 +25,6 @@
 
 #include "ElfHunterSideWidget.h"
 
-//#include "ElfHWidget.h"
-
 ElfHunterSideWidget::ElfHunterSideWidget( QWidget *parent ) : QWidget(parent)
 {
 	layout = new QVBoxLayout();

@@ -69,5 +69,6 @@
 		ElfSectionHeaderWidget(); ///< Constructor
 		~ElfSectionHeaderWidget(); ///< Destructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
+		static char *GetSectionName( char *elf, int index );
 	};
 #endif

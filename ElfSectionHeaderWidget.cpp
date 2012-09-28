@@ -277,3 +277,43 @@ void ElfSectionHeaderWidget::GetShStrTable()
 
 	str_offset = (__uint64_t)base - offset + str_offset;
 }
+
+char *ElfSectionHeaderWidget::GetSectionName( char *elf, int index )
+{
+	int str_sect_index;
+	__uint64_t name_offset;
+	bool is64bitElf = false;
+	char *stringsect = NULL;
+
+	Elf32_Ehdr *header32 = (Elf32_Ehdr *)elf;
+	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elf;
+	Elf32_Shdr *sects32;
+	Elf64_Shdr *sects64;
+
+	is64bitElf = (header32->e_ident[EI_CLASS])==ELFCLASS64?true:false;
+
+	if( ! ElfGenericHeader::HasSections( elf ) )
+		return NULL;
+
+	if( is64bitElf )
+	{
+		if( index >= header64->e_shnum )
+			return NULL;
+
+		str_sect_index = header64->e_shstrndx;
+		sects64 = (Elf64_Shdr *)( elf + header64->e_shoff );
+		name_offset = sects64[index].sh_name;
+		stringsect = (char *)( elf + sects64[str_sect_index].sh_offset + name_offset );
+	}
+	else
+	{
+		if( index >= header32->e_shnum )
+			return NULL;
+
+		str_sect_index = header32->e_shstrndx;
+		sects32 = (Elf32_Shdr *)( elf + header32->e_shoff );
+		name_offset = sects32[index].sh_name;
+		stringsect = (char *)( elf + sects32[str_sect_index].sh_offset + name_offset );
+	}
+	return stringsect;
+}

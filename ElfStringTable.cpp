@@ -128,16 +128,6 @@ void ElfStringTable::SelectData( char *data )
 				temp_s.offset = sect64[i].sh_offset;
 				temp_s.addr = (char *)(base + temp_s.offset);
 				temp_s.size = sect64[i].sh_size;
-
-				/*TEST
-				qDebug() << temp_s.index_name;
-				qDebug() << temp_s.offset;
-				qDebug() << (__uint64_t) temp_s.addr;
-				QString *test = new QString( temp_s.addr+1 );
-				qDebug() << *test;
-				delete test;
-				qDebug() << temp_s.size;*/
-
 				ss.push_back( temp_s );
 			}
 		}
@@ -157,16 +147,6 @@ void ElfStringTable::SelectData( char *data )
 	spin->setMaximum( ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
-
-	/*TEST
-	for( int i=0; i<ss.size(); i++ )
-	{
-		qDebug() << i;
-		qDebug() << ss[i].index_name;
-		qDebug() << ss[i].offset << (__uint64_t)ss[i].addr;
-		qDebug() << ss[i].size;
-	}*/
-
 	SetValues( 0 );
 }
 
