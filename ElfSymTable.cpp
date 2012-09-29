@@ -31,6 +31,7 @@ ElfSymTable::ElfSymTable() : ElfMultiHeader( 8, 2 )
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Symbol # " );
+	sym_strtable = NULL;
 }
 
 ElfSymTable::~ElfSymTable()
@@ -55,11 +56,10 @@ void ElfSymTable::SetValues( int index )
 		valueslist << temp_string->toUpper().prepend("0x");
 		stringlist << "";
 
-		//TODO index to string
 		temp_string = new QString();
 		temp_string->setNum( sym64.symv[index]->st_name, 16 );
 		valueslist << temp_string->toUpper().prepend("0x");
-		stringlist << "Nome";
+		stringlist << (sym_strtable+sym64.symv[index]->st_name);
 
 		temp_string = new QString();
 		temp_string->setNum( sym64.symv[index]->st_info, 16 );
@@ -163,7 +163,7 @@ void ElfSymTable::SetValues( int index )
 		temp_string = new QString();
 		temp_string->setNum( sym32.symv[index]->st_name, 16 );
 		valueslist << temp_string->toUpper().prepend("0x");
-		stringlist << "";
+		stringlist << (sym_strtable+sym32.symv[index]->st_name);
 
 		temp_string = new QString();
 		temp_string->setNum( sym32.symv[index]->st_value, 16 );
@@ -258,8 +258,6 @@ void ElfSymTable::SetValues( int index )
 		table->item( i, 0 )->setText( valueslist[i] );
 		table->item( i, 1 )->setText( stringlist[i] );
 	}
-
-
 }
 
 void ElfSymTable::SelectData( char *data )
@@ -340,6 +338,8 @@ void ElfSymTable::SelectData( char *data )
 		table->verticalHeaderItem( 7 )->setText( "st_shndx" );
 	}
 
+	sym_strtable = GetSymNameStrTable( data );
+
 	spin->setMaximum( ReadSymbols()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
@@ -394,4 +394,60 @@ unsigned int ElfSymTable::ReadSymbols()
 	}
 }
 
+char *ElfSymTable::GetSymNameStrTable( char *elf )
+{
+	/* The situation is this: we have got a lot
+	 * of symbols. Each symbol has a st_name field
+	 * which specify the offset in "the string table"
+	 * where the symbol name is located.
+	 *
+	 * The question is: Which one ?
+	 *
+	 * ...so here we try to search for the ".strtable"
+	 * section, expecting it to be the "one" - WT
+	 */
 
+	bool is64bitElf = false;
+	char *temp_name = NULL;
+
+	Elf32_Ehdr *header = (Elf32_Ehdr *)elf;
+	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elf;
+
+	Elf64_Shdr *sect64;
+	Elf32_Shdr *sect;
+
+	is64bitElf = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
+
+	if( is64bitElf )
+	{
+		sect64 = (Elf64_Shdr *)(elf + header64->e_shoff);
+
+		for( int i=0; i<header64->e_shnum; i++ )
+		{
+			temp_name = ElfSectionHeaderWidget::GetSectionName( elf, i );
+
+			if( strncmp( temp_name, ".strtab", 7 )==0 )
+			{
+				temp_name = elf + (sect64[i].sh_offset);
+				return temp_name;
+			}
+		}
+		return NULL;
+	}
+	else
+	{
+		sect = (Elf32_Shdr *)(elf + header->e_shoff);
+
+		for( int i=0; i<header->e_shnum; i++ )
+		{
+			temp_name = ElfSectionHeaderWidget::GetSectionName( elf, i );
+
+			if( strncmp( temp_name, ".strtab", 7 )==0 )
+			{
+				temp_name = elf + (sect[i].sh_offset);
+				return temp_name;
+			}
+		}
+		return NULL;
+	}
+}

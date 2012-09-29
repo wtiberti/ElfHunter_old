@@ -44,6 +44,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	QString *temp_string;
 	Elf64_Shdr *sect64 = (Elf64_Shdr *)base;
 	Elf32_Shdr *sect = (Elf32_Shdr *)base;
+	__uint64_t temp_value = 0;
 
 	sect += index;
 	sect64 += index;
@@ -175,11 +176,34 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	// sh_link
 	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( sect64->sh_link, 16 );
+		temp_value = sect64->sh_link;
 	else
-		temp_string->setNum( sect->sh_link, 16 );
+		temp_value = sect->sh_link;
+	temp_string->setNum( temp_value, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
-	stringlist << "";
+	switch( temp_value )
+	{
+		case SHT_DYNAMIC:
+			stringlist << "Dynamic";
+			break;
+		case SHT_HASH:
+			stringlist << "Hash";
+			break;
+		case SHT_REL:
+			stringlist << "Rel";
+			break;
+		case SHT_RELA:
+			stringlist << "Rela";
+			break;
+		case SHT_SYMTAB:
+			stringlist << "SymTab";
+			break;
+		case SHT_DYNSYM:
+			stringlist << "DynSym";
+			break;
+		default:
+			stringlist << "[Undefined]";
+	}
 
 	// sh_info
 	temp_string = new QString();

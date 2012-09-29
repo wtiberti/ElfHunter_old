@@ -29,8 +29,21 @@ AboutWidget::AboutWidget()
 {
 	QVBoxLayout l;
 
+	resize( 200, 140 );
+
 	// TODO
-	abouttext = new QLabel( "bla bla", this );
+	abouttext = new QLabel(
+		"ElfHunter\n"
+		"An ELF file formata analyzer\n\n"
+
+		"Released under GNU GPL license.\n"
+		"Copyright (C) 2012 Walter Tiberti\n\n"
+
+		"Email: <wtuniv@gmail.com>\n\n"
+
+		"website: www.wtprojects.site88.net", this );
+
+	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
 
 	l.addWidget( abouttext );
 	setLayout( &l );

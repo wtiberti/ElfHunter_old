@@ -53,6 +53,9 @@
 		QFile *actual_file; ///< Pointer to actual file
 		bool file_opened; ///< Flag. If a file is opened, it's true
 
+		bool hexvisible;
+		bool user_can_show_hex;
+
 		/** A std::vector which groups all the widgets used in the tabs
 		 * @see ElfHunterSideWidget.h*/
 		std::vector< QWidget * > tabselem;
@@ -96,5 +99,7 @@
 
 		/** @brief Display a @ref AboutWidget (QT slot)*/
 		void DisplayAbout();
+
+		void ToggleHexView();
 	};
 #endif

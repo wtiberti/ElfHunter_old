@@ -47,11 +47,12 @@ int main( int argc, char *argv[] )
 	QApplication main_app( argc, argv );
 
 	w = new QMainWindow();
-	w->resize( 1000, 700 );
+	//Setting starting size
+	w->resize( 1000, 550 );
 
+	mw = new ElfHunterMainWidget( w );
 	statusbar = new QStatusBar( w );
 	toolbar = new QToolBar( w );
-	mw = new ElfHunterMainWidget( w );
 
 	menu = SetupMenu( &main_app );
 	toolbar = SetupToolBar();
@@ -111,6 +112,7 @@ QToolBar *SetupToolBar()
 	QToolBar *t = new QToolBar( "Main Toolbar", w );
 
 	//TODO Add icons
+	//TODO Better way to manage slots
 
 	temp = new QAction( "Open", t );
 	t->addAction( temp );
@@ -122,6 +124,11 @@ QToolBar *SetupToolBar()
 	t->addAction( temp );
 	tbactions.push_back( temp );
 	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
+
+	temp = new QAction( "Toggle Hex-dump", t );
+	t->addAction( temp );
+	tbactions.push_back( temp );
+	QObject::connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleHexView()) );
 
 	return t;
 }

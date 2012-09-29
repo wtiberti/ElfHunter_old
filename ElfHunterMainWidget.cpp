@@ -33,19 +33,17 @@ extern std::vector< QAction * > tbactions;
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
+	hexvisible = false;
+	user_can_show_hex = false;
+
 	layout = new QGridLayout();
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
 
-	// VERTICAL LAYOUT
-	//layout->setColumnStretch( 0, 5 );
-	//layout->setColumnStretch( 1, 4 );
+	hexdump->setVisible( false );
+
 	layout->addWidget( sidewidget, 0, 0 );
 	layout->addWidget( hexdump, 0, 1 );
-
-	// HORIZONTAL LAYOUT
-	//layout->addWidget( sidewidget, 0, 0 );
-	//layout->addWidget( hexdump, 1, 0 );
 
 	file_opened = false;
 	actual_file = NULL;
@@ -123,6 +121,10 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	if( !file_opened )
 		throw 1;
 
+	hexdump->show();
+	hexvisible = true;
+	//
+
 	filedata = new char[ actual_file->size() ];
 	dataread = actual_file->read( filedata, actual_file->size() );
 
@@ -166,6 +168,8 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	}
 
 	hexdump->SetData( filedata, dataread );
+	user_can_show_hex = true;
+
 	return dataread;
 }
 
@@ -191,6 +195,11 @@ void ElfHunterMainWidget::CloseFile()
 	#endif
 
 	hexdump->ClearData();
+
+
+	hexdump->hide();
+	hexvisible = false;
+	user_can_show_hex = false;
 }
 
 void ElfHunterMainWidget::SetFile()
@@ -235,4 +244,21 @@ void ElfHunterMainWidget::DisplayAbout()
 {
 	AboutWidget about;
 	about.exec();
+}
+
+void ElfHunterMainWidget::ToggleHexView()
+{
+	if( user_can_show_hex )
+	{
+		if( hexvisible )
+		{
+			hexdump->hide();
+			hexvisible = false;
+		}
+		else
+		{
+			hexdump->show();
+			hexvisible = true;
+		}
+	}
 }

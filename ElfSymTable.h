@@ -41,11 +41,14 @@
 
 	private:
 		std::vector< SectStruct > ss;
+		char *sym_strtable;
 
-		//don't like it too much...
+		//i don't like theese three line too much...
 		SymData32 sym32;
 		SymData64 sym64;
 		unsigned int ReadSymbols();
+
+		char *GetSymNameStrTable( char *elf );
 
 	protected:
 		void SetValues( int index );
