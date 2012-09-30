@@ -22,7 +22,8 @@
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
-
+/** @file ElfAuxTypes.h
+ * @brief Auxiliary primitives definition */
 #ifndef ElfAuxTypes_H
 	#define ElfAuxTypes_H
 
@@ -41,19 +42,26 @@
 		__uint64_t size; ///< Size of the section
 	} SectStruct;
 
-
+	/** @brief SymData64 definition
+	 *
+	 * This structure is used to keep track of all
+	 * the symbols in a ELF file (64-bit) */
 	typedef struct
 	{
-		std::vector< Elf64_Sym * > symv;
-		std::vector< __uint64_t > offsets;
-		std::vector< int > sects;
+		std::vector< Elf64_Sym * > symv; ///< Vector of pointer to symbol
+		std::vector< __uint64_t > offsets; ///< Vector of symbol offsets
+		std::vector< int > sects; ///< Vector of symbols sections
 	} SymData64;
 
+	/** @brief SymData32 definition
+	 *
+	 * This structure is used to keep track of all
+	 * the symbols in a ELF file (32-bit) */
 	typedef struct
 	{
-		std::vector< Elf32_Sym * > symv;
-		std::vector< __uint64_t > offsets;
-		std::vector< int > sects;
+		std::vector< Elf32_Sym * > symv; ///< Vector of pointer to symbol
+		std::vector< __uint64_t > offsets; ///< Vector of symbol offsets
+		std::vector< int > sects; ///< Vector of symbols sections
 	} SymData32;
 
 #endif

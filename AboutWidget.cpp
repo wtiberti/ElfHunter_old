@@ -29,7 +29,8 @@ AboutWidget::AboutWidget()
 {
 	QVBoxLayout l;
 
-	resize( 200, 140 );
+	// TODO: change t something else depending on content
+	resize( 210, 140 );
 
 	// TODO
 	abouttext = new QLabel(
@@ -44,7 +45,6 @@ AboutWidget::AboutWidget()
 		"website: www.wtprojects.site88.net", this );
 
 	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
-
 	l.addWidget( abouttext );
 	setLayout( &l );
 }

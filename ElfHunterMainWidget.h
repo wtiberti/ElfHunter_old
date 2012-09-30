@@ -53,8 +53,8 @@
 		QFile *actual_file; ///< Pointer to actual file
 		bool file_opened; ///< Flag. If a file is opened, it's true
 
-		bool hexvisible;
-		bool user_can_show_hex;
+		bool hexvisible; ///< Flag. If the hexdump widget is visible, it's true
+		bool user_can_show_hex; ///< Flag. Indicates whenever user can show/hide the hex-dump
 
 		/** A std::vector which groups all the widgets used in the tabs
 		 * @see ElfHunterSideWidget.h*/
@@ -100,6 +100,7 @@
 		/** @brief Display a @ref AboutWidget (QT slot)*/
 		void DisplayAbout();
 
+		/** @brief Show/Hide the hex-dump widget */
 		void ToggleHexView();
 	};
 #endif

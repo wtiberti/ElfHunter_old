@@ -27,46 +27,63 @@
 #include <vector>
 #include "ElfHunterMainWidget.h"
 
+// Prototypes
+QToolBar *SetupToolBar(); // Set up the toolbar widget
+QMenuBar *SetupMenu( QApplication *a ); // Set up the menu' widget
+void Cleaner(); // Free allocated items
+
+// ElfHunter main window
 QMainWindow *w;
+
+// ElfHunter wrapper widget
 ElfHunterMainWidget *mw;
 
+// Statusbar
 QStatusBar *statusbar;
 
+// Application menu'
 QMenuBar *menu;
-std::vector< QAction * > menuactions;
+std::vector< QAction * > menuactions; // Vector grouping all the menu actions
 
+// Toolbar
 QToolBar *toolbar;
-std::vector< QAction * > tbactions;
-
-QToolBar *SetupToolBar();
-QMenuBar *SetupMenu( QApplication *a );
-void Cleaner();
+std::vector< QAction * > tbactions; // Vector grouping all the toolbar actions
 
 int main( int argc, char *argv[] )
 {
+	// Initialization
 	QApplication main_app( argc, argv );
 
+	// Window creation
 	w = new QMainWindow();
+
 	//Setting starting size
 	w->resize( 1000, 550 );
 
+	// Creating wrapper widget, toolbar and statusbar
 	mw = new ElfHunterMainWidget( w );
 	statusbar = new QStatusBar( w );
 	toolbar = new QToolBar( w );
 
+	// Set up the toolbar and the menu'
 	menu = SetupMenu( &main_app );
 	toolbar = SetupToolBar();
 
+	// Adding widget to the main window
 	w->setMenuBar( menu );
 	w->setStatusBar( statusbar );
 	w->addToolBar( toolbar );
+
+	// Showing the window
 	w->setCentralWidget( mw );
 	w->show();
 
+
+	// MAIN LOOP
 	main_app.exec();
 
+	// Clean-up
 	Cleaner();
-
 	return 0;
 }
 

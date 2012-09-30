@@ -403,8 +403,9 @@ char *ElfSymTable::GetSymNameStrTable( char *elf )
 	 *
 	 * The question is: Which one ?
 	 *
-	 * ...so here we try to search for the ".strtable"
-	 * section, expecting it to be the "one" - WT
+	 * ...so here, i (even if i do not like this method)
+	 * try to search for the ".strtable" section
+	 * expecting it to be the "one" - WT
 	 */
 
 	bool is64bitElf = false;

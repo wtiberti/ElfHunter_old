@@ -35,28 +35,35 @@
 
 	#include <elf.h>
 
+	/** @class  ElfSymTable
+	 * @brief Search for all the symbols of the file
+	 *
+	 * This class search for every symbol in the file. */
 	class ElfSymTable : public ElfMultiHeader
 	{
 	Q_OBJECT
 
 	private:
-		std::vector< SectStruct > ss;
-		char *sym_strtable;
+		std::vector< SectStruct > ss; ///< Vector containing all the symbol table sections
+		char *sym_strtable; ///< Pointer to the symbol name string table section
 
 		//i don't like theese three line too much...
-		SymData32 sym32;
-		SymData64 sym64;
+		SymData32 sym32; ///< Symbols structure (32-bit)
+		SymData64 sym64; ///< Symbols structure (64-bit)
+
+		/** @brief Read all the symbols and fills up the sym32 or sym64 */
 		unsigned int ReadSymbols();
 
+		/** @brief Search for the symbol name string table section */
 		char *GetSymNameStrTable( char *elf );
 
 	protected:
-		void SetValues( int index );
+		void SetValues( int index ); ///< @ref ElfMultiHeader::SetValues
 
 	public:
-		ElfSymTable();
-		~ElfSymTable();
-		void SelectData( char *data );
+		ElfSymTable(); ///< Contructor
+		~ElfSymTable(); ///< Destructor
+		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 
 	};
 #endif

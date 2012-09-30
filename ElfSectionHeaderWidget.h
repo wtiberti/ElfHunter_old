@@ -69,6 +69,10 @@
 		ElfSectionHeaderWidget(); ///< Constructor
 		~ElfSectionHeaderWidget(); ///< Destructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
+
+		/** @brief Retrieve the section name
+		 * @param[in] elf Pointer to allocated ELF file
+		 * @param[in] index Index of the section to be named */
 		static char *GetSectionName( char *elf, int index );
 	};
 #endif
