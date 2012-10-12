@@ -51,26 +51,32 @@ void ElfHunterWindow::Init_Actions()
 	
 	actions.clear();
 	
-	temp = new QAction( "E&xit", this );
+	temp = new QAction( QIcon( "icons/application-exit.png" ), "E&xit", this );
 	temp->setShortcuts( QKeySequence::Quit );
 	temp->setStatusTip( "Exit the application" );
 	connect( temp, SIGNAL(triggered()), qApp, SLOT(quit()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( "&Open", this );
+	temp = new QAction( QIcon( "icons/document-open.png" ), "&Open", this );
+	temp->setStatusTip( "Open an ELF file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( "&Close", this );
+	temp = new QAction( QIcon( "icons/document-close.png" ), "&Close", this );
+	temp->setStatusTip( "Close current file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
+	temp->setEnabled( false );
 	actions.push_back( temp );
 	
-	temp = new QAction( "&About", this );
+	temp = new QAction( QIcon( "icons/help-about.png" ), "&About", this );
+	temp->setStatusTip( "Show ElfHunter information" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( "Toggle Hex Dump", this );
+	temp = new QAction( QIcon( "icons/view-right-new.png" ), "Toggle Hex Dump", this );
+	temp->setStatusTip( "Show/Hide hex dump panel" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleHexView()) );
+	temp->setEnabled( false );
 	actions.push_back( temp );
 	
 }
@@ -109,18 +115,10 @@ void ElfHunterWindow::Init_StatusBar()
 	//TODO
 }
 
-void ElfHunterWindow::EnableAction( unsigned int i )
+void ElfHunterWindow::EnableAction( unsigned int i, bool value )
 {
 	if( i<actions.size() )
 	{
-		actions[i]->setEnabled( true );
-	}
-}
-
-void ElfHunterWindow::DisableAction( unsigned int i )
-{
-	if( i<actions.size() )
-	{
-		actions[i]->setEnabled( false );
+		actions[i]->setEnabled( value );
 	}
 }

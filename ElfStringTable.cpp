@@ -50,35 +50,38 @@ void ElfStringTable::SetValues( int index )
 
 	stringlist.clear();
 	valueslist.clear();
-
-	temp_string = new QString( (char *)(hdrstrings+ss[index].index_name) );
-	str_off = new QString();
-	str_off->setNum( ss[index].sect_n );
-	AddString( str_off->prepend( "[SECT n°] " ), *temp_string );
-
-	unsigned int i=0;
-	while( i<ss[index].size )
+	
+	if( ss.size()>0 )
 	{
+		temp_string = new QString( (char *)(hdrstrings+ss[index].index_name) );
 		str_off = new QString();
-		str_off->setNum( (ss[index].offset)+i, 16 );
-		temp_string = new QString( (char *)(ss[index].addr+i) );
+		str_off->setNum( ss[index].sect_n );
+		AddString( str_off->prepend( "[SECT n°] " ), *temp_string );
 
-		AddString( str_off->toUpper().prepend("0x"), *temp_string );
+		unsigned int i=0;
+		while( i<ss[index].size )
+		{
+			str_off = new QString();
+			str_off->setNum( (ss[index].offset)+i, 16 );
+			temp_string = new QString( (char *)(ss[index].addr+i) );
 
-		i += temp_string->length() + 1;
-	}
+			AddString( str_off->toUpper().prepend("0x"), *temp_string );
 
-	ClearRows();
-	for( int i=0; i<valueslist.size(); i++ )
-	{
-		AddRow();
-		table_item = new QTableWidgetItem( valueslist[i] );
-		table_item->setFlags( (Qt::ItemFlag)37 );
-		table->setItem( i, 0, table_item );
+			i += temp_string->length() + 1;
+		}
 
-		table_item = new QTableWidgetItem( stringlist[i] );
-		table_item->setFlags( (Qt::ItemFlag)37 );
-		table->setItem( i, 1, table_item );
+		ClearRows();
+		for( int i=0; i<valueslist.size(); i++ )
+		{
+			AddRow();
+			table_item = new QTableWidgetItem( valueslist[i] );
+			table_item->setFlags( (Qt::ItemFlag)37 );
+			table->setItem( i, 0, table_item );
+
+			table_item = new QTableWidgetItem( stringlist[i] );
+			table_item->setFlags( (Qt::ItemFlag)37 );
+			table->setItem( i, 1, table_item );
+		}
 	}
 }
 
@@ -141,10 +144,12 @@ void ElfStringTable::SelectData( char *data )
 		}
 	}
 
-	spin->setMaximum( ss.size()-1 );
+	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
-	SetValues( 0 );
+	
+	if( ss.size()>0 )
+		SetValues( 0 );
 }
 
 void ElfStringTable::AddString( QString v, QString s )

@@ -61,7 +61,6 @@
 		~ElfHunterWindow();
 		
 	public slots:
-		void EnableAction( unsigned int i );
-		void DisableAction( unsigned int i );
+		void EnableAction( unsigned int i, bool value=true );
 	};
 #endif

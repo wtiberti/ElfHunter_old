@@ -32,6 +32,8 @@ ElfSymTable::ElfSymTable() : ElfMultiHeader( 8, 2 )
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Symbol # " );
 	sym_strtable = NULL;
+	
+	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 }
 
 ElfSymTable::~ElfSymTable()
@@ -50,7 +52,6 @@ void ElfSymTable::SetValues( int index )
 		{
 			temp_string = new QString();
 			temp_string->setNum( sym64.sects[index] );
-			//temp_string = QString::number( sym64.sects[index] );
 			valueslist << *temp_string;
 			stringlist << ElfSectionHeaderWidget::GetSectionName( (char *)base, sym64.sects[index] );
 
@@ -155,7 +156,6 @@ void ElfSymTable::SetValues( int index )
 		{
 			temp_string = new QString();
 			temp_string->setNum( sym32.sects[index] );
-			//temp_string = QString::number( sym32.sects[index] );
 			valueslist << *temp_string;
 			stringlist << ElfSectionHeaderWidget::GetSectionName( (char *)base, sym32.sects[index] );
 
@@ -351,7 +351,7 @@ void ElfSymTable::SelectData( char *data )
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 	
-	if( ss.size()!=0 )
+	if( ss.size()>0 )
 		SetValues( 0 );
 }
 
@@ -382,9 +382,6 @@ unsigned int ElfSymTable::ReadSymbols()
 				sym_off+=sizeof( Elf64_Sym );
 			}
 		}
-		
-		//DEBUG
-		//qDebug() << "symbols # " << sym64.symv.size();
 		
 		return sym64.symv.size();
 	}

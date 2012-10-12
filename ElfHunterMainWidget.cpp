@@ -22,11 +22,14 @@
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
-
-#include "ElfHunterMainWidget.h"
+//#include "ElfHunterMainWidget.h"
+#include "ElfHunterWindow.h"
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
+	//NOTE: flexibility issue
+	parent_window = (ElfHunterWindow *) parent;
+	
 	hexvisible = false;
 	user_can_show_hex = false;
 
@@ -95,7 +98,10 @@ unsigned long ElfHunterMainWidget::OpenFile()
 
 	file_opened = true;
 
-	//TODO Show/hide buttons
+	//NOTE flexibility issue
+	((ElfHunterWindow*)parent_window)->EnableAction( A_OPEN, false );
+	((ElfHunterWindow*)parent_window)->EnableAction( A_CLOSE, true );
+	((ElfHunterWindow*)parent_window)->EnableAction( A_TOGGLEHEX, true );
 
 	return actual_file->size();
 }
@@ -175,8 +181,10 @@ void ElfHunterMainWidget::CloseFile()
 		delete actual_file;
 	}
 
-	//TODO
-	// Show/hide buttons
+	//NOTE flexibility issue
+	((ElfHunterWindow*)parent_window)->EnableAction( A_OPEN, true );
+	((ElfHunterWindow*)parent_window)->EnableAction( A_CLOSE, false );
+	((ElfHunterWindow*)parent_window)->EnableAction( A_TOGGLEHEX, false );
 	
 	hexdump->ClearData();
 

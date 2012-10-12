@@ -28,7 +28,7 @@
 
 #ifndef ElfHunterWidget_H
 	#define ElfHunterMainWidget_H
-
+	
 	#include "ElfHunterSideWidget.h"
 	#include "ElfHunterHexWidget.h"
 	#include "AboutWidget.h"
@@ -55,6 +55,9 @@
 	private:
 		QGridLayout *layout; ///< Main layout of the widget
 
+		//TODO
+		QWidget *parent_window;
+		
 		ElfHunterSideWidget *sidewidget; ///< Left side main widget
 		ElfHunterHexWidget *hexdump; ///< Right side hex dump widget
 
