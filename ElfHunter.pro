@@ -11,6 +11,7 @@ INCLUDEPATH += .
 
 # Source code files
 HEADERS += ElfAuxTypes.h \
+           ElfHunterWindow.h \
            ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \
            ElfHunterSideWidget.h \
@@ -23,6 +24,7 @@ HEADERS += ElfAuxTypes.h \
            ElfStringTable.h \
            ElfSymTable.h
 SOURCES += elfhunter.cpp \
+           ElfHunterWindow.cpp \
            ElfHunterHexWidget.cpp \
            ElfHunterMainWidget.cpp \
            ElfHunterSideWidget.cpp \

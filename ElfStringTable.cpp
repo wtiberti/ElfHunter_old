@@ -34,12 +34,9 @@ ElfStringTable::ElfStringTable() : ElfMultiHeader( 0, 2 )
 	table->horizontalHeaderItem( 0 )->setText( str_table_h_hdr[0] );
 	table->horizontalHeaderItem( 1 )->setText( str_table_h_hdr[1] );
 
-	//table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
-	//TODO : Better way to resize...
-	table->horizontalHeader()->setResizeMode( QHeaderView::Fixed );
+	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 	table->horizontalHeader()->resizeSection( 0, 100 );
 	table->horizontalHeader()->resizeSection( 1, 300 );
-
 }
 
 ElfStringTable::~ElfStringTable()

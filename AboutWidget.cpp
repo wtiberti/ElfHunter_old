@@ -30,19 +30,19 @@ AboutWidget::AboutWidget()
 	QVBoxLayout l;
 
 	// TODO: change t something else depending on content
-	resize( 210, 140 );
+	resize( 250, 140 );
 
 	// TODO
 	abouttext = new QLabel(
 		"ElfHunter\n"
-		"An ELF file formata analyzer\n\n"
+		"An ELF file format analyzer\n\n"
 
 		"Released under GNU GPL license.\n"
 		"Copyright (C) 2012 Walter Tiberti\n\n"
 
 		"Email: <wtuniv@gmail.com>\n\n"
 
-		"website: www.wtprojects.site88.net", this );
+		"website: http://www.wtprojects.site88.net", this );
 
 	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
 	l.addWidget( abouttext );

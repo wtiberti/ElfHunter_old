@@ -34,6 +34,14 @@
 	#include "AboutWidget.h"
 
 	#include <vector>
+	
+	#define ELFSIGNATURE 0x464C457F
+	
+	#define ERR_OPEN_FILE_NOT_EXISTS 1
+	#define ERR_OPEN_FILE_OPEN_ERROR 2
+	
+	#define ERR_READ_FILE_NOT_OPEN 1
+	#define ERR_READ_INVALID_SIG 2
 
 	/** @class ElfHunterMainWidget
 	 * @brief Handles the internal widget set

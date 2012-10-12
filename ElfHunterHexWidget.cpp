@@ -58,15 +58,18 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 			khe_charvalues->setSubstituteChar( '.' );
 		}
 
-		/* TODO
+		/*
+		// TODO 
 		KHE::ClipboardInterface *clipboard = KHE::clipboardInterface( khe_widget );
 
 		if( clipboard )
 		{
 			connect( khe_widget, SIGNAL(copyAvailable(bool)), this, SLOT(offerCopy(bool)) );
-		}*/
+		}
+		*/
 	}
 
+	//khe_widget->setFont( QFont( "Monospace" ) );
 	l->addWidget( khe_widget );
 
 	setLayout( l );

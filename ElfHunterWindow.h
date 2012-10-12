@@ -18,20 +18,50 @@
 */
 
 /*
-* Filename: elfhunter.cpp
+* Filename: ElfHunterWindow.h
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
 
-#include <QtGui>
-#include "ElfHunterWindow.h"
-
-int main( int argc, char *argv[] )
-{
-	QApplication main_app( argc, argv );
-	main_app.setApplicationName("ElfHunter");
+#ifndef ElfHunterWindow_H
+	#define ElfHunterWindow_H
 	
-	ElfHunterWindow *w = new ElfHunterWindow();
-	w->show();
-	return main_app.exec();
-}
+	#include <vector>
+	#include "ElfHunterMainWidget.h"
+	
+
+	#define A_EXIT 0
+	#define A_OPEN 1
+	#define A_CLOSE 2
+	#define A_ABOUT 3
+	#define A_TOGGLEHEX 4
+	// etc..
+	
+	#define M_FILE 0
+	#define M_INFO 1
+	// etc..
+	
+	class ElfHunterWindow : public QMainWindow
+	{
+	Q_OBJECT
+	
+	private:
+		ElfHunterMainWidget *mw;
+		QToolBar *main_toolbar;
+		std::vector< QAction * > actions;
+		std::vector< QMenu * > menus;
+		
+		void Init_Actions();
+		void Init_MenuBar();
+		void Init_ToolBar();
+		void Init_StatusBar();
+		
+	public:
+		ElfHunterWindow();
+		~ElfHunterWindow();
+		
+	public slots:
+		void EnableAction( unsigned int i );
+		void DisableAction( unsigned int i );
+	};
+#endif

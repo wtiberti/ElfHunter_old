@@ -25,12 +25,6 @@
 
 #include "ElfHunterMainWidget.h"
 
-#ifndef ELFHUNTER_STANDALONE
-#include <vector>
-extern std::vector< QAction * > menuactions;
-extern std::vector< QAction * > tbactions;
-#endif
-
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
 	hexvisible = false;
@@ -82,7 +76,7 @@ unsigned long ElfHunterMainWidget::OpenFile()
 		{
 			QMessageBox msg( QMessageBox::Critical, "Error", "The file doesn't exist" );
 			msg.exec();
-			throw 1;
+			throw ERR_OPEN_FILE_NOT_EXISTS;
 		}
 	}
 
@@ -96,17 +90,12 @@ unsigned long ElfHunterMainWidget::OpenFile()
 	{
 		QMessageBox msg( QMessageBox::Critical, "Error", "Error while opening the file" );
 		msg.exec();
-		throw 2;
+		throw ERR_OPEN_FILE_OPEN_ERROR;
 	};
 
 	file_opened = true;
 
-	#ifndef ELFHUNTER_STANDALONE
-	menuactions[0]->setEnabled( false );
-	menuactions[1]->setEnabled( true );
-	tbactions[0]->setEnabled( false );
-	tbactions[1]->setEnabled( true );
-	#endif
+	//TODO Show/hide buttons
 
 	return actual_file->size();
 }
@@ -119,21 +108,20 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	uint32_t signature = 0;
 
 	if( !file_opened )
-		throw 1;
+		throw ERR_READ_FILE_NOT_OPEN;
 
 	hexdump->show();
 	hexvisible = true;
-	//
 
 	filedata = new char[ actual_file->size() ];
 	dataread = actual_file->read( filedata, actual_file->size() );
 
 	signature = * ( int * )filedata;
 
-	if( signature != 0x464C457F )
+	if( signature != ELFSIGNATURE )
 	{
 		delete filedata;
-		throw 2;
+		throw ERR_READ_INVALID_SIG;
 	}
 
 	ElfELFHeaderWidget *temp_elfhdr = new ElfELFHeaderWidget();
@@ -187,15 +175,10 @@ void ElfHunterMainWidget::CloseFile()
 		delete actual_file;
 	}
 
-	#ifndef ELFHUNTER_STANDALONE
-	menuactions[0]->setEnabled( true );
-	menuactions[1]->setEnabled( false );
-	tbactions[0]->setEnabled( true );
-	tbactions[1]->setEnabled( false );
-	#endif
-
+	//TODO
+	// Show/hide buttons
+	
 	hexdump->ClearData();
-
 
 	hexdump->hide();
 	hexvisible = false;
@@ -210,7 +193,7 @@ void ElfHunterMainWidget::SetFile()
 	}
 	catch( int ErrorNum )
 	{
-		if( ErrorNum==2 )
+		if( ErrorNum==ERR_OPEN_FILE_OPEN_ERROR )
 			CloseFile();
 		return;
 	}
@@ -227,15 +210,14 @@ void ElfHunterMainWidget::SetFile()
 
 		switch( ErrorNum )
 		{
-			case 1:
+			case ERR_READ_FILE_NOT_OPEN:
 				msg.setText( "Error: no file opened. Code 1" );
 				break;
 
-			case 2:
+			case ERR_READ_INVALID_SIG:
 				msg.setText( "Error: no valid ELF file. Code 2" );
 				break;
 		}
-
 		msg.exec();
 	}
 }
