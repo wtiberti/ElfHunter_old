@@ -54,9 +54,6 @@
 	Q_OBJECT
 	private:
 		QGridLayout *layout; ///< Main layout of the widget
-
-		//TODO
-		QWidget *parent_window;
 		
 		ElfHunterSideWidget *sidewidget; ///< Left side main widget
 		ElfHunterHexWidget *hexdump; ///< Right side hex dump widget
@@ -77,7 +74,11 @@
 		 * the selected file. Altough there's no restriction on the file choosen,
 		 * all non-ELF file will be discared in the @ref ReadFile method
 		 * @return The opened file size*/
-		unsigned long OpenFile();
+		unsigned long OpenFile( QString &filename );
+		
+		/** @brief Shows the 'Open File' dialog
+		 * @return The name of the file to open */
+		QString OpenFile_Dialog();
 
 		/** @brief Read the opened file
 		 *
@@ -103,7 +104,7 @@
 
 	public slots:
 		/** @brief Wrapper method. (QT slot)*/
-		void SetFile();
+		void SetFile( bool fromcmdline = false );
 
 		/** @brief Close the file. (QT slot) */
 		void CloseFile();
@@ -113,5 +114,9 @@
 
 		/** @brief Show/Hide the hex-dump widget */
 		void ToggleHexView();
+		
+	signals:
+		void s_disable_action( unsigned int action_n );
+		void s_enable_action( unsigned int action_n );
 	};
 #endif

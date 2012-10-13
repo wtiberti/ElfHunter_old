@@ -28,7 +28,7 @@
 ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 {
 	l = new QGridLayout();
-
+	
 	khe_widget = KHE::createBytesEditWidget( parent );
 
 	if( khe_widget )
@@ -57,6 +57,14 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 			khe_charvalues->setShowUnprintable( false );
 			khe_charvalues->setSubstituteChar( '.' );
 		}
+		
+		/*
+		KHE::ZoomInterface *khe_zoom = KHE::zoomInterface( khe_widget );
+		
+		if( khe_zoom )
+		{
+			khe_zoom->zoomTo( 10 );
+		}*/
 
 		/*
 		// TODO 
@@ -69,7 +77,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 		*/
 	}
 
-	//khe_widget->setFont( QFont( "Monospace" ) );
+	//khe_widget->setFont( QFont( "Courier" ) );
 	l->addWidget( khe_widget );
 
 	setLayout( l );

@@ -25,11 +25,10 @@
 //#include "ElfHunterMainWidget.h"
 #include "ElfHunterWindow.h"
 
+extern QString cmdline_file2open;
+
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
-	//NOTE: flexibility issue
-	parent_window = (ElfHunterWindow *) parent;
-	
 	hexvisible = false;
 	user_can_show_hex = false;
 
@@ -46,6 +45,11 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	actual_file = NULL;
 
 	setLayout( layout );
+	
+	if( cmdline_file2open!="" )
+	{
+		SetFile( true );
+	}
 }
 
 ElfHunterMainWidget::~ElfHunterMainWidget()
@@ -67,11 +71,19 @@ bool ElfHunterMainWidget::IsFileActive()
 	return file_opened;
 }
 
-unsigned long ElfHunterMainWidget::OpenFile()
+QString ElfHunterMainWidget::OpenFile_Dialog()
 {
 	QString filename;
 
 	filename = QFileDialog::getOpenFileName( this, "Open", "", "" );
+
+	return filename;
+}
+
+unsigned long ElfHunterMainWidget::OpenFile( QString &filename )
+{
+	if( file_opened )
+		CloseFile();
 
 	if( filename != "" )
 	{
@@ -82,9 +94,6 @@ unsigned long ElfHunterMainWidget::OpenFile()
 			throw ERR_OPEN_FILE_NOT_EXISTS;
 		}
 	}
-
-	if( file_opened )
-		CloseFile();
 
 	actual_file = new QFile( filename );
 	actual_file->open( QIODevice::ReadOnly );
@@ -97,11 +106,6 @@ unsigned long ElfHunterMainWidget::OpenFile()
 	};
 
 	file_opened = true;
-
-	//NOTE flexibility issue
-	((ElfHunterWindow*)parent_window)->EnableAction( A_OPEN, false );
-	((ElfHunterWindow*)parent_window)->EnableAction( A_CLOSE, true );
-	((ElfHunterWindow*)parent_window)->EnableAction( A_TOGGLEHEX, true );
 
 	return actual_file->size();
 }
@@ -181,10 +185,9 @@ void ElfHunterMainWidget::CloseFile()
 		delete actual_file;
 	}
 
-	//NOTE flexibility issue
-	((ElfHunterWindow*)parent_window)->EnableAction( A_OPEN, true );
-	((ElfHunterWindow*)parent_window)->EnableAction( A_CLOSE, false );
-	((ElfHunterWindow*)parent_window)->EnableAction( A_TOGGLEHEX, false );
+	emit s_enable_action( A_OPEN );
+	emit s_disable_action( A_CLOSE );
+	emit s_disable_action( A_TOGGLEHEX );
 	
 	hexdump->ClearData();
 
@@ -193,11 +196,21 @@ void ElfHunterMainWidget::CloseFile()
 	user_can_show_hex = false;
 }
 
-void ElfHunterMainWidget::SetFile()
+void ElfHunterMainWidget::SetFile( bool fromcmdline )
 {
+	QString fn;
+	
 	try
 	{
-		OpenFile();
+		if( fromcmdline )
+		{
+			fn = cmdline_file2open;
+		}
+		else
+		{
+			fn = OpenFile_Dialog();
+		}
+		OpenFile( fn );
 	}
 	catch( int ErrorNum )
 	{
@@ -228,6 +241,10 @@ void ElfHunterMainWidget::SetFile()
 		}
 		msg.exec();
 	}
+	
+	emit s_disable_action( A_OPEN );
+	emit s_enable_action( A_CLOSE );
+	emit s_enable_action( A_TOGGLEHEX );
 }
 
 void ElfHunterMainWidget::DisplayAbout()

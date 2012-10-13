@@ -1,9 +1,9 @@
-###############################################
-#        ElfHunter Project file               #
-# Author: Walter Tiberti <wtuniv@gmail.com>   #
-#                                             #
-# This file is needed makefile re-generation  #
-###############################################
+###################################################
+#        ElfHunter Project file                   #
+# Author: Walter Tiberti <wtuniv@gmail.com>       #
+#                                                 #
+# This file is needed for makefile re-generation  #
+###################################################
 TEMPLATE = app
 TARGET =
 DEPENDPATH += .

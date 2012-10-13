@@ -24,14 +24,54 @@
 */
 
 #include <QtGui>
+#include <getopt.h>
 #include "ElfHunterWindow.h"
+
+bool cmdline_onlyreport = false;
+QString cmdline_file2open;
 
 int main( int argc, char *argv[] )
 {
+	bool cmdline_valid = true;
+	char cmdline_option = '\0';
+	
 	QApplication main_app( argc, argv );
 	main_app.setApplicationName("ElfHunter");
 	
-	ElfHunterWindow *w = new ElfHunterWindow();
-	w->show();
+	while( cmdline_option != -1 )
+	{
+		cmdline_option = getopt( argc, argv, "hro:" );
+		switch( cmdline_option )
+		{
+			case 'r':
+				//TODO recursive report about all files in the specified dir
+				qDebug() << "Option \'r\' recognized!";
+				break;
+			case 'o':
+				//TODO report to file
+				qDebug() << "Option \'o\' recognized with arg:" << optarg;
+				break;
+			case 'h':
+			case '?':
+				cmdline_valid = false;
+				break;
+		}
+	}
+	
+	if( !cmdline_valid )
+	{
+		//FIXME
+		qDebug() << "\n\n---\nUsage: ElfHunter [ -h , -o <output file> , -r ] <file to open>\n---\n";
+		return 0;
+	}
+	
+	if( optind>0 )
+	{
+		cmdline_file2open = QString( argv[optind] );
+	}
+	
+	ElfHunterWindow w;
+	w.show();
+
 	return main_app.exec();
 }

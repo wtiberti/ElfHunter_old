@@ -36,6 +36,9 @@ ElfHunterWindow::ElfHunterWindow()
 	Init_StatusBar();
 	
 	setCentralWidget( mw );
+	
+	connect( mw, SIGNAL(s_disable_action(unsigned int)), this, SLOT(DisableAction(unsigned int)) );
+	connect( mw, SIGNAL(s_enable_action(unsigned int)), this, SLOT(EnableAction(unsigned int)) );
 }
 
 ElfHunterWindow::~ElfHunterWindow()
@@ -51,6 +54,13 @@ void ElfHunterWindow::Init_Actions()
 	
 	actions.clear();
 	
+	/*FIXME
+	This workaround is used to enable the right action
+	when the filename is passed via command line. */
+	extern QString cmdline_file2open;
+	bool fromcmdline = (cmdline_file2open=="")?false:true;
+	//--
+	
 	temp = new QAction( QIcon( "icons/application-exit.png" ), "E&xit", this );
 	temp->setShortcuts( QKeySequence::Quit );
 	temp->setStatusTip( "Exit the application" );
@@ -61,12 +71,18 @@ void ElfHunterWindow::Init_Actions()
 	temp->setStatusTip( "Open an ELF file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
 	actions.push_back( temp );
+	//FIXME
+	if( fromcmdline ) temp->setEnabled( false );
+	//--
 	
 	temp = new QAction( QIcon( "icons/document-close.png" ), "&Close", this );
 	temp->setStatusTip( "Close current file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
 	temp->setEnabled( false );
 	actions.push_back( temp );
+	//FIXME
+	if( fromcmdline ) temp->setEnabled( true );
+	//--
 	
 	temp = new QAction( QIcon( "icons/help-about.png" ), "&About", this );
 	temp->setStatusTip( "Show ElfHunter information" );
@@ -78,6 +94,9 @@ void ElfHunterWindow::Init_Actions()
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleHexView()) );
 	temp->setEnabled( false );
 	actions.push_back( temp );
+	//FIXME
+	if( fromcmdline ) temp->setEnabled( true );
+	//--
 	
 }
 
@@ -115,10 +134,18 @@ void ElfHunterWindow::Init_StatusBar()
 	//TODO
 }
 
-void ElfHunterWindow::EnableAction( unsigned int i, bool value )
+void ElfHunterWindow::EnableAction( unsigned int i )
 {
 	if( i<actions.size() )
 	{
-		actions[i]->setEnabled( value );
+		actions[i]->setEnabled( true );
+	}
+}
+
+void ElfHunterWindow::DisableAction( unsigned int i )
+{
+	if( i<actions.size() )
+	{
+		actions[i]->setEnabled( false );
 	}
 }

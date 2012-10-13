@@ -34,6 +34,8 @@
 	#include <khexedit/valuecolumninterface.h>
 	#include <khexedit/charcolumninterface.h>
 	#include <khexedit/clipboardinterface.h>
+	
+	#include <khexedit/zoominterface.h>
 
 	#include <QtGui>
 
