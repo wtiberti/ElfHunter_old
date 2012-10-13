@@ -55,6 +55,7 @@
 	private:
 		QGridLayout *layout; ///< Main layout of the widget
 		
+		QTreeWidget *widget_selector;
 		ElfHunterSideWidget *sidewidget; ///< Left side main widget
 		ElfHunterHexWidget *hexdump; ///< Right side hex dump widget
 
@@ -67,6 +68,8 @@
 		/** A std::vector which groups all the widgets used in the tabs
 		 * @see ElfHunterSideWidget.h*/
 		std::vector< QWidget * > tabselem;
+		
+		std::vector< QTreeWidgetItem * > tree_elem;
 
 		/** @brief Open a file
 		 *
@@ -86,6 +89,9 @@
 		 * according the file content.
 		 * @return The pointer to the file content*/
 		unsigned long ReadFile();
+		
+		
+		void Populate( char *filedata, unsigned long size );
 
 	public:
 		/** @brief Constructor
