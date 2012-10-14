@@ -31,16 +31,9 @@
 	#define ElfHunterSideWidget_H
 
 	#include <QtGui>
-	#include "ElfELFHeaderWidget.h"
-	#include "ElfProgHeaderWidget.h"
-	#include "ElfSectionHeaderWidget.h"
-	#include "ElfStringTable.h"
-	#include "ElfSymTable.h"
 
 	/** @class ElfHunterSideWidget
-	 * @brief Handles the QTabWidget on the right side
-	 *
-	 * It create the QTabWidget and offer a public slot for adding new tabs.*/
+	 * @brief Handles a list of widget which displays on user will */
 	class ElfHunterSideWidget : public QWidget
 	{
 	Q_OBJECT
@@ -48,11 +41,16 @@
 	private:
 		QVBoxLayout *layout; ///< Layout for the widget
 		
-		std::vector< QWidget * > elems;
-		QStringList ss;
-		int current_widget;
+		std::vector< QWidget * > elems; ///< Vector containing all the data widget
+		QStringList ss; ///< Auxiliary list of string, containing the titles of all the widget added
 		
-		int GetTreeItemIndex( QTreeWidgetItem *index );
+		int current_widget; ///< The current widget (as index in @ref elems )
+		QTreeWidgetItem *last_treeitem; ///< Last selected widget
+		
+		/** @brief Retrieve the index (relative to @ref elems ) of a QTreeWidgetItem
+		 * @param[in] item The QTreeWidgetItem
+		 * @return The index of the @ref item */
+		int GetTreeItemIndex( QTreeWidgetItem *item );
 
 	public:
 		/** @brief Constructor
@@ -61,14 +59,19 @@
 		~ElfHunterSideWidget(); ///< Destructor
 
 	public slots:
-		/** @brief Adds a new widget in a new tab
+		/** @brief Adds a new widget
 		 * @param[in] w The widget to be added
-		 * @param[in] title The name of the new tab
+		 * @param[in] title The title of the widget
 		 *
-		 * Just a wrapper for QTabWidget::addTab*/
+		 * (The name is inherit from previous "tabbed" implementation) */
 		void addTab( QWidget *w, QString title );
 		
+		/** @brief Clears the widget vector (freeing memory too) */
 		void clearwidgets();
+		
+		/** @brief Selects and shows a previously added widget
+		 * @param[in] item The new item to be shown
+		 * @param[in] col The column choosen (Not used) */
 		void setwidget( QTreeWidgetItem *item ,int col );
 		
 	};

@@ -32,6 +32,12 @@
 	#include "ElfHunterSideWidget.h"
 	#include "ElfHunterHexWidget.h"
 	#include "AboutWidget.h"
+	
+	#include "ElfELFHeaderWidget.h"
+	#include "ElfProgHeaderWidget.h"
+	#include "ElfSectionHeaderWidget.h"
+	#include "ElfStringTable.h"
+	#include "ElfSymTable.h"
 
 	#include <vector>
 	
@@ -55,7 +61,7 @@
 	private:
 		QGridLayout *layout; ///< Main layout of the widget
 		
-		QTreeWidget *widget_selector;
+		QTreeWidget *widget_selector; ///< A widget to select different tables
 		ElfHunterSideWidget *sidewidget; ///< Left side main widget
 		ElfHunterHexWidget *hexdump; ///< Right side hex dump widget
 
@@ -64,34 +70,32 @@
 
 		bool hexvisible; ///< Flag. If the hexdump widget is visible, it's true
 		bool user_can_show_hex; ///< Flag. Indicates whenever user can show/hide the hex-dump
-		bool treewidgetvisible;
-
-		/** A std::vector which groups all the widgets used in the tabs
-		 * @see ElfHunterSideWidget.h*/
-		//std::vector< QWidget * > tabselem;
+		bool treewidgetvisible; ///< Flag. Indicates if the QTreeWidget is visible or not
 		
+		/** Contains all the QTreeWidget item added */
 		std::vector< QTreeWidgetItem * > tree_elem;
 
 		/** @brief Open a file
 		 *
-		 * Shows the QT's "Open File" standard dialog, and try to open
-		 * the selected file. Altough there's no restriction on the file choosen,
+		 * Try to open the selected file. Altough there's no restriction on the file choosen,
 		 * all non-ELF file will be discared in the @ref ReadFile method
+		 * @param[in] filename The file to open
 		 * @return The opened file size*/
 		unsigned long OpenFile( QString &filename );
 		
 		/** @brief Shows the 'Open File' dialog
-		 * @return The name of the file to open */
+		 * @return The name of the choosen file*/
 		QString OpenFile_Dialog();
 
 		/** @brief Read the opened file
 		 *
-		 * Try to read the previously opened file by @ref OpenFile and create all the information widgets
-		 * according the file content.
+		 * Try to read the previously opened file by @ref OpenFile
 		 * @return The pointer to the file content*/
 		unsigned long ReadFile();
 		
-		
+		/** @brief Check the open file and adds all the data widget
+		 * @param[in] filedata The pointer to the buffer containing the file data
+		 * @param[in] size Size of the file */
 		void Populate( char *filedata, unsigned long size );
 
 	public:
@@ -122,10 +126,13 @@
 		/** @brief Show/Hide the hex-dump widget */
 		void ToggleHexView();
 		
+		/** @brief Show/Hide the Tree widget */
 		void ToggleWidgetTree();
 		
 	signals:
+		/** @brief QT Signal. It is sent when an action has to be disabled */
 		void s_disable_action( unsigned int action_n );
+		/** @brief QT Signal. It is sent when an action has to be enabled */
 		void s_enable_action( unsigned int action_n );
 	};
 #endif

@@ -27,6 +27,8 @@
 #include <getopt.h>
 #include "ElfHunterWindow.h"
 
+#include <iostream>
+
 bool cmdline_onlyreport = false;
 QString cmdline_file2open;
 
@@ -45,11 +47,11 @@ int main( int argc, char *argv[] )
 		{
 			case 'r':
 				//TODO recursive report about all files in the specified dir
-				qDebug() << "Option \'r\' recognized!";
+				//qDebug() << "Option \'r\' recognized!";
 				break;
 			case 'o':
 				//TODO report to file
-				qDebug() << "Option \'o\' recognized with arg:" << optarg;
+				//qDebug() << "Option \'o\' recognized with arg:" << optarg;
 				break;
 			case 'h':
 			case '?':
@@ -60,8 +62,7 @@ int main( int argc, char *argv[] )
 	
 	if( !cmdline_valid )
 	{
-		//FIXME
-		qDebug() << "\n\n---\nUsage: ElfHunter [ -h , -o <output file> , -r ] <file to open>\n---\n";
+		std::cerr << "\n---\nUsage: ElfHunter [ -h , -o <output file> , -r ] [<file to open>]\n---\n";
 		return 0;
 	}
 	

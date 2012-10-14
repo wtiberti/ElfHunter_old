@@ -29,7 +29,7 @@ AboutWidget::AboutWidget()
 {
 	QVBoxLayout l;
 
-	// TODO: change t something else depending on content
+	// TODO: change to something else depending on content
 	resize( 250, 140 );
 
 	// TODO
@@ -42,7 +42,7 @@ AboutWidget::AboutWidget()
 
 		"Email: <wtuniv@gmail.com>\n\n"
 
-		"website: http://www.wtprojects.site88.net", this );
+		"website: http://wtprojects.site88.net", this );
 
 	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
 	l.addWidget( abouttext );

@@ -29,7 +29,9 @@ ElfHunterSideWidget::ElfHunterSideWidget( QWidget *parent ) : QWidget(parent)
 {
 	layout = new QVBoxLayout();
 	ss.clear();
+	
 	current_widget = 0;
+	last_treeitem = NULL;
 	
 	setLayout( layout );
 }
@@ -66,12 +68,14 @@ void ElfHunterSideWidget::setwidget( QTreeWidgetItem *item, int col )
 	
 	if( temp_item_index!=-1 && temp_item_index < (int)elems.size() )
 	{
-		//???->setBackground( QBrush(Qt::transparent) );
 		elems[current_widget]->hide();
-		//TODO COLORING BACKGROUND
-		//item->setBackground( 0, QBrush(Qt::cyan) );
-		elems[temp_item_index]->show();
 		
+		if( last_treeitem!=NULL )
+			last_treeitem->setBackground( 0, QBrush(Qt::transparent) );
+		item->setBackground( 0, QBrush(Qt::cyan) );
+		last_treeitem = item;
+		
+		elems[temp_item_index]->show();
 		current_widget = temp_item_index;
 	}
 }

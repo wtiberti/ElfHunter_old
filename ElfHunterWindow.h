@@ -23,6 +23,10 @@
 *
 */
 
+/** @file ElfHunterWindow.h
+ * @brief Definition of ElfHunterWindow class
+ */
+
 #ifndef ElfHunterWindow_H
 	#define ElfHunterWindow_H
 	
@@ -42,27 +46,44 @@
 	#define M_INFO 1
 	// etc..
 	
+	/** @class ElfHunterWindow
+	 * @brief ElfHunter Main Window class
+	 *
+	 * This class represent the main window of ElfHunter. It shows the menu, tool and status bars
+	 * along the three main widget (wrapped together in the @ref ElfHunterMainWidget class) */
 	class ElfHunterWindow : public QMainWindow
 	{
 	Q_OBJECT
 	
 	private:
-		ElfHunterMainWidget *mw;
-		QToolBar *main_toolbar;
-		std::vector< QAction * > actions;
-		std::vector< QMenu * > menus;
-		
+		ElfHunterMainWidget *mw; ///< Main Widget
+		QToolBar *main_toolbar; ///< Toolbar
+		std::vector< QAction * > actions; ///< Actions vector. All actions are stored here
+		std::vector< QMenu * > menus; ///< Menu vector. All the top level menus are stored here
+
+		/** @brief  Creates all the needed actions */
 		void Init_Actions();
+		
+		/** @brief Create all the menus */
 		void Init_MenuBar();
+		
+		/** @brief Creates the toolbar */
 		void Init_ToolBar();
+		
+		/** @brief Creates the statusbar */
 		void Init_StatusBar();
 		
 	public:
-		ElfHunterWindow();
-		~ElfHunterWindow();
+		ElfHunterWindow(); ///< Constructor
+		~ElfHunterWindow(); ///< Destructor
 		
 	public slots:
+		/** @brief Enable the choosen action
+		 * @param[in] i The action to be enabled (as index in @ref actions vector) */
 		void EnableAction( unsigned int i );
+		
+		/** @brief Disable the choosen action
+		 * @param[in] i The action to be disabled (as index in @ref actions vector) */
 		void DisableAction( unsigned int i );
 	};
 #endif
