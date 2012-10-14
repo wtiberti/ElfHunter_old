@@ -28,19 +28,61 @@
 ElfHunterSideWidget::ElfHunterSideWidget( QWidget *parent ) : QWidget(parent)
 {
 	layout = new QVBoxLayout();
-
-	tabs = new QTabWidget();
-	layout->addWidget( tabs );
+	ss.clear();
+	current_widget = 0;
+	
 	setLayout( layout );
 }
 
 ElfHunterSideWidget::~ElfHunterSideWidget()
 {
-	delete tabs;
+	clearwidgets();
 	delete layout;
 }
 
 void ElfHunterSideWidget::addTab( QWidget *w, QString title )
 {
-	tabs->addTab( w, title );
+	w->hide();
+	layout->addWidget( w );
+	
+	ss << title;
+	elems.push_back( w );
+}
+
+void ElfHunterSideWidget::clearwidgets()
+{
+	for( unsigned int i=0; i<elems.size(); i++ )
+		delete elems[i];
+	
+	ss.clear();
+	elems.clear();
+}
+
+void ElfHunterSideWidget::setwidget( QTreeWidgetItem *item, int col )
+{
+	int temp_item_index;
+	
+	temp_item_index = GetTreeItemIndex(item);
+	
+	if( temp_item_index!=-1 && temp_item_index < (int)elems.size() )
+	{
+		//???->setBackground( QBrush(Qt::transparent) );
+		elems[current_widget]->hide();
+		//TODO COLORING BACKGROUND
+		//item->setBackground( 0, QBrush(Qt::cyan) );
+		elems[temp_item_index]->show();
+		
+		current_widget = temp_item_index;
+	}
+}
+
+int ElfHunterSideWidget::GetTreeItemIndex( QTreeWidgetItem *item )
+{
+	//TODO a better way to find the index
+	for( int i=0; i<ss.size(); i++ )
+	{
+		if( item->text(0) == ss[i] )
+			return i;
+	}
+	return -1;
 }

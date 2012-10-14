@@ -35,6 +35,7 @@
 	#define A_CLOSE 2
 	#define A_ABOUT 3
 	#define A_TOGGLEHEX 4
+	#define A_TOGGLETREE 5
 	// etc..
 	
 	#define M_FILE 0

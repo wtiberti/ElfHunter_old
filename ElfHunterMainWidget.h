@@ -64,10 +64,11 @@
 
 		bool hexvisible; ///< Flag. If the hexdump widget is visible, it's true
 		bool user_can_show_hex; ///< Flag. Indicates whenever user can show/hide the hex-dump
+		bool treewidgetvisible;
 
 		/** A std::vector which groups all the widgets used in the tabs
 		 * @see ElfHunterSideWidget.h*/
-		std::vector< QWidget * > tabselem;
+		//std::vector< QWidget * > tabselem;
 		
 		std::vector< QTreeWidgetItem * > tree_elem;
 
@@ -120,6 +121,8 @@
 
 		/** @brief Show/Hide the hex-dump widget */
 		void ToggleHexView();
+		
+		void ToggleWidgetTree();
 		
 	signals:
 		void s_disable_action( unsigned int action_n );

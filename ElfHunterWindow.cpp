@@ -98,6 +98,15 @@ void ElfHunterWindow::Init_Actions()
 	if( fromcmdline ) temp->setEnabled( true );
 	//--
 	
+	temp = new QAction( QIcon( "icons/view-sidetree.png" ), "Toggle Table Selector", this );
+	temp->setStatusTip( "Show/Hide table selector" );
+	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleWidgetTree()) );
+	temp->setEnabled( false );
+	actions.push_back( temp );
+	//FIXME
+	if( fromcmdline ) temp->setEnabled( true );
+	//--
+	
 }
 
 void ElfHunterWindow::Init_MenuBar()
@@ -114,6 +123,7 @@ void ElfHunterWindow::Init_MenuBar()
 	menus.push_back( temp );
 	
 	temp = menuBar()->addMenu( "&View" );
+	temp->addAction( actions[A_TOGGLETREE] );
 	temp->addAction( actions[A_TOGGLEHEX] );
 	
 	temp = menuBar()->addMenu( "&?" );
@@ -126,6 +136,7 @@ void ElfHunterWindow::Init_ToolBar()
 	main_toolbar = addToolBar( "Main Toolbar" );
 	main_toolbar->addAction( actions[A_OPEN] );
 	main_toolbar->addAction( actions[A_CLOSE] );
+	main_toolbar->addAction( actions[A_TOGGLETREE] );
 	main_toolbar->addAction( actions[A_TOGGLEHEX] );
 }
 

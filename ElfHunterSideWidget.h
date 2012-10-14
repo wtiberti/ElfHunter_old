@@ -47,7 +47,12 @@
 
 	private:
 		QVBoxLayout *layout; ///< Layout for the widget
-		QTabWidget *tabs; ///< QTabWidget
+		
+		std::vector< QWidget * > elems;
+		QStringList ss;
+		int current_widget;
+		
+		int GetTreeItemIndex( QTreeWidgetItem *index );
 
 	public:
 		/** @brief Constructor
@@ -62,5 +67,9 @@
 		 *
 		 * Just a wrapper for QTabWidget::addTab*/
 		void addTab( QWidget *w, QString title );
+		
+		void clearwidgets();
+		void setwidget( QTreeWidgetItem *item ,int col );
+		
 	};
 #endif

@@ -29,6 +29,7 @@ extern QString cmdline_file2open;
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
+	treewidgetvisible = false;
 	hexvisible = false;
 	user_can_show_hex = false;
 
@@ -38,11 +39,15 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
 
-	widget_selector->setColumnCount( 1 );
-	widget_selector->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Preferred );
+	//widget_selector->setMaximumWidth( 200 );
+	widget_selector->setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Preferred );
 	widget_selector->setHeaderLabel( "ELF structure" );
 	
-	//widget_selector->setVisible( false );
+	//connect( widget_selector, SIGNAL(itemChanged(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
+	//connect( widget_selector, SIGNAL(itemClicked(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
+	connect( widget_selector, SIGNAL(itemActivated(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
+	
+	widget_selector->setVisible( false );
 	hexdump->setVisible( false );
 
 	layout->addWidget( widget_selector, 0, 0 );
@@ -158,26 +163,32 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 	QTreeWidgetItem *temp_treeitem;
 	
 	widget_selector->show();
+	treewidgetvisible = true;
+	
 	hexdump->show();
 	hexvisible = true;
 	
 	temp_elfhdr = new ElfELFHeaderWidget();
 	sidewidget->addTab( (QWidget *)temp_elfhdr, "ELF Header" );
-	tabselem.push_back( (QWidget *)temp_elfhdr );
+	//tabselem.push_back( (QWidget *)temp_elfhdr );
 	temp_elfhdr->SetElfValues( filedata );
 	elfhdr_treeitem = new QTreeWidgetItem( widget_selector );
 	elfhdr_treeitem->setText( 0, "ELF Header" );
 	widget_selector->addTopLevelItem( elfhdr_treeitem );
 	tree_elem.push_back( elfhdr_treeitem );
+	
+	//
+	sidewidget->setwidget( elfhdr_treeitem, 0 );
+	//
 
 	if( ElfGenericHeader::HasSegments( filedata ) )
 	{
 		temp_proghdr = new ElfProgHeaderWidget();
 		temp_proghdr->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
-		tabselem.push_back( (QWidget *)temp_proghdr );
+		//tabselem.push_back( (QWidget *)temp_proghdr );
 		proghdr_treeitem = new QTreeWidgetItem();
-		proghdr_treeitem->setText( 0, "Program Header" );
+		proghdr_treeitem->setText( 0, "Program Headers" );
 		elfhdr_treeitem->addChild( proghdr_treeitem );
 		tree_elem.push_back( proghdr_treeitem );
 	}
@@ -187,16 +198,16 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		temp_secthdr = new ElfSectionHeaderWidget();
 		temp_secthdr->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_secthdr, "Section Headers" );
-		tabselem.push_back( (QWidget *)temp_secthdr );
+		//tabselem.push_back( (QWidget *)temp_secthdr );
 		secthdr_treeitem = new QTreeWidgetItem();
-		secthdr_treeitem->setText( 0, "Section Header" );
+		secthdr_treeitem->setText( 0, "Section Headers" );
 		elfhdr_treeitem->addChild( secthdr_treeitem );
 		tree_elem.push_back( secthdr_treeitem );
 
 		ElfStringTable *temp_strtbl = new ElfStringTable();
 		temp_strtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_strtbl, "String Tables" );
-		tabselem.push_back( (QWidget *)temp_strtbl );
+		//tabselem.push_back( (QWidget *)temp_strtbl );
 		temp_treeitem = new QTreeWidgetItem();
 		temp_treeitem->setText( 0, "String Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
@@ -205,7 +216,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		ElfSymTable *temp_symtbl = new ElfSymTable();
 		temp_symtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_symtbl, "Symbol Tables" );
-		tabselem.push_back( (QWidget *)temp_symtbl );
+		//tabselem.push_back( (QWidget *)temp_symtbl );
 		temp_treeitem = new QTreeWidgetItem();
 		temp_treeitem->setText( 0, "Symbol Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
@@ -218,15 +229,16 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 
 void ElfHunterMainWidget::CloseFile()
 {
-	for( unsigned int i=0; i<tabselem.size(); i++ )
-		delete tabselem[ i ];
+	//for( unsigned int i=0; i<tabselem.size(); i++ )
+	//	delete tabselem[ i ];
 	
 	for( int i=tree_elem.size()-1; i>=0; i-- )
 	{
 		delete tree_elem[ i ];
 	}
 
-	tabselem.clear();
+	//tabselem.clear();
+	sidewidget->clearwidgets();
 	tree_elem.clear();
 
 	if( file_opened )
@@ -239,11 +251,12 @@ void ElfHunterMainWidget::CloseFile()
 	emit s_enable_action( A_OPEN );
 	emit s_disable_action( A_CLOSE );
 	emit s_disable_action( A_TOGGLEHEX );
+	emit s_disable_action( A_TOGGLETREE );
 	
 	widget_selector->hide();
+	treewidgetvisible = false;
 	
 	hexdump->ClearData();
-
 	hexdump->hide();
 	hexvisible = false;
 	user_can_show_hex = false;
@@ -275,6 +288,10 @@ void ElfHunterMainWidget::SetFile( bool fromcmdline )
 	try
 	{
 		ReadFile();
+		emit s_disable_action( A_OPEN );
+		emit s_enable_action( A_CLOSE );
+		emit s_enable_action( A_TOGGLEHEX );
+		emit s_enable_action( A_TOGGLETREE );
 	}
 	catch( int ErrorNum )
 	{
@@ -294,10 +311,6 @@ void ElfHunterMainWidget::SetFile( bool fromcmdline )
 		}
 		msg.exec();
 	}
-	
-	emit s_disable_action( A_OPEN );
-	emit s_enable_action( A_CLOSE );
-	emit s_enable_action( A_TOGGLEHEX );
 }
 
 void ElfHunterMainWidget::DisplayAbout()
@@ -320,5 +333,19 @@ void ElfHunterMainWidget::ToggleHexView()
 			hexdump->show();
 			hexvisible = true;
 		}
+	}
+}
+
+void ElfHunterMainWidget::ToggleWidgetTree()
+{
+	if( treewidgetvisible )
+	{
+		widget_selector->hide();
+		treewidgetvisible = false;
+	}
+	else
+	{
+		widget_selector->show();
+		treewidgetvisible = true;
 	}
 }
