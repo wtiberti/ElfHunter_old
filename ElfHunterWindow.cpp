@@ -26,7 +26,7 @@
 
 ElfHunterWindow::ElfHunterWindow()
 {
-	resize( 1000, 550 );
+	resize( 800, 550 );
 	mw = new ElfHunterMainWidget( this );
 	
 	Init_Actions();
@@ -89,7 +89,7 @@ void ElfHunterWindow::Init_Actions()
 	connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( QIcon( "icons/view-right-new.png" ), "Toggle Hex Dump", this );
+	temp = new QAction( QIcon( "icons/view-expenses-categories.png" ), "Toggle Hex Dump", this );
 	temp->setStatusTip( "Show/Hide hex dump panel" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleHexView()) );
 	temp->setEnabled( false );
@@ -98,7 +98,7 @@ void ElfHunterWindow::Init_Actions()
 	if( fromcmdline ) temp->setEnabled( true );
 	//--
 	
-	temp = new QAction( QIcon( "icons/view-sidetree.png" ), "Toggle Table Selector", this );
+	temp = new QAction( QIcon( "icons/view-list-tree.png" ), "Toggle Table Selector", this );
 	temp->setStatusTip( "Show/Hide table selector" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleWidgetTree()) );
 	temp->setEnabled( false );

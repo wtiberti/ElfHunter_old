@@ -60,6 +60,8 @@
 	Q_OBJECT
 	private:
 		QGridLayout *layout; ///< Main layout of the widget
+		QSplitter *spl; ///< Nested splitter. Used to make @ref sidewidget and @ref widget_selector to be resizeable
+		QSplitter *v_spl; ///< Main splitter. Used to make @ref spl and @ref hexdump to be resizeable
 		
 		QTreeWidget *widget_selector; ///< A widget to select different tables
 		ElfHunterSideWidget *sidewidget; ///< Left side main widget

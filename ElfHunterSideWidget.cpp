@@ -56,6 +56,9 @@ void ElfHunterSideWidget::clearwidgets()
 	for( unsigned int i=0; i<elems.size(); i++ )
 		delete elems[i];
 	
+	current_widget = 0;
+	last_treeitem = NULL;
+	
 	ss.clear();
 	elems.clear();
 }
@@ -72,6 +75,7 @@ void ElfHunterSideWidget::setwidget( QTreeWidgetItem *item, int col )
 		
 		if( last_treeitem!=NULL )
 			last_treeitem->setBackground( 0, QBrush(Qt::transparent) );
+		
 		item->setBackground( 0, QBrush(Qt::cyan) );
 		last_treeitem = item;
 		

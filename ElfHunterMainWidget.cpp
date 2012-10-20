@@ -39,8 +39,9 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
 
+	//widget_selector->setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Preferred );
 	//widget_selector->setMaximumWidth( 200 );
-	widget_selector->setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Preferred );
+	
 	widget_selector->setHeaderLabel( "ELF structure" );
 	
 	//connect( widget_selector, SIGNAL(itemChanged(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
@@ -50,9 +51,22 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	widget_selector->setVisible( false );
 	hexdump->setVisible( false );
 
-	layout->addWidget( widget_selector, 0, 0 );
-	layout->addWidget( sidewidget, 0, 1 );
-	layout->addWidget( hexdump, 0, 2 );
+	spl = new QSplitter( this );
+	v_spl = new QSplitter( this );
+	
+	v_spl->setOrientation( Qt::Vertical );
+	
+	spl->addWidget( widget_selector );
+	spl->addWidget( sidewidget );
+	QList<int> widgets_size_list;
+	widgets_size_list.append( 180 ); //TEMP
+	widgets_size_list.append( 450 );
+	spl->setSizes( widgets_size_list );
+	
+	v_spl->addWidget( spl );
+	v_spl->addWidget( hexdump );
+	
+	layout->addWidget( v_spl );
 
 	file_opened = false;
 	actual_file = NULL;
@@ -79,6 +93,9 @@ ElfHunterMainWidget::~ElfHunterMainWidget()
 	delete hexdump;
 	delete sidewidget;
 	delete layout;
+	
+	delete spl;
+	delete v_spl;
 }
 
 bool ElfHunterMainWidget::IsFileActive()
@@ -170,7 +187,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 	
 	temp_elfhdr = new ElfELFHeaderWidget();
 	sidewidget->addTab( (QWidget *)temp_elfhdr, "ELF Header" );
-	//tabselem.push_back( (QWidget *)temp_elfhdr );
 	temp_elfhdr->SetElfValues( filedata );
 	elfhdr_treeitem = new QTreeWidgetItem( widget_selector );
 	elfhdr_treeitem->setText( 0, "ELF Header" );
@@ -186,7 +202,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		temp_proghdr = new ElfProgHeaderWidget();
 		temp_proghdr->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_proghdr, "Program Headers" );
-		//tabselem.push_back( (QWidget *)temp_proghdr );
 		proghdr_treeitem = new QTreeWidgetItem();
 		proghdr_treeitem->setText( 0, "Program Headers" );
 		elfhdr_treeitem->addChild( proghdr_treeitem );
@@ -198,7 +213,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		temp_secthdr = new ElfSectionHeaderWidget();
 		temp_secthdr->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_secthdr, "Section Headers" );
-		//tabselem.push_back( (QWidget *)temp_secthdr );
 		secthdr_treeitem = new QTreeWidgetItem();
 		secthdr_treeitem->setText( 0, "Section Headers" );
 		elfhdr_treeitem->addChild( secthdr_treeitem );
@@ -207,7 +221,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		ElfStringTable *temp_strtbl = new ElfStringTable();
 		temp_strtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_strtbl, "String Tables" );
-		//tabselem.push_back( (QWidget *)temp_strtbl );
 		temp_treeitem = new QTreeWidgetItem();
 		temp_treeitem->setText( 0, "String Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
@@ -216,7 +229,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		ElfSymTable *temp_symtbl = new ElfSymTable();
 		temp_symtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_symtbl, "Symbol Tables" );
-		//tabselem.push_back( (QWidget *)temp_symtbl );
 		temp_treeitem = new QTreeWidgetItem();
 		temp_treeitem->setText( 0, "Symbol Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
@@ -229,15 +241,11 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 
 void ElfHunterMainWidget::CloseFile()
 {
-	//for( unsigned int i=0; i<tabselem.size(); i++ )
-	//	delete tabselem[ i ];
-	
 	for( int i=tree_elem.size()-1; i>=0; i-- )
 	{
 		delete tree_elem[ i ];
 	}
 
-	//tabselem.clear();
 	sidewidget->clearwidgets();
 	tree_elem.clear();
 

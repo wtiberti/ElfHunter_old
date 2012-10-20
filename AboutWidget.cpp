@@ -34,7 +34,7 @@ AboutWidget::AboutWidget()
 
 	// TODO
 	abouttext = new QLabel(
-		"ElfHunter\n"
+		"ElfHunter v0.13\n"
 		"An ELF file format analyzer\n\n"
 
 		"Released under GNU GPL license.\n"
