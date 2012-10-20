@@ -322,9 +322,6 @@ void ElfSymTable::SelectData( char *data )
 		}
 	}
 
-	//DEBUG
-	//qDebug() << "size di ss: " << ss.size();
-
 	table->verticalHeaderItem( 0 )->setText( "[Section]" );
 	table->verticalHeaderItem( 1 )->setText( "[Offset]" );
 	table->verticalHeaderItem( 2 )->setText( "st_name" );
@@ -357,7 +354,7 @@ void ElfSymTable::SelectData( char *data )
 
 unsigned int ElfSymTable::ReadSymbols()
 {
-	unsigned int sym_off; // relative to section
+	unsigned int sym_off;
 
 	sym32.symv.clear();
 	sym32.offsets.clear();
@@ -368,7 +365,6 @@ unsigned int ElfSymTable::ReadSymbols()
 
 	if( is64bit )
 	{
-		//for each SectStruct...
 		for( unsigned int i=0; i<ss.size(); i++ )
 		{
 			sym_off = 0;

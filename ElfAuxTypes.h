@@ -22,6 +22,7 @@
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
+
 /** @file ElfAuxTypes.h
  * @brief Auxiliary primitives definition */
 #ifndef ElfAuxTypes_H
@@ -42,6 +43,7 @@
 		__uint64_t size; ///< Size of the section
 	} SectStruct;
 
+	
 	/** @brief SymData64 definition
 	 *
 	 * This structure is used to keep track of all
@@ -53,6 +55,7 @@
 		std::vector< int > sects; ///< Vector of symbols sections
 	} SymData64;
 
+	
 	/** @brief SymData32 definition
 	 *
 	 * This structure is used to keep track of all

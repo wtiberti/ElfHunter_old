@@ -31,7 +31,6 @@ ElfMultiHeader::ElfMultiHeader( int r, int c, bool h ) : ElfGenericHeader( r, c,
 	spin = new QSpinBox();
 	layout->setDirection( QBoxLayout::BottomToTop );
 	layout->addWidget( spin );
-	//layout->setDirection( QBoxLayout::TopToBottom );
 }
 
 ElfMultiHeader::~ElfMultiHeader()

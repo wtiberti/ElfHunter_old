@@ -47,7 +47,6 @@
 		std::vector< SectStruct > ss; ///< Vector containing all the symbol table sections
 		char *sym_strtable; ///< Pointer to the symbol name string table section
 
-		//i don't like theese three line too much...
 		SymData32 sym32; ///< Symbols structure (32-bit)
 		SymData64 sym64; ///< Symbols structure (64-bit)
 

@@ -77,7 +77,6 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 		*/
 	}
 
-	//khe_widget->setFont( QFont( "Courier" ) );
 	l->addWidget( khe_widget );
 
 	setLayout( l );

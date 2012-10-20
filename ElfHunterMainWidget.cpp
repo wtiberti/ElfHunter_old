@@ -34,13 +34,9 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	user_can_show_hex = false;
 
 	layout = new QGridLayout();
-	
 	widget_selector = new QTreeWidget( this );
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
-
-	//widget_selector->setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Preferred );
-	//widget_selector->setMaximumWidth( 200 );
 	
 	widget_selector->setHeaderLabel( "ELF structure" );
 	
@@ -60,7 +56,7 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	spl->addWidget( sidewidget );
 	QList<int> widgets_size_list;
 	widgets_size_list.append( 180 ); //TEMP
-	widgets_size_list.append( 450 );
+	widgets_size_list.append( 450 ); //TEMP
 	spl->setSizes( widgets_size_list );
 	
 	v_spl->addWidget( spl );
