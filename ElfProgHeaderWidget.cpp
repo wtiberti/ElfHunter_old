@@ -81,10 +81,13 @@ void ElfProgHeaderWidget::SetValues( int index )
 			temp_string = new QString( "Program Header Info" );
 			break;
 		default:
-			if( prgtype>=PT_LOPROC && prgtype<=PT_HIPROC )
-				temp_string = new QString( "Processor-specific" );
+			if( prgtype>=PT_LOOS && prgtype<=PT_HIOS )
+				temp_string = new QString( "Environment-specific" );
 			else
-				temp_string = new QString( "[Invalid]" );
+				if( prgtype>=PT_LOPROC && prgtype<=PT_HIPROC )
+					temp_string = new QString( "Processor-specific" );
+				else
+					temp_string = new QString( "[Invalid]" );
 	}
 	stringlist << *temp_string;
 

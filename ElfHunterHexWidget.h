@@ -37,6 +37,7 @@
 	#include <khexedit/zoominterface.h>
 
 	#include <QtGui>
+	
 
 	/** @class ElfHunterHexWidget
 	 * @brief Implementation of KHexEditor interface

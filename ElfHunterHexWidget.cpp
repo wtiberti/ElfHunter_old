@@ -52,33 +52,15 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 
 		khe_charvalues = KHE::charColumnInterface( khe_widget );
 
+		
 		if( khe_charvalues )
 		{
 			khe_charvalues->setShowUnprintable( false );
 			khe_charvalues->setSubstituteChar( '.' );
 		}
-		
-		/*
-		KHE::ZoomInterface *khe_zoom = KHE::zoomInterface( khe_widget );
-		
-		if( khe_zoom )
-		{
-			khe_zoom->zoomTo( 10 );
-		}*/
-
-		/*
-		// TODO 
-		KHE::ClipboardInterface *clipboard = KHE::clipboardInterface( khe_widget );
-
-		if( clipboard )
-		{
-			connect( khe_widget, SIGNAL(copyAvailable(bool)), this, SLOT(offerCopy(bool)) );
-		}
-		*/
 	}
-
+	
 	l->addWidget( khe_widget );
-
 	setLayout( l );
 
 	hexdata = NULL;
@@ -107,5 +89,6 @@ void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 {
 	khe_interface->setData( data, datasize );
 	khe_interface->setMaxDataSize( datasize );
+	
 	hexdata = data;
 }

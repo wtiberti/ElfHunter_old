@@ -167,10 +167,10 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	// sh_size
 	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( sect64->sh_size, 10 );
+		temp_string->setNum( sect64->sh_size, 16 );
 	else
-		temp_string->setNum( sect->sh_size, 10 );
-	valueslist << *temp_string;
+		temp_string->setNum( sect->sh_size, 16 );
+	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
 
 	// sh_link
