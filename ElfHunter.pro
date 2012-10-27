@@ -7,7 +7,7 @@
 TEMPLATE = app
 TARGET =
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += . /usr/include/okteta1
 
 # Source code files
 HEADERS += ElfAuxTypes.h \
@@ -38,4 +38,5 @@ SOURCES += elfhunter.cpp \
            ElfSymTable.cpp
 
 # KHE Interface need this
-LIBS += -lkdecore
+# -lkdecore 
+LIBS += -lokteta1core -lokteta1gui

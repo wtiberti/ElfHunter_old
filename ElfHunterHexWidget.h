@@ -30,11 +30,15 @@
 #ifndef ElfHunterHexWidget_H
 	#define ElfHunterHexWidget_H
 
+	/*
 	#include <khexedit/byteseditinterface.h>
 	#include <khexedit/valuecolumninterface.h>
 	#include <khexedit/charcolumninterface.h>
 	#include <khexedit/clipboardinterface.h>
 	#include <khexedit/zoominterface.h>
+	*/
+	#include <okteta1/bytearraycolumnview.h>
+	#include <okteta1/piecetablebytearraymodel.h>
 
 	#include <QtGui>
 	
@@ -49,11 +53,13 @@
 	Q_OBJECT
 
 	private:
-		QWidget *khe_widget; ///< KHexEditor Widget
+		//QWidget *khe_widget; ///< KHexEditor Widget
+		Okteta::ByteArrayColumnView *okteta_widget;
+		Okteta::PieceTableByteArrayModel* model;
 
-		KHE::BytesEditInterface *khe_interface; ///< Part of KHE interface
-		KHE::ValueColumnInterface *khe_hexvalues; ///< Part of KHE interface
-		KHE::CharColumnInterface *khe_charvalues; ///< Part of KHE interface
+		//KHE::BytesEditInterface *khe_interface; ///< Part of KHE interface
+		//KHE::ValueColumnInterface *khe_hexvalues; ///< Part of KHE interface
+		//KHE::CharColumnInterface *khe_charvalues; ///< Part of KHE interface
 
 		QGridLayout *l; ///< Main layout
 

@@ -102,7 +102,7 @@ bool ElfHunterMainWidget::IsFileActive()
 QString ElfHunterMainWidget::OpenFile_Dialog()
 {
 	QString filename;
-
+	
 	filename = QFileDialog::getOpenFileName( this, "Open", "", "" );
 
 	return filename;
@@ -125,7 +125,7 @@ unsigned long ElfHunterMainWidget::OpenFile( QString &filename )
 
 	actual_file = new QFile( filename );
 	actual_file->open( QIODevice::ReadOnly );
-
+	
 	if( actual_file->error() != QFile::NoError )
 	{
 		QMessageBox msg( QMessageBox::Critical, "Error", "Error while opening the file" );
@@ -144,7 +144,7 @@ unsigned long ElfHunterMainWidget::ReadFile()
 	unsigned long dataread;
 
 	uint32_t signature = 0;
-
+	
 	if( !file_opened )
 		throw ERR_READ_FILE_NOT_OPEN;
 

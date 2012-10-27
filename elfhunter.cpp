@@ -38,7 +38,7 @@ int main( int argc, char *argv[] )
 	char cmdline_option = '\0';
 	
 	QApplication main_app( argc, argv );
-	main_app.setApplicationName("ElfHunter");
+	main_app.setApplicationName( "ElfHunter" );
 	
 	while( cmdline_option != -1 )
 	{

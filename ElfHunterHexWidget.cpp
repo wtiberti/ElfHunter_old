@@ -29,7 +29,12 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 {
 	l = new QGridLayout();
 	
-	khe_widget = KHE::createBytesEditWidget( parent );
+	model = NULL;
+	
+	okteta_widget = new Okteta::ByteArrayColumnView();
+	l->addWidget( (QWidget *)okteta_widget );
+	
+	/*khe_widget = KHE::createBytesEditWidget( parent );
 
 	if( khe_widget )
 	{
@@ -37,7 +42,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 		Q_ASSERT( khe_interface );
 
 		khe_interface->setReadOnly( true );
-		khe_interface->setAutoDelete( true );
+		->setAutoDelete( true );
 
 		khe_hexvalues = KHE::valueColumnInterface( khe_widget );
 
@@ -61,6 +66,9 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 	}
 	
 	l->addWidget( khe_widget );
+	
+	*/
+	
 	setLayout( l );
 
 	hexdata = NULL;
@@ -68,27 +76,42 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 
 void ElfHunterHexWidget::ClearData()
 {
+	//okteta_widget->
+	
+	if( model != NULL )
+	{
+		delete model;
+		model = NULL;
+	}
+	
 	// Data is deleted upon destruction, so we do only "burocracy"
 	// setting hexdata to NULL, avoiding double-free exception
-	hexdata = NULL;
+	if( hexdata!=NULL )
+	{
+		delete hexdata;
+		hexdata = NULL;
+	}
 
-	khe_interface->setData( hexdata, 0 );
-	khe_interface->setMaxDataSize( 0 );
-
+	//khe_interface->setData( hexdata, 0 );
+	//khe_interface->setMaxDataSize( 0 );
 }
 
 ElfHunterHexWidget::~ElfHunterHexWidget()
 {
 	ClearData();
 
+	//delete khe_widget;
+	delete okteta_widget;
 	delete l;
-	delete khe_widget;
 }
 
 void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 {
-	khe_interface->setData( data, datasize );
-	khe_interface->setMaxDataSize( datasize );
+	//khe_interface->setData( data, datasize );
+	//khe_interface->setMaxDataSize( datasize );
 	
+	ClearData();
+	model = new Okteta::PieceTableByteArrayModel( QByteArray::fromRawData( data, datasize ), this );
+	okteta_widget->setByteArrayModel( model );
 	hexdata = data;
 }
