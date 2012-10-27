@@ -30,13 +30,6 @@
 #ifndef ElfHunterHexWidget_H
 	#define ElfHunterHexWidget_H
 
-	/*
-	#include <khexedit/byteseditinterface.h>
-	#include <khexedit/valuecolumninterface.h>
-	#include <khexedit/charcolumninterface.h>
-	#include <khexedit/clipboardinterface.h>
-	#include <khexedit/zoominterface.h>
-	*/
 	#include <okteta1/bytearraycolumnview.h>
 	#include <okteta1/piecetablebytearraymodel.h>
 
@@ -46,20 +39,15 @@
 	/** @class ElfHunterHexWidget
 	 * @brief Implementation of KHexEditor interface
 	 *
-	 * Implements the KHE interface. It provide the standard hex-dump widget
+	 * It provide the standard hex-dump widget
 	 * and sets up some methods to insert and clean data inside it. */
 	class ElfHunterHexWidget : public QWidget
 	{
 	Q_OBJECT
 
 	private:
-		//QWidget *khe_widget; ///< KHexEditor Widget
 		Okteta::ByteArrayColumnView *okteta_widget;
 		Okteta::PieceTableByteArrayModel* model;
-
-		//KHE::BytesEditInterface *khe_interface; ///< Part of KHE interface
-		//KHE::ValueColumnInterface *khe_hexvalues; ///< Part of KHE interface
-		//KHE::CharColumnInterface *khe_charvalues; ///< Part of KHE interface
 
 		QGridLayout *l; ///< Main layout
 

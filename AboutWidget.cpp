@@ -31,7 +31,6 @@ AboutWidget::AboutWidget()
 
 	// TODO: change to something else depending on content
 	resize( 250, 140 );
-
 	// TODO
 	abouttext = new QLabel(
 		"ElfHunter v0.13\n"
