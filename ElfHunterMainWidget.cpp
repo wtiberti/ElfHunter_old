@@ -104,7 +104,6 @@ QString ElfHunterMainWidget::OpenFile_Dialog()
 	QString filename;
 	
 	filename = QFileDialog::getOpenFileName( this, "Open", "", "" );
-
 	return filename;
 }
 

@@ -29,13 +29,12 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 {
 	l = new QGridLayout();
 	
-	model = NULL;
-	
 	okteta_widget = new Okteta::ByteArrayColumnView();
-	//
+	okteta_widget->setByteTypeColored( false );
+	okteta_widget->setFont( QFont( "Monospace", 8 ) );
 	model = new Okteta::PieceTableByteArrayModel();
+	model->setReadOnly( true );
 	okteta_widget->setByteArrayModel( model );
-	//
 	
 	l->addWidget( (QWidget *)okteta_widget );
 	
@@ -58,6 +57,7 @@ ElfHunterHexWidget::~ElfHunterHexWidget()
 {
 	ClearData();
 
+	delete model;
 	delete okteta_widget;
 	delete l;
 }
@@ -66,8 +66,8 @@ void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 {
 	ClearData();
 	
-	//NOTE SEGFAULT HERE!
 	model->setData( QByteArray::fromRawData( data, datasize ) );
 	
 	hexdata = data;
+	okteta_widget->setCursorPosition( 0 );
 }

@@ -7,6 +7,8 @@
 TEMPLATE = app
 TARGET =
 DEPENDPATH += .
+
+# TODO using environment variables to detect path
 INCLUDEPATH += . /usr/include/okteta1
 
 # Source code files
@@ -37,6 +39,5 @@ SOURCES += elfhunter.cpp \
            ElfStringTable.cpp \
            ElfSymTable.cpp
 
-# KHE Interface need this
-# -lkdecore 
+# Okteta widget need these
 LIBS += -lokteta1core -lokteta1gui

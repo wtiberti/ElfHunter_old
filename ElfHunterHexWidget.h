@@ -46,8 +46,8 @@
 	Q_OBJECT
 
 	private:
-		Okteta::ByteArrayColumnView *okteta_widget;
-		Okteta::PieceTableByteArrayModel* model;
+		Okteta::ByteArrayColumnView *okteta_widget; ///< Hex Dump View widget
+		Okteta::PieceTableByteArrayModel* model; ///< Data model used ( as in Model-View pattern )
 
 		QGridLayout *l; ///< Main layout
 
