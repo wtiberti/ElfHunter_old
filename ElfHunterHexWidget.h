@@ -64,5 +64,8 @@
 		 * @param[in] datasize Size in bytes of data */
 		void SetData( char *data, unsigned long datasize );
 		void ClearData(); ///< Empty the widget and clear data
+		
+	public slots:
+		void Select( __uint64_t offset, __uint64_t size );
 	};
 #endif

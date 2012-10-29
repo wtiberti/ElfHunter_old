@@ -28,8 +28,8 @@
 #ifndef ElfAuxTypes_H
 	#define ElfAuxTypes_H
 
-	#include <vector>
-
+	#include <elf.h>
+	
 	/** @brief SectStruct definition
 	 *
 	 * This struct is used to store all the meaningful
@@ -43,7 +43,6 @@
 		__uint64_t size; ///< Size of the section
 	} SectStruct;
 
-	
 	/** @brief SymData64 definition
 	 *
 	 * This structure is used to keep track of all
@@ -66,5 +65,5 @@
 		std::vector< __uint64_t > offsets; ///< Vector of symbol offsets
 		std::vector< int > sects; ///< Vector of symbols sections
 	} SymData32;
-
+	
 #endif

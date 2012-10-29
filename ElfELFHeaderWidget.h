@@ -55,6 +55,7 @@
 		"e_shnum",
 		"e_shstrndx"
 	};
+		
 
 	/** @class ElfELFHeaderWidget
 	 * @brief ELF Header widget class
@@ -71,5 +72,11 @@
 		/** @brief Insert ELF values in the table
 		 * @param[in] elfheader Pointer to the ELF file data */
 		void SetElfValues( char *elfheader );
+		
+	public slots:
+		void InvokeSelection( int row, int column );
+
+	signals:
+		void S_selection_changed( __uint64_t o, __uint64_t s );
 	};
 #endif

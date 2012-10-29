@@ -13,6 +13,7 @@ INCLUDEPATH += . /usr/include/okteta1
 
 # Source code files
 HEADERS += ElfAuxTypes.h \
+           SelectionInfo.h \
            ElfHunterWindow.h \
            ElfHunterHexWidget.h \
            ElfHunterMainWidget.h \

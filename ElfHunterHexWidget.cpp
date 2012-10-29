@@ -32,6 +32,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 	okteta_widget = new Okteta::ByteArrayColumnView();
 	okteta_widget->setByteTypeColored( false );
 	okteta_widget->setFont( QFont( "Monospace", 8 ) );
+	okteta_widget->setNoOfBytesPerLine( 0x10 );
 	model = new Okteta::PieceTableByteArrayModel();
 	model->setReadOnly( true );
 	okteta_widget->setByteArrayModel( model );
@@ -70,4 +71,11 @@ void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 	
 	hexdata = data;
 	okteta_widget->setCursorPosition( 0 );
+}
+
+void ElfHunterHexWidget::Select( __uint64_t offset, __uint64_t size )
+{
+	//TODO Okteta 'Address' type is a 32bit int...
+	okteta_widget->setMarking( (__uint32_t)offset, (__uint32_t)(offset+size-1) );
+	//okteta_widget->setSelection( (__uint32_t)offset, (__uint32_t)(offset+size-1) );
 }

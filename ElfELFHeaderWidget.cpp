@@ -307,4 +307,27 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 		temp_item->setFlags( EHW_ITEMFLAGS );
 		table->setItem( i, 0, temp_item );
 	}
+	
+	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
+}
+
+void ElfELFHeaderWidget::InvokeSelection( int row, int column )
+{
+	__uint64_t offset = 0;
+	__uint64_t size = 0;
+	
+	if( row < table->rowCount() )
+	{
+		if( is64bit )
+		{
+			offset = elfhdr_selection_info64[row].start;
+			size = elfhdr_selection_info64[row].size;
+		}
+		else
+		{
+			offset = elfhdr_selection_info[row].start;
+			size = elfhdr_selection_info[row].size;
+		}
+		emit S_selection_changed( offset, size );
+	}
 }

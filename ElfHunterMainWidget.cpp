@@ -188,6 +188,8 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 	widget_selector->addTopLevelItem( elfhdr_treeitem );
 	tree_elem.push_back( elfhdr_treeitem );
 	
+	connect( temp_elfhdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
+	
 	//
 	sidewidget->setwidget( elfhdr_treeitem, 0 );
 	//
