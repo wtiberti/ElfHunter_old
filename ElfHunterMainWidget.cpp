@@ -222,6 +222,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		temp_treeitem->setText( 0, "String Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
 		tree_elem.push_back( temp_treeitem );
+		connect( temp_strtbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 
 		ElfSymTable *temp_symtbl = new ElfSymTable();
 		temp_symtbl->SelectData( filedata );

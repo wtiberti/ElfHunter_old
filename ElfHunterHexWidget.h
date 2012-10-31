@@ -32,6 +32,7 @@
 
 	#include <okteta1/bytearraycolumnview.h>
 	#include <okteta1/piecetablebytearraymodel.h>
+	#include <okteta1/addressrange.h>
 
 	#include <QtGui>
 	

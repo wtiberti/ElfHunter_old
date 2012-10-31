@@ -75,7 +75,7 @@ void ElfHunterHexWidget::SetData( char *data, unsigned long datasize )
 
 void ElfHunterHexWidget::Select( __uint64_t offset, __uint64_t size )
 {
-	//TODO Okteta 'Address' type is a 32bit int...
-	okteta_widget->setMarking( (__uint32_t)offset, (__uint32_t)(offset+size-1) );
-	//okteta_widget->setSelection( (__uint32_t)offset, (__uint32_t)(offset+size-1) );
+	Okteta::AddressRange ar( offset, (offset+size-1) );
+	okteta_widget->setMarking( ar );
+	okteta_widget->ensureVisible( ar, true );
 }

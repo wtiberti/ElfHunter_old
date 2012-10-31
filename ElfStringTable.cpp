@@ -146,7 +146,9 @@ void ElfStringTable::SelectData( char *data )
 
 	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
+	
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	
 	if( ss.size()>0 )
 		SetValues( 0 );
@@ -156,4 +158,29 @@ void ElfStringTable::AddString( QString v, QString s )
 {
 	valueslist << v;
 	stringlist << s;
+}
+
+void ElfStringTable::InvokeSelection( int row, int column )
+{
+	__uint64_t str_offset;
+	__uint64_t len;
+	bool conversion_result;
+	
+	if( row==0 ) // Section indication
+	{
+		str_offset = ss[ spin->value() ].offset;
+		len = ss[ spin->value() ].size;
+	}
+	else
+	{
+		// also selecting the ending NULL byte
+		len = stringlist[row].length() + 1;
+		
+		str_offset = valueslist[row].toULongLong( &conversion_result, 16 );
+		
+		if( !conversion_result )
+			len = str_offset = 0;
+	}
+	
+	emit S_selection_changed( str_offset, len );
 }
