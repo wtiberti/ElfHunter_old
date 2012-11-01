@@ -101,7 +101,7 @@ ElfGenericHeader::~ElfGenericHeader()
 		for( unsigned int i=0; i<rows; i++ )
 			delete table->verticalHeaderItem( i );
 	}
-
+	
 	stringlist.clear();
 	valueslist.clear();
 

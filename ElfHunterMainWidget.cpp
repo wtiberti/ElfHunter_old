@@ -203,6 +203,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		proghdr_treeitem->setText( 0, "Program Headers" );
 		elfhdr_treeitem->addChild( proghdr_treeitem );
 		tree_elem.push_back( proghdr_treeitem );
+		connect( temp_proghdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 	}
 
 	if( ElfGenericHeader::HasSections( filedata ) )

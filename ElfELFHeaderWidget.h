@@ -73,7 +73,7 @@
 		 * @param[in] elfheader Pointer to the ELF file data */
 		void SetElfValues( char *elfheader );
 		
-	public slots:
+	private slots:
 		void InvokeSelection( int row, int column );
 
 	signals:

@@ -44,6 +44,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	// e_ident magic field
 	temp_string = ToHexString( header->e_ident, 4 );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_ident class
 	switch( header->e_ident[EI_CLASS] )
@@ -59,6 +60,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 			temp_string = new QString( "[unknown]" );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 	//e_ident byte endian
 	switch( header->e_ident[EI_DATA] )
@@ -73,6 +75,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 			temp_string = new QString( "[unknown]" );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_ident Version
 	if( header->e_ident[EI_VERSION]==EV_CURRENT )
@@ -80,6 +83,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string = new QString( "Invalid Version" );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_ident ABI
 	switch( header->e_ident[EI_OSABI] )
@@ -117,18 +121,20 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 		default:
 			temp_string = new QString( "[unknown]" );
 	}
-
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_ident abiversion
 	temp_string = new QString();
 	temp_string->setNum( header->e_ident[EI_ABIVERSION] );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_ident size
 	temp_string = new QString();
 	temp_string->setNum( EI_NIDENT );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_type
 	switch( header->e_type )
@@ -149,6 +155,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 			temp_string = new QString( "[unknown]" );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_machine
 	switch( header->e_machine )
@@ -199,6 +206,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 			temp_string = new QString( "[Not Yet Inserted]" );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_version
 	if( header->e_version==EV_CURRENT )
@@ -206,6 +214,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string = new QString( "Invalid Version" );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_entry
 	temp_string = new QString();
@@ -214,6 +223,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_entry, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
 
 	// e_phoff
 	temp_string = new QString();
@@ -222,6 +232,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_phoff, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
 
 	// e_shoff
 	temp_string = new QString();
@@ -230,6 +241,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_shoff, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
 
 	// e_flags
 	temp_string = new QString();
@@ -238,6 +250,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_flags, 16 );
 	stringlist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
 
 	// e_ehsize
 	temp_string = new QString();
@@ -246,6 +259,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_ehsize );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_phentsize
 	temp_string = new QString();
@@ -254,6 +268,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_phentsize );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_phnum
 	//TODO see man elf
@@ -263,6 +278,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_phnum );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_shentsize
 	temp_string = new QString();
@@ -271,6 +287,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_shentsize );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_shnum
 	//TODO see man elf
@@ -280,6 +297,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 	else
 		temp_string->setNum( header->e_shnum );
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// e_shstrndx
 	//TODO see man elf
@@ -299,6 +317,7 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 			temp_string->setNum( header->e_shstrndx );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 
 	for( int i=0; i<stringlist.size(); i++ )

@@ -57,6 +57,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 	temp_value = new QString();
 	temp_value->setNum( prgtype, 16 );
 	valueslist << temp_value->toUpper().prepend( "0x" );
+	
 	switch( prgtype )
 	{
 		case PT_NULL:
@@ -90,6 +91,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 					temp_string = new QString( "[Invalid]" );
 	}
 	stringlist << *temp_string;
+	delete temp_value;
+	delete temp_string;
 
 	// Data offset
 	temp_string = new QString();
@@ -99,6 +102,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_offset, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// Virtual Address
 	temp_string = new QString();
@@ -108,6 +112,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_vaddr, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// Physical Address
 	temp_string = new QString();
@@ -117,6 +122,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_paddr, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// p_filesz
 	temp_string = new QString();
@@ -126,6 +132,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_filesz, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// p_memsz
 	temp_string = new QString();
@@ -135,6 +142,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_memsz, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// flags
 	temp_string = new QString("");
@@ -155,6 +163,8 @@ void ElfProgHeaderWidget::SetValues( int index )
 	if( prgflags & PF_X )
 		temp_string->push_back( "Executable ");
 	stringlist << temp_string->trimmed();
+	delete temp_string;
+	delete temp_value;
 
 	// p_align
 	temp_string = new QString();
@@ -164,6 +174,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 		temp_string->setNum( prog->p_align, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	if( is64bit )
 	{
@@ -215,6 +226,7 @@ void ElfProgHeaderWidget::SelectData( char *data )
 
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 
 	table->verticalHeaderItem( 0 )->setText( "p_type" );
 	if( is64bit )
@@ -238,4 +250,24 @@ void ElfProgHeaderWidget::SelectData( char *data )
 		table->verticalHeaderItem( 7 )->setText( "p_align" );
 	}
 	SetValues( 0 );
+}
+
+void ElfProgHeaderWidget::InvokeSelection( int row, int column )
+{
+	__uint64_t start_offset = this->offset;
+	__uint64_t size;
+	
+	if( is64bit )
+	{
+		start_offset += sizeof( Elf64_Phdr ) * spin->value();
+		start_offset += proghdr_selection_info64[ row ].start;
+		size = proghdr_selection_info64[ row ].size;
+	}
+	else
+	{
+		start_offset += sizeof( Elf32_Phdr ) * spin->value();
+		start_offset += proghdr_selection_info[ row ].start;
+		size = proghdr_selection_info[ row ].size;
+	}
+	emit S_selection_changed( start_offset, size );
 }

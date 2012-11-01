@@ -56,6 +56,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	temp_string->setNum( offset+index*entry_size, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_name
 	__uint64_t name_index;
@@ -66,8 +67,12 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	temp_string = new QString();
 	temp_string->setNum( name_index, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
-	stringlist << *(new QString( (char*)(str_offset+name_index) ) );
-
+	QString *temp_sect_name = new QString( (char*)(str_offset+name_index) );
+	//stringlist << *(new QString( (char*)(str_offset+name_index) ) );
+	stringlist << *temp_sect_name;
+	delete temp_string;
+	delete temp_sect_name;
+	
 	//sh_type
 	__uint64_t secttype;
 	if( is64bit )
@@ -77,6 +82,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	temp_string = new QString();
 	temp_string->setNum( secttype, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
+	
 	switch( secttype )
 	{
 		case SHT_NULL:
@@ -127,6 +134,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 				temp_string = new QString( "[unknown]" );
 	}
 	stringlist << *temp_string;
+	delete temp_string;
 
 	// sh_flags
 	__uint64_t sectflags;
@@ -137,6 +145,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	temp_string = new QString();
 	temp_string->setNum( sectflags, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
+	
 	temp_string = new QString("");
 	if( sectflags & SHF_WRITE )
 		temp_string->push_back( "Writeable " );
@@ -145,6 +155,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	if( sectflags & SHF_EXECINSTR )
 		temp_string->push_back( "Executable ");
 	stringlist << temp_string->trimmed();
+	delete temp_string;
 
 	// sh_addr
 	temp_string = new QString();
@@ -154,6 +165,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_addr, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_offset
 	temp_string = new QString();
@@ -163,6 +175,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_offset, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_size
 	temp_string = new QString();
@@ -172,6 +185,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_size, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_link
 	temp_string = new QString();
@@ -181,6 +195,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_value = sect->sh_link;
 	temp_string->setNum( temp_value, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
+	delete temp_string;
+	
 	switch( temp_value )
 	{
 		case SHT_DYNAMIC:
@@ -213,6 +229,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_info, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_addralign
 	temp_string = new QString();
@@ -222,6 +239,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_addralign, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	// sh_entsize
 	temp_string = new QString();
@@ -231,6 +249,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string->setNum( sect->sh_entsize, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	stringlist << "";
+	delete temp_string;
 
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 	{
@@ -283,6 +302,7 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+	//connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	SetValues( 0 );
 }
 
