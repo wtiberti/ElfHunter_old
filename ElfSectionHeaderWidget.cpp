@@ -68,7 +68,6 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	temp_string->setNum( name_index, 16 );
 	valueslist << temp_string->toUpper().prepend( "0x" );
 	QString *temp_sect_name = new QString( (char*)(str_offset+name_index) );
-	//stringlist << *(new QString( (char*)(str_offset+name_index) ) );
 	stringlist << *temp_sect_name;
 	delete temp_string;
 	delete temp_sect_name;
@@ -302,7 +301,7 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
-	//connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
+	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	SetValues( 0 );
 }
 
@@ -360,4 +359,33 @@ char *ElfSectionHeaderWidget::GetSectionName( char *elf, int index )
 		stringsect = (char *)( elf + sects32[str_sect_index].sh_offset + name_offset );
 	}
 	return stringsect;
+}
+
+void ElfSectionHeaderWidget::InvokeSelection( int row, int column )
+{
+	__uint64_t start_offset = this->offset;
+	__uint64_t size;
+	
+	
+	start_offset += spin->value()*entry_size;
+	
+	if( row == 0 )
+	{
+		size = entry_size;
+	}
+	else
+	{	
+		if( is64bit )
+		{
+			start_offset += secthdr_selection_info64[ row ].start;
+			size = secthdr_selection_info64[ row ].size;
+		}
+		else
+		{
+			start_offset += secthdr_selection_info[ row ].start;
+			size = secthdr_selection_info[ row ].size;
+		}
+	}
+	
+	emit S_selection_changed( start_offset, size );
 }

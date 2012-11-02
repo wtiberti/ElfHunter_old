@@ -105,5 +105,36 @@
 		{ 0x28, 8 },
 		{ 0x30, 8 }
 	};
+	
+	const SelectionInfo secthdr_selection_info[] =
+	{
+		{ 0, 0 }, // Dummy
+		{ 0, 4 },
+		{ 4, 4 },
+		{ 8, 4 },
+		{ 0xC, 4 },
+		{ 0x10, 4 },
+		{ 0x14, 4 },
+		{ 0x18, 4 },
+		{ 0x1C, 4 },
+		{ 0x20, 4 },
+		{ 0x24, 4 }
+	};
+	
+	const SelectionInfo secthdr_selection_info64[] =
+	{
+		{ 0, 0 }, // Dummy
+		{ 0, 4 },
+		{ 4, 4 },
+		{ 0x8, 8 },
+		{ 0x10, 8 },
+		{ 0x18, 8 },
+		{ 0x20, 8 },
+		{ 0x28, 4 },
+		{ 0x2C, 4 },
+		{ 0x30, 8 },
+		{ 0x38, 8 }
+	};
+	
 
 #endif

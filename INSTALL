@@ -2,7 +2,7 @@
 #                         ElfHunter INSTALLATION                              #
 ###############################################################################
 #  Author: Walter Tiberti <wtuniv@gmail.com>                                  #
-#  Date: 2012-09-22 6:31 GMT                                                  #
+#  Last update: 2012-11-01 16:20 CET                                          #
 ###############################################################################
 
 - Generate documentation
@@ -27,7 +27,6 @@ for the source code, the only thing you need to do is (from the source dir):
 	$ make all
 
 
-
 - Compiling faster:
  If you have a multi-processor/multi-core processor, you should use:
 
@@ -47,3 +46,8 @@ for the source code, the only thing you need to do is (from the source dir):
 	# cp ./ElfHunter /usr/local/bin/
 
  (You can change /usr/local/bin as you prefer)
+ 
+ ATTENTION:
+ You will notice that icons are missing...So, it's better (until i'll provide
+ an installation script or something like that) to NOT "install" ElfHunter in
+ some "system" directory. Use it somewhere in your home directory

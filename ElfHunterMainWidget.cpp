@@ -41,8 +41,8 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	widget_selector->setHeaderLabel( "ELF structure" );
 	
 	//connect( widget_selector, SIGNAL(itemChanged(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
-	//connect( widget_selector, SIGNAL(itemClicked(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
-	connect( widget_selector, SIGNAL(itemActivated(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
+	connect( widget_selector, SIGNAL(itemClicked(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
+	//connect( widget_selector, SIGNAL(itemActivated(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
 	
 	widget_selector->setVisible( false );
 	hexdump->setVisible( false );
@@ -215,6 +215,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		secthdr_treeitem->setText( 0, "Section Headers" );
 		elfhdr_treeitem->addChild( secthdr_treeitem );
 		tree_elem.push_back( secthdr_treeitem );
+		connect( temp_secthdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 
 		ElfStringTable *temp_strtbl = new ElfStringTable();
 		temp_strtbl->SelectData( filedata );

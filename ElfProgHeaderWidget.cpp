@@ -257,17 +257,19 @@ void ElfProgHeaderWidget::InvokeSelection( int row, int column )
 	__uint64_t start_offset = this->offset;
 	__uint64_t size;
 	
+	
+	start_offset += entry_size * spin->value();
+	
 	if( is64bit )
 	{
-		start_offset += sizeof( Elf64_Phdr ) * spin->value();
 		start_offset += proghdr_selection_info64[ row ].start;
 		size = proghdr_selection_info64[ row ].size;
 	}
 	else
 	{
-		start_offset += sizeof( Elf32_Phdr ) * spin->value();
 		start_offset += proghdr_selection_info[ row ].start;
 		size = proghdr_selection_info[ row ].size;
 	}
+	
 	emit S_selection_changed( start_offset, size );
 }
