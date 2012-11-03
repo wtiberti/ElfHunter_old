@@ -136,5 +136,28 @@
 		{ 0x38, 8 }
 	};
 	
-
+	const SelectionInfo symtbl_selection_info[] =
+	{
+		{ 0, 0 }, //DUMMY
+		{ 0, 0 }, //DUMMY
+		{ 0, 4 },
+		{ 4, 4 },
+		{ 8, 4 },
+		{ 0xC, 1 },
+		{ 0xD, 1 },
+		{ 0xE, 2 }
+	};
+	
+	const SelectionInfo symtbl_selection_info64[] =
+	{
+		{ 0, 0 }, //DUMMY
+		{ 0, 0 }, //DUMMY
+		{ 0, 4 },
+		{ 4, 1 },
+		{ 5, 1 },
+		{ 6, 2 },
+		{ 8, 8 },
+		{ 0x10, 8 }
+	};
+	
 #endif

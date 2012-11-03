@@ -233,6 +233,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		temp_treeitem->setText( 0, "Symbol Tables" );
 		secthdr_treeitem->addChild( temp_treeitem );
 		tree_elem.push_back( temp_treeitem );
+		connect( temp_symtbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 	}
 
 	hexdump->SetData( filedata, size );

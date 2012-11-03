@@ -282,11 +282,15 @@ void ElfSymTable::SelectData( char *data )
 
 	if( is64bit )
 	{
+		entry_size = sizeof( Elf64_Sym );
+		
 		sectoff = header64->e_shoff;
 		sectnum = header64->e_shnum;
 	}
 	else
 	{
+		entry_size = sizeof( Elf32_Sym );
+		
 		sectoff = header->e_shoff;
 		sectnum = header->e_shnum;
 	}
@@ -347,7 +351,7 @@ void ElfSymTable::SelectData( char *data )
 	spin->setMaximum( (ss.size()==0)?0:ReadSymbols()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
-	
+	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	if( ss.size()>0 )
 		SetValues( 0 );
 }
@@ -457,4 +461,38 @@ char *ElfSymTable::GetSymNameStrTable( char *elf )
 		}
 		return NULL;
 	}
+}
+
+void ElfSymTable::InvokeSelection( int row, int column )
+{
+	__uint64_t start_offset;
+	__uint64_t size = entry_size;
+	
+	
+	if( is64bit )
+	{
+		start_offset = sym64.offsets[ spin->value() ];
+	}
+	else
+	{
+		start_offset = sym32.offsets[ spin->value() ];
+	}
+
+	if( row > 1 )
+	{
+		if( is64bit )
+		{
+			start_offset += symtbl_selection_info64[ row ].start;
+			size = symtbl_selection_info64[ row ].size;
+		}
+		else
+		{
+			start_offset += symtbl_selection_info[ row ].start;
+			size = symtbl_selection_info[ row ].size;
+		}
+		
+	}
+	
+	//qDebug() << "o: " << start_offset << "   -   s: " << size;
+	emit S_selection_changed( start_offset, size );
 }
