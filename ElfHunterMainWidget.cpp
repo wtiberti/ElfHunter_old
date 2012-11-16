@@ -55,8 +55,8 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	spl->addWidget( widget_selector );
 	spl->addWidget( sidewidget );
 	QList<int> widgets_size_list;
-	widgets_size_list.append( 180 ); //TEMP
-	widgets_size_list.append( 450 ); //TEMP
+	widgets_size_list.append( 180 ); //TODO: HEDUMPSIZE
+	widgets_size_list.append( 450 ); //TODO: HEDUMPSIZE
 	spl->setSizes( widgets_size_list );
 	
 	v_spl->addWidget( spl );
@@ -238,6 +238,8 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 
 	hexdump->SetData( filedata, size );
 	user_can_show_hex = true;
+	
+	widget_selector->expandAll();
 }
 
 void ElfHunterMainWidget::CloseFile()
@@ -261,6 +263,7 @@ void ElfHunterMainWidget::CloseFile()
 	emit s_disable_action( A_CLOSE );
 	emit s_disable_action( A_TOGGLEHEX );
 	emit s_disable_action( A_TOGGLETREE );
+	emit s_disable_action( A_GOTOOFFSET );
 	
 	widget_selector->hide();
 	treewidgetvisible = false;
@@ -301,6 +304,7 @@ void ElfHunterMainWidget::SetFile( bool fromcmdline )
 		emit s_enable_action( A_CLOSE );
 		emit s_enable_action( A_TOGGLEHEX );
 		emit s_enable_action( A_TOGGLETREE );
+		emit s_enable_action( A_GOTOOFFSET );
 	}
 	catch( int ErrorNum )
 	{
@@ -357,4 +361,18 @@ void ElfHunterMainWidget::ToggleWidgetTree()
 		widget_selector->show();
 		treewidgetvisible = true;
 	}
+}
+
+void ElfHunterMainWidget::Hexdump_GoToOffset()
+{
+	__uint64_t user_offset = 0;
+	
+	QString user_offset_str = QInputDialog::getText( this, "Go To Offset", "Offset:" );
+
+	if( user_offset_str.startsWith( "0x", Qt::CaseInsensitive ) )
+		user_offset = user_offset_str.toULongLong( 0, 16 );
+	else
+		user_offset = user_offset_str.toULongLong();
+	
+	hexdump->GoToOffset( user_offset );
 }

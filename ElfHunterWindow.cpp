@@ -26,7 +26,7 @@
 
 ElfHunterWindow::ElfHunterWindow()
 {
-	resize( 800, 550 );
+	resize( 800, 620 ); //TODO
 	mw = new ElfHunterMainWidget( this );
 	
 	Init_Actions();
@@ -48,6 +48,15 @@ ElfHunterWindow::~ElfHunterWindow()
 	delete mw;
 }
 
+void ElfHunterWindow::CleanUp()
+{
+	menus.clear();
+	actions.clear();
+	delete mw;
+	
+	qApp->quit();
+}
+
 void ElfHunterWindow::Init_Actions()
 {
 	QAction *temp;
@@ -64,7 +73,7 @@ void ElfHunterWindow::Init_Actions()
 	temp = new QAction( QIcon( "icons/application-exit.png" ), "E&xit", this );
 	temp->setShortcuts( QKeySequence::Quit );
 	temp->setStatusTip( "Exit the application" );
-	connect( temp, SIGNAL(triggered()), qApp, SLOT(quit()) );
+	connect( temp, SIGNAL(triggered()), this, SLOT(CleanUp()) );
 	actions.push_back( temp );
 	
 	temp = new QAction( QIcon( "icons/document-open.png" ), "&Open", this );
@@ -107,6 +116,15 @@ void ElfHunterWindow::Init_Actions()
 	if( fromcmdline ) temp->setEnabled( true );
 	//--
 	
+	temp = new QAction( QIcon( "icons/arrow-right-double.png" ), "&Go To Offset", this );
+	temp->setStatusTip( "Go to a selected offset in the hexdump window" );
+	connect( temp, SIGNAL(triggered()), mw, SLOT(Hexdump_GoToOffset()) );
+	temp->setEnabled( false );
+	actions.push_back( temp );
+	//FIXME
+	if( fromcmdline ) temp->setEnabled( true );
+	//--
+	
 }
 
 void ElfHunterWindow::Init_MenuBar()
@@ -125,6 +143,7 @@ void ElfHunterWindow::Init_MenuBar()
 	temp = menuBar()->addMenu( "&View" );
 	temp->addAction( actions[A_TOGGLETREE] );
 	temp->addAction( actions[A_TOGGLEHEX] );
+	temp->addAction( actions[A_GOTOOFFSET] );
 	
 	temp = menuBar()->addMenu( "&?" );
 	temp->addAction( actions[A_ABOUT] );
@@ -138,6 +157,7 @@ void ElfHunterWindow::Init_ToolBar()
 	main_toolbar->addAction( actions[A_CLOSE] );
 	main_toolbar->addAction( actions[A_TOGGLETREE] );
 	main_toolbar->addAction( actions[A_TOGGLEHEX] );
+	main_toolbar->addAction( actions[A_GOTOOFFSET] );
 }
 
 void ElfHunterWindow::Init_StatusBar()

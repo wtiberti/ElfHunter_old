@@ -93,5 +93,8 @@
 		 * @param[in] stream Pointer to data to be converted
 		 * @param[in] size Size in bytes of data */
 		static QString *ToHexString( unsigned char *stream, unsigned int size );
+		
+	signals:
+		void S_selection_changed( __uint64_t, __uint64_t );
 	};
 #endif

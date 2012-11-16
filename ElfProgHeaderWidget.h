@@ -52,9 +52,6 @@
 		
 	private slots:
 		void InvokeSelection( int row, int column );
-		
-	signals:
-		void S_selection_changed( __uint64_t, __uint64_t );
 	};
 
 #endif

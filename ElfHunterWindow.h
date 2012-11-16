@@ -40,6 +40,7 @@
 	#define A_ABOUT 3
 	#define A_TOGGLEHEX 4
 	#define A_TOGGLETREE 5
+	#define A_GOTOOFFSET 6
 	// etc..
 	
 	#define M_FILE 0
@@ -85,5 +86,8 @@
 		/** @brief Disable the choosen action
 		 * @param[in] i The action to be disabled (as index in @ref actions vector) */
 		void DisableAction( unsigned int i );
+		
+		/** @brief Ensure a clean exit */
+		void CleanUp();
 	};
 #endif

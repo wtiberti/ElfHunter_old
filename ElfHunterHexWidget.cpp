@@ -32,7 +32,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 	okteta_widget = new Okteta::ByteArrayColumnView();
 	okteta_widget->setByteTypeColored( false );
 	okteta_widget->setFont( QFont( "Monospace", 8 ) );
-	okteta_widget->setNoOfBytesPerLine( 0x10 );
+	//okteta_widget->setNoOfBytesPerLine( 0x10 );
 	model = new Okteta::PieceTableByteArrayModel();
 	model->setReadOnly( true );
 	okteta_widget->setByteArrayModel( model );
@@ -78,4 +78,16 @@ void ElfHunterHexWidget::Select( __uint64_t offset, __uint64_t size )
 	Okteta::AddressRange ar( offset, (offset+size-1) );
 	okteta_widget->setMarking( ar );
 	okteta_widget->ensureVisible( ar, true );
+}
+
+void ElfHunterHexWidget::GoToOffset( __uint64_t offset )
+{
+	Okteta::AddressRange ar( offset, 1 );
+	
+	if( offset < (okteta_widget->byteArrayModel())->size() )
+	{
+		okteta_widget->setFocus( Qt::OtherFocusReason );
+		okteta_widget->ensureVisible( ar, true );
+		okteta_widget->setCursorPosition( offset );
+	}
 }

@@ -68,5 +68,6 @@
 		
 	public slots:
 		void Select( __uint64_t offset, __uint64_t size );
+		void GoToOffset( __uint64_t offset );
 	};
 #endif

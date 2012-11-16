@@ -73,11 +73,13 @@ void ElfHunterSideWidget::setwidget( QTreeWidgetItem *item, int col )
 	{
 		elems[current_widget]->hide();
 		
+		/* //TODO do i need this anymore?
 		if( last_treeitem!=NULL )
 			last_treeitem->setBackground( 0, QBrush(Qt::transparent) );
 		
 		item->setBackground( 0, QBrush(Qt::cyan) );
 		last_treeitem = item;
+		*/
 		
 		elems[temp_item_index]->show();
 		current_widget = temp_item_index;

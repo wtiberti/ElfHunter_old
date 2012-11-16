@@ -119,17 +119,20 @@
 		/** @brief Wrapper method. (QT slot)*/
 		void SetFile( bool fromcmdline = false );
 
-		/** @brief Close the file. (QT slot) */
+		/** @brief Closes the file. (QT slot) */
 		void CloseFile();
 
-		/** @brief Display a @ref AboutWidget (QT slot)*/
+		/** @brief Displays a @ref AboutWidget (QT slot)*/
 		void DisplayAbout();
 
-		/** @brief Show/Hide the hex-dump widget */
+		/** @brief Shows/Hides the hex-dump widget */
 		void ToggleHexView();
 		
-		/** @brief Show/Hide the Tree widget */
+		/** @brief Shows/Hides the Tree widget */
 		void ToggleWidgetTree();
+		
+		/** @brief Shows the "Go To Offset" dialog box */
+		void Hexdump_GoToOffset();
 		
 	signals:
 		/** @brief QT Signal. It is sent when an action has to be disabled */
