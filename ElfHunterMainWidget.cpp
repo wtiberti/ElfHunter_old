@@ -85,7 +85,6 @@ ElfHunterMainWidget::~ElfHunterMainWidget()
 	}
 
 	delete widget_selector;
-	
 	delete hexdump;
 	delete sidewidget;
 	delete layout;

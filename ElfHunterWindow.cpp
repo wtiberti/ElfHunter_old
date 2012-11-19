@@ -45,14 +45,25 @@ ElfHunterWindow::~ElfHunterWindow()
 {
 	menus.clear();
 	actions.clear();
-	delete mw;
+	
+	if( mw != NULL )
+	{
+		delete mw;
+		mw = NULL;
+	}
+	
 }
 
 void ElfHunterWindow::CleanUp()
 {
 	menus.clear();
 	actions.clear();
-	delete mw;
+	
+	if( mw!=NULL )
+	{
+		delete mw;
+		mw = NULL;
+	}
 	
 	qApp->quit();
 }
