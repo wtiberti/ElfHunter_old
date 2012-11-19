@@ -67,7 +67,13 @@
 		void ClearData(); ///< Empty the widget and clear data
 		
 	public slots:
+		/** @brief Select/Mark the selected data range
+		 * @param[in] offset Start of data to be marked/selected
+		 * @param[in] size Size of data to be marked/selected */
 		void Select( __uint64_t offset, __uint64_t size );
+		
+		/** @brief "Center" the hexdump to the selected offset
+		 * @param[in] offset Offset */
 		void GoToOffset( __uint64_t offset );
 	};
 #endif

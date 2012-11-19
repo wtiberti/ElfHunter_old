@@ -74,6 +74,7 @@
 		void SetElfValues( char *elfheader );
 		
 	private slots:
+		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
 	};
 #endif

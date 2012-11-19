@@ -26,7 +26,7 @@
 
 ElfHunterWindow::ElfHunterWindow()
 {
-	resize( 800, 620 ); //TODO
+	resize( 800, 650 ); //TODO
 	mw = new ElfHunterMainWidget( this );
 	
 	Init_Actions();

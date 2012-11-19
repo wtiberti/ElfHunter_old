@@ -28,12 +28,17 @@
 	
 	#include <unistd.h>
 	
+	/** @brief SelectionInfo struct
+	 * 
+	 * This structure is used to store the relative starting offset
+	 * and the size of members of the various ELF structure */
 	typedef struct
 	{
-		__uint64_t start;
-		__uint64_t size;
+		__uint64_t start; /// Start of range
+		__uint64_t size; /// Size
 	} SelectionInfo;
 	
+	/** @brief ELF file header SelectionInfo structs */
 	const SelectionInfo elfhdr_selection_info[] =
 	{
 		{ 0, 4 },
@@ -58,6 +63,7 @@
 		{ 0x32, 2 }
 	};
 	
+	/** @brief ELF file header SelectionInfo structs (64bit) */
 	const SelectionInfo elfhdr_selection_info64[] =
 	{
 		{ 0, 4 },
@@ -82,6 +88,7 @@
 		{ 0x3E, 2 }
 	};
 	
+	/** @brief Program header SelectionInfo structs */
 	const SelectionInfo proghdr_selection_info[] =
 	{
 		{ 0, 4 },
@@ -94,6 +101,7 @@
 		{ 0x1C, 4 }
 	};
 	
+	/** @brief Program header SelectionInfo structs (64bit) */
 	const SelectionInfo proghdr_selection_info64[] =
 	{
 		{ 0, 4 },
@@ -106,6 +114,7 @@
 		{ 0x30, 8 }
 	};
 	
+	/** @brief Section header SelectionInfo structs */
 	const SelectionInfo secthdr_selection_info[] =
 	{
 		{ 0, 0 }, // Dummy
@@ -121,6 +130,7 @@
 		{ 0x24, 4 }
 	};
 	
+	/** @brief Section header SelectionInfo structs (64bit)*/
 	const SelectionInfo secthdr_selection_info64[] =
 	{
 		{ 0, 0 }, // Dummy
@@ -136,6 +146,7 @@
 		{ 0x38, 8 }
 	};
 	
+	/** @brief Symbol Table SelectionInfo structs */
 	const SelectionInfo symtbl_selection_info[] =
 	{
 		{ 0, 0 }, //DUMMY
@@ -148,6 +159,7 @@
 		{ 0xE, 2 }
 	};
 	
+	/** @brief Symbol Table SelectionInfo structs (64bit) */
 	const SelectionInfo symtbl_selection_info64[] =
 	{
 		{ 0, 0 }, //DUMMY

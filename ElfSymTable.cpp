@@ -492,7 +492,6 @@ void ElfSymTable::InvokeSelection( int row, int column )
 		}
 		
 	}
-	
-	//qDebug() << "o: " << start_offset << "   -   s: " << size;
+
 	emit S_selection_changed( start_offset, size );
 }

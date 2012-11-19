@@ -65,6 +65,7 @@
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 	
 	private slots:
+		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
 	};
 #endif
