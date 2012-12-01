@@ -252,12 +252,15 @@ void ElfHunterWindow::SetFileDesc( QString filename, __uint64_t size )
 
 void ElfHunterWindow::SetCurrentOffset( __uint64_t offset )
 {
-	if( status_widgets.size() > STBAR_OFFSET )
+	QString o;
+	
+	if( status_widgets.size() > STBAR_OFFSET ) //TODO
 	{
-		QString o;
-		
 		o.setNum( offset, 16 );
 		o = o.toUpper().prepend( "0x" );
-		((QLabel *)status_widgets.at(STBAR_OFFSET))->setText( o );
 	}
+	else
+		o = " --- ";
+	
+	((QLabel *)status_widgets.at(STBAR_OFFSET))->setText( o );
 }

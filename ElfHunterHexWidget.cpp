@@ -101,7 +101,6 @@ void ElfHunterHexWidget::andress2uint( Okteta::Address address )
 {
 	/* NOTICE
 	Address is a qint32! It means we will have problems with file
-	with a size > ~ 4 GB
-	*/
+	with a size > ~ 4 GB */
 	emit s_hexcursorchanged( (__uint64_t)address );
 }
