@@ -41,6 +41,8 @@
 
 	#include <vector>
 	
+	#define MAX_PATH 256
+	
 	#define ELFSIGNATURE 0x464C457F
 	
 	#define ERR_OPEN_FILE_NOT_EXISTS 1
@@ -69,6 +71,7 @@
 
 		QFile *actual_file; ///< Pointer to actual file
 		bool file_opened; ///< Flag. If a file is opened, it's true
+		char long_file_name[MAX_PATH]; ///< Holds the expanded filename
 
 		bool hexvisible; ///< Flag. If the hexdump widget is visible, it's true
 		bool user_can_show_hex; ///< Flag. Indicates whenever user can show/hide the hex-dump
@@ -139,5 +142,8 @@
 		void s_disable_action( unsigned int action_n );
 		/** @brief QT Signal. It is sent when an action has to be enabled */
 		void s_enable_action( unsigned int action_n );
+		
+		/** @brief QT Signal. It is sent when user opens/closes a file */
+		void s_filechanged( QString filename, __uint64_t filesize );
 	};
 #endif

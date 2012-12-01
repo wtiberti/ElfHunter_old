@@ -75,5 +75,13 @@
 		/** @brief "Center" the hexdump to the selected offset
 		 * @param[in] offset Offset */
 		void GoToOffset( __uint64_t offset );
+		
+		/** @brief Convert a Okteta::Address to a __uint64_t and redirect
+		 * the cursorPositionChanged signal from Okteta::ByteArrayColumnView */
+		void andress2uint( Okteta::Address address );
+		
+	signals:
+		/** @brief QT Signal. It is sent when moving the hexdump cursor */
+		void s_hexcursorchanged( __uint64_t offset );
 	};
 #endif

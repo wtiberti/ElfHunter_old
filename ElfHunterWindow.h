@@ -47,6 +47,11 @@
 	#define M_INFO 1
 	// etc..
 	
+	
+	#define STBAR_FILENAME 1
+	#define STBAR_FILESIZE 3
+	#define STBAR_OFFSET 5
+	
 	/** @class ElfHunterWindow
 	 * @brief ElfHunter Main Window class
 	 *
@@ -61,6 +66,7 @@
 		QToolBar *main_toolbar; ///< Toolbar
 		std::vector< QAction * > actions; ///< Actions vector. All actions are stored here
 		std::vector< QMenu * > menus; ///< Menu vector. All the top level menus are stored here
+		std::vector< QWidget * > status_widgets;
 
 		/** @brief  Creates all the needed actions */
 		void Init_Actions();
@@ -89,5 +95,14 @@
 		
 		/** @brief Ensure a clean exit */
 		void CleanUp();
+		
+		/** @brief Shows opened file parameters in status bar
+		 * @param[in] filename Name of the file
+		 * @param[in] size Size of the file in bytes */
+		void SetFileDesc( QString filename, __uint64_t size );
+		
+		/** @brief Shows opened file parameters in status bar
+		 * @param[in] offset Current offset in the hexdump window */
+		void SetCurrentOffset( __uint64_t offset );
 	};
 #endif

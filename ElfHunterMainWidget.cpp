@@ -32,17 +32,19 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 	treewidgetvisible = false;
 	hexvisible = false;
 	user_can_show_hex = false;
+	
+	connect( this, SIGNAL(s_filechanged(QString,__uint64_t)), parent, SLOT(SetFileDesc(QString,__uint64_t)) );
 
 	layout = new QGridLayout();
 	widget_selector = new QTreeWidget( this );
 	sidewidget = new ElfHunterSideWidget( this );
 	hexdump = new ElfHunterHexWidget( this );
 	
+	connect ( hexdump, SIGNAL(s_hexcursorchanged(__uint64_t)), parent, SLOT(SetCurrentOffset(__uint64_t)) );
+	
 	widget_selector->setHeaderLabel( "ELF structure" );
 	
-	//connect( widget_selector, SIGNAL(itemChanged(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
 	connect( widget_selector, SIGNAL(itemClicked(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
-	//connect( widget_selector, SIGNAL(itemActivated(QTreeWidgetItem*,int)), sidewidget, SLOT(setwidget(QTreeWidgetItem*,int)) );
 	
 	widget_selector->setVisible( false );
 	hexdump->setVisible( false );
@@ -132,7 +134,7 @@ unsigned long ElfHunterMainWidget::OpenFile( QString &filename )
 	};
 
 	file_opened = true;
-
+	
 	return actual_file->size();
 }
 
@@ -243,6 +245,8 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 
 void ElfHunterMainWidget::CloseFile()
 {
+	memset( long_file_name, 0, sizeof(char)*MAX_PATH );
+	
 	for( int i=tree_elem.size()-1; i>=0; i-- )
 	{
 		delete tree_elem[ i ];
@@ -256,6 +260,8 @@ void ElfHunterMainWidget::CloseFile()
 		actual_file->close();
 		file_opened = false;
 		delete actual_file;
+		
+		emit s_filechanged( " --- ", 0 );
 	}
 
 	emit s_enable_action( A_OPEN );
@@ -295,7 +301,16 @@ void ElfHunterMainWidget::SetFile( bool fromcmdline )
 			CloseFile();
 		return;
 	}
-
+	
+	if( fn.length() < MAX_PATH )
+	{
+		memset( long_file_name, 0, sizeof(char)*MAX_PATH );
+		realpath( fn.toStdString().c_str(), long_file_name );
+		emit s_filechanged( long_file_name, actual_file->size() );
+	}
+	else // If the path is longer than MAX_PATH, shows only the basename
+		emit s_filechanged( fn.toStdString().c_str(), actual_file->size() );
+	
 	try
 	{
 		ReadFile();

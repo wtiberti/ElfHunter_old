@@ -27,13 +27,14 @@
 ElfHunterWindow::ElfHunterWindow()
 {
 	resize( 800, 650 ); //TODO
+	
+	Init_StatusBar(); // Must be called before creating the main widget
+	
 	mw = new ElfHunterMainWidget( this );
 	
 	Init_Actions();
-	
 	Init_MenuBar();
 	Init_ToolBar();
-	Init_StatusBar();
 	
 	setCentralWidget( mw );
 	
@@ -44,7 +45,14 @@ ElfHunterWindow::ElfHunterWindow()
 ElfHunterWindow::~ElfHunterWindow()
 {
 	menus.clear();
+	
+	for( unsigned int i=0; i<actions.size(); i++ )
+		delete actions[i];
 	actions.clear();
+	
+	for( unsigned int i=0; i<status_widgets.size(); i++ )
+		delete status_widgets[i];
+	status_widgets.clear();
 	
 	if( mw != NULL )
 	{
@@ -57,7 +65,14 @@ ElfHunterWindow::~ElfHunterWindow()
 void ElfHunterWindow::CleanUp()
 {
 	menus.clear();
+	
+	for( unsigned int i=0; i<actions.size(); i++ )
+		delete actions[i];
 	actions.clear();
+	
+	for( unsigned int i=0; i<status_widgets.size(); i++ )
+		delete status_widgets[i];
+	status_widgets.clear();
 	
 	if( mw!=NULL )
 	{
@@ -173,7 +188,32 @@ void ElfHunterWindow::Init_ToolBar()
 
 void ElfHunterWindow::Init_StatusBar()
 {
-	//TODO
+	//statusBar()->showMessage( "blabla", 1000 );
+	QLabel *temp;
+	
+	temp = new QLabel( "File:" );
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
+	
+	temp = new QLabel( " --- " ); // File name
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
+	
+	temp = new QLabel( "\tSize:" );
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
+	
+	temp = new QLabel( " --- " ); // File size
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
+	
+	temp = new QLabel( "\tCurrent Offset:" ); // Used for filename
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
+	
+	temp = new QLabel( " --- " ); // Cursor offset
+	statusBar()->addWidget( temp );
+	status_widgets.push_back( temp );
 }
 
 void ElfHunterWindow::EnableAction( unsigned int i )
@@ -189,5 +229,35 @@ void ElfHunterWindow::DisableAction( unsigned int i )
 	if( i<actions.size() )
 	{
 		actions[i]->setEnabled( false );
+	}
+}
+
+void ElfHunterWindow::SetFileDesc( QString filename, __uint64_t size )
+{
+	((QLabel *)status_widgets[STBAR_FILENAME])->setText( filename );
+	
+	QString size_string;
+	
+	if( size ) // 0 if no file opened (since a 0-length will even not be opened)
+	{
+		size_string.setNum( size, 16 );
+		size_string = size_string.prepend( "0x" );
+		size_string = size_string.append( " bytes" );
+	}
+	else
+		size_string = " --- ";
+	
+	((QLabel *)status_widgets[STBAR_FILESIZE])->setText( size_string );
+}
+
+void ElfHunterWindow::SetCurrentOffset( __uint64_t offset )
+{
+	if( status_widgets.size() > STBAR_OFFSET )
+	{
+		QString o;
+		
+		o.setNum( offset, 16 );
+		o = o.toUpper().prepend( "0x" );
+		((QLabel *)status_widgets.at(STBAR_OFFSET))->setText( o );
 	}
 }

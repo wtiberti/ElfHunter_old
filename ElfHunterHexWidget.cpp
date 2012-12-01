@@ -42,6 +42,8 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 	setLayout( l );
 
 	hexdata = NULL;
+	
+	connect( okteta_widget, SIGNAL(cursorPositionChanged(Okteta::Address)), this, SLOT(andress2uint(Okteta::Address)) );
 }
 
 void ElfHunterHexWidget::ClearData()
@@ -93,4 +95,13 @@ void ElfHunterHexWidget::GoToOffset( __uint64_t offset )
 		okteta_widget->ensureVisible( ar, true );
 		okteta_widget->setCursorPosition( offset );
 	}
+}
+
+void ElfHunterHexWidget::andress2uint( Okteta::Address address )
+{
+	/* NOTICE
+	Address is a qint32! It means we will have problems with file
+	with a size > ~ 4 GB
+	*/
+	emit s_hexcursorchanged( (__uint64_t)address );
 }
