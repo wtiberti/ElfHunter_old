@@ -79,20 +79,21 @@ ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 
 ElfHunterMainWidget::~ElfHunterMainWidget()
 {
+	disconnect( this, 0, 0, 0 );
+	
 	if( file_opened )
 	{
 		actual_file->close();
 		file_opened = false;
 		delete actual_file;
 	}
-
-	delete widget_selector;
-	delete hexdump;
-	delete sidewidget;
-	delete layout;
 	
+	delete sidewidget;
+	delete widget_selector;
 	delete spl;
 	delete v_spl;
+	delete hexdump;
+	delete layout;
 }
 
 bool ElfHunterMainWidget::IsFileActive()
@@ -226,7 +227,7 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		secthdr_treeitem->addChild( temp_treeitem );
 		tree_elem.push_back( temp_treeitem );
 		connect( temp_strtbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
-
+		
 		ElfSymTable *temp_symtbl = new ElfSymTable();
 		temp_symtbl->SelectData( filedata );
 		sidewidget->addTab( (QWidget *)temp_symtbl, "Symbol Tables" );
@@ -235,6 +236,15 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		secthdr_treeitem->addChild( temp_treeitem );
 		tree_elem.push_back( temp_treeitem );
 		connect( temp_symtbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
+	
+		ElfHunterRelTable *temp_rlctbl = new ElfHunterRelTable();
+		temp_rlctbl->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_rlctbl, "Reloc Tables" );
+		temp_treeitem = new QTreeWidgetItem();
+		temp_treeitem->setText( 0, "Reloc Tables" );
+		secthdr_treeitem->addChild( temp_treeitem );
+		tree_elem.push_back( temp_treeitem );
+		connect( temp_rlctbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 	}
 
 	hexdump->SetData( filedata, size );

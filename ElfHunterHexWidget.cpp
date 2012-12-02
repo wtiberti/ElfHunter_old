@@ -25,7 +25,7 @@
 
 #include "ElfHunterHexWidget.h"
 
-ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
+ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent ) : QWidget( parent )
 {
 	l = new QGridLayout();
 	
@@ -47,7 +47,7 @@ ElfHunterHexWidget::ElfHunterHexWidget( QWidget *parent )
 }
 
 void ElfHunterHexWidget::ClearData()
-{	
+{
 	if( hexdata!=NULL )
 	{
 		delete hexdata;
@@ -59,11 +59,16 @@ void ElfHunterHexWidget::ClearData()
 
 ElfHunterHexWidget::~ElfHunterHexWidget()
 {
+	disconnect( okteta_widget, 0, 0, 0 );
+	
 	ClearData();
 	
-	//okteta_widget->setByteArrayModel( NULL );
-
-	delete model;
+	if( model != NULL )
+	{
+		//okteta_widget->setByteArrayModel( NULL );
+		delete model;
+		model = NULL;
+	}
 	delete okteta_widget;
 	delete l;
 }

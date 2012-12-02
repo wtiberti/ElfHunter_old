@@ -25,7 +25,8 @@ HEADERS += ElfAuxTypes.h \
            ElfProgHeaderWidget.h \
            ElfSectionHeaderWidget.h \
            ElfStringTable.h \
-           ElfSymTable.h
+           ElfSymTable.h \
+           ElfHunterRelTable.h
 SOURCES += elfhunter.cpp \
            ElfHunterWindow.cpp \
            ElfHunterHexWidget.cpp \
@@ -38,7 +39,8 @@ SOURCES += elfhunter.cpp \
            ElfProgHeaderWidget.cpp \
            ElfSectionHeaderWidget.cpp \
            ElfStringTable.cpp \
-           ElfSymTable.cpp
+           ElfSymTable.cpp \
+           ElfHunterRelTable.cpp
 
 # Okteta widget need these
 LIBS += -lokteta1core -lokteta1gui

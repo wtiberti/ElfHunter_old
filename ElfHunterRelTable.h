@@ -24,17 +24,20 @@
 */
 
 #ifndef ElfHunterRelTable_H
-	#define ElfHunterRelTable
+	#define ElfHunterRelTable_H
 	
 	#include "ElfMultiHeader.h"
+	#include "ElfAuxTypes.h"
 	
+	#include <vector>
 	
 	class ElfHunterRelTable : public ElfMultiHeader
 	{
 	Q_OBJECT
 	
 	private:
-		
+		std::vector< SectStruct > ss;
+		std::vector< bool > isRela;
 	
 	protected:
 		void SetValues( int index );///< @ref ElfMultiHeader::SetValues

@@ -38,6 +38,7 @@
 	#include "ElfSectionHeaderWidget.h"
 	#include "ElfStringTable.h"
 	#include "ElfSymTable.h"
+	#include "ElfHunterRelTable.h"
 
 	#include <vector>
 	

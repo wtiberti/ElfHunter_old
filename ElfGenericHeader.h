@@ -43,8 +43,10 @@
 	{
 		"Value",
 		"Meaning",
-		"Info"
-	};
+		"Info",
+		"Info2",
+		"Info3"
+	}; // TODO Add entries to increse max showable columns
 
 	/** @class ElfGenericHeader
 	 * @brief Generic ELF header widget

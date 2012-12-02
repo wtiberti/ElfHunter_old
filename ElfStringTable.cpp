@@ -40,7 +40,9 @@ ElfStringTable::ElfStringTable() : ElfMultiHeader( 0, 2 )
 }
 
 ElfStringTable::~ElfStringTable()
-{}
+{
+	ss.clear();
+}
 
 void ElfStringTable::SetValues( int index )
 {
