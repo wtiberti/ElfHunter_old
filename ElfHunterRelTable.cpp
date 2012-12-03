@@ -33,7 +33,7 @@ ElfHunterRelTable::ElfHunterRelTable() : ElfMultiHeader( 0, 5 )
 	
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 	
-	table->horizontalHeaderItem(0)->setText( "[SECTION]" );
+	table->horizontalHeaderItem(0)->setText( "[SECT#]" );
 	table->horizontalHeaderItem(1)->setText( "[OFFSET]" );
 	table->horizontalHeaderItem(2)->setText( "r_offset" );
 	table->horizontalHeaderItem(3)->setText( "r_info" );
@@ -42,6 +42,9 @@ ElfHunterRelTable::ElfHunterRelTable() : ElfMultiHeader( 0, 5 )
 
 ElfHunterRelTable::~ElfHunterRelTable()
 {
+	offsetlist.clear();
+	addendlist.clear();
+	
 	ss.clear();
 	isRela.clear();
 }
@@ -115,7 +118,7 @@ void ElfHunterRelTable::SelectData( char *data )
 		}
 	}
 	
-	spin->setMaximum( (ss.size()==0)?0:ss.size() );
+	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
@@ -125,7 +128,188 @@ void ElfHunterRelTable::SelectData( char *data )
 
 void ElfHunterRelTable::SetValues( int index )
 {
-	qDebug() << "Index=" << index;
+	QString section_n;
+	QString *temp_string;
+	__uint64_t reloc_start = (__uint64_t)ss[index].addr;
+	__uint64_t cursor = ss[index].offset;
+	
+	/* Here how data is collected:
+	offsetlist <- generic file offset
+	stringlist <- r_offset
+	valuelist <- r_info
+	addendlist <- r_addend */
+	
+	section_n.setNum( ss[index].sect_n );
+	
+	stringlist.clear();
+	valueslist.clear();
+	
+	offsetlist.clear();
+	addendlist.clear();
+	
+	if( isRela[index] )
+	{
+		if( is64bit )
+		{
+			Elf64_Rela *rela64 = (Elf64_Rela *) reloc_start;
+			
+			while( (__uint64_t)rela64 < (__uint64_t)(reloc_start+ss[index].size) )
+			{
+				temp_string = new QString();
+				temp_string->setNum( cursor, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				offsetlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela64->r_offset, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				stringlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela64->r_info, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				valueslist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela64->r_addend, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				addendlist << *temp_string;
+				delete temp_string;
+				
+				rela64++;
+				cursor += sizeof( Elf64_Rela );
+			}
+		}
+		else
+		{
+			Elf32_Rela *rela = (Elf32_Rela *) reloc_start;
+			
+			while( (__uint64_t)rela < (__uint64_t)(reloc_start+ss[index].size) )
+			{
+				temp_string = new QString();
+				temp_string->setNum( cursor, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				offsetlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela->r_offset, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				stringlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela->r_info, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				valueslist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rela->r_addend, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				addendlist << *temp_string;
+				delete temp_string;
+				
+				rela++;
+				cursor += sizeof( Elf32_Rela );
+			}
+		}
+	}
+	else
+	{
+		if( is64bit )
+		{
+			Elf64_Rel *rel64 = (Elf64_Rel *) reloc_start;
+			
+			while( (__uint64_t)rel64 < (__uint64_t)(reloc_start+ss[index].size) )
+			{
+				temp_string = new QString();
+				temp_string->setNum( cursor, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				offsetlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rel64->r_offset, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				stringlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rel64->r_info, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				valueslist << *temp_string;
+				delete temp_string;
+				
+				rel64++;
+				cursor += sizeof( Elf64_Rel );
+			}
+		}
+		else
+		{
+			Elf32_Rel *rel = (Elf32_Rel *) reloc_start;
+			
+			while( (__uint64_t)rel < (__uint64_t)(reloc_start+ss[index].size) )
+			{
+				temp_string = new QString();
+				temp_string->setNum( cursor, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				offsetlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rel->r_offset, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				stringlist << *temp_string;
+				delete temp_string;
+				
+				temp_string = new QString();
+				temp_string->setNum( rel->r_info, 16 );
+				*temp_string = temp_string->toUpper().prepend( "0x" );
+				valueslist << *temp_string;
+				delete temp_string;
+				
+				rel++;
+				cursor += sizeof( Elf32_Rel );
+			}
+		}
+	}
+	
+	ClearRows();
+	
+	QTableWidgetItem *table_item;
+	
+	for( int i=0; i<offsetlist.size(); i++ )
+	{
+		AddRow();
+		
+		table_item = new QTableWidgetItem( section_n );
+		table_item->setFlags( (Qt::ItemFlag)37 );
+		table->setItem( i, 0, table_item );
+		
+		table_item = new QTableWidgetItem( offsetlist[i] );
+		table_item->setFlags( (Qt::ItemFlag)37 );
+		table->setItem( i, 1, table_item );
+		
+		table_item = new QTableWidgetItem( stringlist[i] );
+		table_item->setFlags( (Qt::ItemFlag)37 );
+		table->setItem( i, 2, table_item );
+		
+		table_item = new QTableWidgetItem( valueslist[i] );
+		table_item->setFlags( (Qt::ItemFlag)37 );
+		table->setItem( i, 3, table_item );
+		
+		if( isRela[index] )
+		{
+			table_item = new QTableWidgetItem( addendlist[i] );
+			table_item->setFlags( (Qt::ItemFlag)37 );
+			table->setItem( i, 4, table_item );
+		}
+	}
+	
 }
 
 void ElfHunterRelTable::InvokeSelection( int row, int column )

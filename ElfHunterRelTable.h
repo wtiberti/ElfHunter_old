@@ -36,6 +36,8 @@
 	Q_OBJECT
 	
 	private:
+		QStringList offsetlist;
+		QStringList addendlist;
 		std::vector< SectStruct > ss;
 		std::vector< bool > isRela;
 	
