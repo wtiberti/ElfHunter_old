@@ -129,7 +129,7 @@ void ElfHunterRelTable::SelectData( char *data )
 void ElfHunterRelTable::SetValues( int index )
 {
 	QString section_n;
-	QString *temp_string;
+	QString temp_string;
 	__uint64_t reloc_start = (__uint64_t)ss[index].addr;
 	__uint64_t cursor = ss[index].offset;
 	
@@ -155,29 +155,21 @@ void ElfHunterRelTable::SetValues( int index )
 			
 			while( (__uint64_t)rela64 < (__uint64_t)(reloc_start+ss[index].size) )
 			{
-				temp_string = new QString();
-				temp_string->setNum( cursor, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				offsetlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( cursor, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				offsetlist << temp_string;
 				
-				temp_string = new QString();
-				temp_string->setNum( rela64->r_offset, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				stringlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( rela64->r_offset, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				stringlist << temp_string;;
 				
-				temp_string = new QString();
-				temp_string->setNum( rela64->r_info, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				valueslist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( rela64->r_info, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				valueslist << temp_string;
 				
-				temp_string = new QString();
-				temp_string->setNum( rela64->r_addend, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				addendlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( rela64->r_addend, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				addendlist << temp_string;
 				
 				rela64++;
 				cursor += sizeof( Elf64_Rela );
@@ -189,30 +181,22 @@ void ElfHunterRelTable::SetValues( int index )
 			
 			while( (__uint64_t)rela < (__uint64_t)(reloc_start+ss[index].size) )
 			{
-				temp_string = new QString();
-				temp_string->setNum( cursor, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				offsetlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( cursor, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				offsetlist << temp_string;
+
+				temp_string.setNum( rela->r_offset, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				stringlist << temp_string;
 				
-				temp_string = new QString();
-				temp_string->setNum( rela->r_offset, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				stringlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( rela->r_info, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				valueslist << temp_string;
 				
-				temp_string = new QString();
-				temp_string->setNum( rela->r_info, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				valueslist << *temp_string;
-				delete temp_string;
-				
-				temp_string = new QString();
-				temp_string->setNum( rela->r_addend, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				addendlist << *temp_string;
-				delete temp_string;
-				
+				temp_string.setNum( rela->r_addend, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				addendlist << temp_string;
+
 				rela++;
 				cursor += sizeof( Elf32_Rela );
 			}
@@ -226,23 +210,17 @@ void ElfHunterRelTable::SetValues( int index )
 			
 			while( (__uint64_t)rel64 < (__uint64_t)(reloc_start+ss[index].size) )
 			{
-				temp_string = new QString();
-				temp_string->setNum( cursor, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				offsetlist << *temp_string;
-				delete temp_string;
-				
-				temp_string = new QString();
-				temp_string->setNum( rel64->r_offset, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				stringlist << *temp_string;
-				delete temp_string;
-				
-				temp_string = new QString();
-				temp_string->setNum( rel64->r_info, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				valueslist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( cursor, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				offsetlist << temp_string;
+
+				temp_string.setNum( rel64->r_offset, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				stringlist << temp_string;
+
+				temp_string.setNum( rel64->r_info, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				valueslist << temp_string;
 				
 				rel64++;
 				cursor += sizeof( Elf64_Rel );
@@ -254,23 +232,17 @@ void ElfHunterRelTable::SetValues( int index )
 			
 			while( (__uint64_t)rel < (__uint64_t)(reloc_start+ss[index].size) )
 			{
-				temp_string = new QString();
-				temp_string->setNum( cursor, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				offsetlist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( cursor, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				offsetlist << temp_string;
 				
-				temp_string = new QString();
-				temp_string->setNum( rel->r_offset, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				stringlist << *temp_string;
-				delete temp_string;
-				
-				temp_string = new QString();
-				temp_string->setNum( rel->r_info, 16 );
-				*temp_string = temp_string->toUpper().prepend( "0x" );
-				valueslist << *temp_string;
-				delete temp_string;
+				temp_string.setNum( rel->r_offset, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				stringlist << temp_string;
+
+				temp_string.setNum( rel->r_info, 16 );
+				temp_string = temp_string.toUpper().prepend( "0x" );
+				valueslist << temp_string;
 				
 				rel++;
 				cursor += sizeof( Elf32_Rel );

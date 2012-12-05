@@ -47,29 +47,27 @@ ElfStringTable::~ElfStringTable()
 void ElfStringTable::SetValues( int index )
 {
 	QTableWidgetItem *table_item;
-	QString *temp_string;
-	QString *str_off;
+	QString temp_string;
+	QString str_off;
 
 	stringlist.clear();
 	valueslist.clear();
 	
 	if( ss.size()>0 )
 	{
-		temp_string = new QString( (char *)(hdrstrings+ss[index].index_name) );
-		str_off = new QString();
-		str_off->setNum( ss[index].sect_n );
-		AddString( str_off->prepend( "[SECT n°] " ), *temp_string );
+		temp_string = (char *)(hdrstrings+ss[index].index_name);
+		str_off.setNum( ss[index].sect_n );
+		AddString( str_off.prepend( "[SECT n°] " ), temp_string );
 
 		unsigned int i=0;
 		while( i<ss[index].size )
 		{
-			str_off = new QString();
-			str_off->setNum( (ss[index].offset)+i, 16 );
-			temp_string = new QString( (char *)(ss[index].addr+i) );
+			str_off.setNum( (ss[index].offset)+i, 16 );
+			temp_string = (char *)(ss[index].addr+i);
 
-			AddString( str_off->toUpper().prepend("0x"), *temp_string );
+			AddString( str_off.toUpper().prepend("0x"), temp_string );
 
-			i += temp_string->length() + 1;
+			i += temp_string.length() + 1;
 		}
 
 		ClearRows();

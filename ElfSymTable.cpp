@@ -41,7 +41,7 @@ ElfSymTable::~ElfSymTable()
 
 void ElfSymTable::SetValues( int index )
 {
-	QString *temp_string;
+	QString temp_string;
 
 	stringlist.clear();
 	valueslist.clear();
@@ -50,83 +50,78 @@ void ElfSymTable::SetValues( int index )
 	{
 		if( is64bit )
 		{
-			temp_string = new QString();
-			temp_string->setNum( sym64.sects[index] );
-			valueslist << *temp_string;
+			temp_string.setNum( sym64.sects[index] );
+			valueslist << temp_string;
 			stringlist << ElfSectionHeaderWidget::GetSectionName( (char *)base, sym64.sects[index] );
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.offsets[index], 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym64.offsets[index], 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_name, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym64.symv[index]->st_name, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << (sym_strtable+sym64.symv[index]->st_name);
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_info, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
-			temp_string = new QString();
+			temp_string.setNum( sym64.symv[index]->st_info, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
+			
+			temp_string = "";
 			switch( sym64.symv[index]->st_info >> 4 )
 			{
 				case STB_LOCAL:
-					*temp_string += "Local ";
+					temp_string += "Local ";
 					break;
 				case STB_GLOBAL:
-					*temp_string += "Global ";
+					temp_string += "Global ";
 					break;
 				case STB_WEAK:
-					*temp_string += "Weak ";
+					temp_string += "Weak ";
 					break;
 				case 10: // ST_LOOS
 				case 11: //
 				case 12: // ST_HIOS
-					*temp_string += "Environment-Specific ";
+					temp_string += "Environment-Specific ";
 					break;
 				case 13: // ST_LOPROC
 				case 14: //
 				case 15: // ST_HIPROC
-					*temp_string += "Processor-Specific ";
+					temp_string += "Processor-Specific ";
 			}
 			switch( sym64.symv[index]->st_info & 0x0F )
 			{
 				case STT_NOTYPE:
-					*temp_string += "Absolute";
+					temp_string += "Absolute";
 					break;
 				case STT_OBJECT:
-					*temp_string += "DataObject";
+					temp_string += "DataObject";
 					break;
 				case STT_FUNC:
-					*temp_string += "Function";
+					temp_string += "Function";
 					break;
 				case STT_SECTION:
-					*temp_string += "Section";
+					temp_string += "Section";
 					break;
 				case STT_FILE:
-					*temp_string += "SourceFile";
+					temp_string += "SourceFile";
 					break;
 				case 10:
 				case 11:
 				case 12:
-					*temp_string += "Environment-Specific";
+					temp_string += "Environment-Specific";
 					break;
 				case 13:
 				case 14:
 				case 15:
-					*temp_string += "Processor-Specific";
+					temp_string += "Processor-Specific";
 			}
-			stringlist << *temp_string;
+			stringlist << temp_string;
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_other, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym64.symv[index]->st_other, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_shndx );
-			valueslist << *temp_string;
+			temp_string.setNum( sym64.symv[index]->st_shndx );
+			valueslist << temp_string;
 			switch( sym64.symv[index]->st_shndx )
 			{
 				case SHN_UNDEF:
@@ -142,105 +137,95 @@ void ElfSymTable::SetValues( int index )
 					stringlist << ElfSectionHeaderWidget::GetSectionName( (char *)base, sym64.symv[index]->st_shndx );
 			}
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_value, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym64.symv[index]->st_value, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym64.symv[index]->st_size, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym64.symv[index]->st_size, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 		}
 		else
 		{
-			temp_string = new QString();
-			temp_string->setNum( sym32.sects[index] );
-			valueslist << *temp_string;
+			temp_string.setNum( sym32.sects[index] );
+			valueslist << temp_string;
 			stringlist << ElfSectionHeaderWidget::GetSectionName( (char *)base, sym32.sects[index] );
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.offsets[index], 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym32.offsets[index], 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_name, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym32.symv[index]->st_name, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << (sym_strtable+sym32.symv[index]->st_name);
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_value, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym32.symv[index]->st_value, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_size, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym32.symv[index]->st_size, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_info, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
-			temp_string = new QString();
+			temp_string.setNum( sym32.symv[index]->st_info, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
+			temp_string = "";
 			switch( sym32.symv[index]->st_info >> 4 )
 			{
 				case STB_LOCAL:
-					*temp_string += "Local ";
+					temp_string += "Local ";
 					break;
 				case STB_GLOBAL:
-					*temp_string += "Global ";
+					temp_string += "Global ";
 					break;
 				case STB_WEAK:
-					*temp_string += "Weak ";
+					temp_string += "Weak ";
 					break;
 				case 10: // ST_LOOS
 				case 11: //
 				case 12: // ST_HIOS
-					*temp_string += "Environment-Specific ";
+					temp_string += "Environment-Specific ";
 					break;
 				case 13: // ST_LOPROC
 				case 14: //
 				case 15: // ST_HIPROC
-					*temp_string += "Processor-Specific ";
+					temp_string += "Processor-Specific ";
 			}
 			switch( sym32.symv[index]->st_info & 0x0F )
 			{
 				case STT_NOTYPE:
-					*temp_string += "Absolute";
+					temp_string += "Absolute";
 					break;
 				case STT_OBJECT:
-					*temp_string += "DataObject";
+					temp_string += "DataObject";
 					break;
 				case STT_FUNC:
-					*temp_string += "Function";
+					temp_string += "Function";
 					break;
 				case STT_SECTION:
-					*temp_string += "Section";
+					temp_string += "Section";
 					break;
 				case STT_FILE:
-					*temp_string += "SourceFile";
+					temp_string += "SourceFile";
 					break;
 				case 10:
 				case 11:
 				case 12:
-					*temp_string += "Environment-Specific";
+					temp_string += "Environment-Specific";
 					break;
 				case 13:
 				case 14:
 				case 15:
-					*temp_string += "Processor-Specific";
+					temp_string += "Processor-Specific";
 			}
-			stringlist << *temp_string;
+			stringlist << temp_string;
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_other, 16 );
-			valueslist << temp_string->toUpper().prepend("0x");
+			temp_string.setNum( sym32.symv[index]->st_other, 16 );
+			valueslist << temp_string.toUpper().prepend("0x");
 			stringlist << "";
 
-			temp_string = new QString();
-			temp_string->setNum( sym32.symv[index]->st_shndx );
-			valueslist << *temp_string;
+			temp_string.setNum( sym32.symv[index]->st_shndx );
+			valueslist << temp_string;
 			switch( sym32.symv[index]->st_shndx )
 			{
 				case SHN_UNDEF:

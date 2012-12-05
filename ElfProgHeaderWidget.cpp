@@ -37,8 +37,8 @@ ElfProgHeaderWidget::~ElfProgHeaderWidget()
 
 void ElfProgHeaderWidget::SetValues( int index )
 {
-	QString *temp_string;
-	QString *temp_value;
+	QString temp_string;
+	QString temp_value;
 	Elf64_Phdr *prog64 = (Elf64_Phdr *)base;
 	Elf32_Phdr *prog = (Elf32_Phdr *)base;
 
@@ -54,127 +54,110 @@ void ElfProgHeaderWidget::SetValues( int index )
 		prgtype = prog64->p_type;
 	else
 		prgtype = prog->p_type;
-	temp_value = new QString();
-	temp_value->setNum( prgtype, 16 );
-	valueslist << temp_value->toUpper().prepend( "0x" );
+
+	temp_value.setNum( prgtype, 16 );
+	valueslist << temp_value.toUpper().prepend( "0x" );
 	
 	switch( prgtype )
 	{
 		case PT_NULL:
-			temp_string = new QString( "Unused / Ignored" );
+			temp_string = "Unused / Ignored";
 			break;
 		case PT_LOAD:
-			temp_string = new QString( "Loadable Segment" );
+			temp_string = "Loadable Segment";
 			break;
 		case PT_DYNAMIC:
-			temp_string = new QString( "Dynamic Linking Information" );
+			temp_string = "Dynamic Linking Information";
 			break;
 		case PT_INTERP:
-			temp_string = new QString( "Path to Interpreter" );
+			temp_string = "Path to Interpreter";
 			break;
 		case PT_NOTE:
-			temp_string = new QString( "Auxiliary Information" );
+			temp_string = "Auxiliary Information";
 			break;
 		case PT_SHLIB:
-			temp_string = new QString( "Reserved / non-ABI" );
+			temp_string = "Reserved / non-ABI";
 			break;
 		case PT_PHDR:
-			temp_string = new QString( "Program Header Info" );
+			temp_string = "Program Header Info";
 			break;
 		default:
 			if( prgtype>=PT_LOOS && prgtype<=PT_HIOS )
-				temp_string = new QString( "Environment-specific" );
+				temp_string = "Environment-specific";
 			else
 				if( prgtype>=PT_LOPROC && prgtype<=PT_HIPROC )
-					temp_string = new QString( "Processor-specific" );
+					temp_string = "Processor-specific";
 				else
-					temp_string = new QString( "[Invalid]" );
+					temp_string = "[Invalid]";
 	}
-	stringlist << *temp_string;
-	delete temp_value;
-	delete temp_string;
+	stringlist << temp_string;
 
 	// Data offset
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_offset, 16 );
+		temp_string.setNum( prog64->p_offset, 16 );
 	else
-		temp_string->setNum( prog->p_offset, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_offset, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	// Virtual Address
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_vaddr, 16 );
+		temp_string.setNum( prog64->p_vaddr, 16 );
 	else
-		temp_string->setNum( prog->p_vaddr, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_vaddr, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	// Physical Address
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_paddr, 16 );
+		temp_string.setNum( prog64->p_paddr, 16 );
 	else
-		temp_string->setNum( prog->p_paddr, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_paddr, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	// p_filesz
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_filesz, 16 );
+		temp_string.setNum( prog64->p_filesz, 16 );
 	else
-		temp_string->setNum( prog->p_filesz, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_filesz, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	// p_memsz
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_memsz, 16 );
+		temp_string.setNum( prog64->p_memsz, 16 );
 	else
-		temp_string->setNum( prog->p_memsz, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_memsz, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	// flags
-	temp_string = new QString("");
 	__uint64_t prgflags;
 	if( is64bit )
 		prgflags = prog64->p_flags;
 	else
 		prgflags = prog->p_flags;
 
-	temp_value = new QString();
-	temp_value->setNum( prgflags, 16 );
-	valueslist << temp_value->toUpper().prepend( "0x" );
+	temp_value.setNum( prgflags, 16 );
+	valueslist << temp_value.toUpper().prepend( "0x" );
 
+	temp_string = "";
 	if( prgflags & PF_R )
-		temp_string->push_back( "Readable " );
+		temp_string.push_back( "Readable " );
 	if( prgflags & PF_W )
-		temp_string->push_back( "Writeable " );
+		temp_string.push_back( "Writeable " );
 	if( prgflags & PF_X )
-		temp_string->push_back( "Executable ");
-	stringlist << temp_string->trimmed();
-	delete temp_string;
-	delete temp_value;
+		temp_string.push_back( "Executable ");
+	stringlist << temp_string.trimmed();
 
 	// p_align
-	temp_string = new QString();
 	if( is64bit )
-		temp_string->setNum( prog64->p_align, 16 );
+		temp_string.setNum( prog64->p_align, 16 );
 	else
-		temp_string->setNum( prog->p_align, 16 );
-	valueslist << temp_string->toUpper().prepend( "0x" );
+		temp_string.setNum( prog->p_align, 16 );
+	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
-	delete temp_string;
 
 	if( is64bit )
 	{

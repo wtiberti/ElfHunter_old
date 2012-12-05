@@ -71,8 +71,6 @@ void ElfGenericHeader::AddHeader_H()
 		table->setHorizontalHeaderItem( i, tempitem );
 	}
 	table->horizontalHeader()->setResizeMode( QHeaderView::Stretch );
-	//table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
-	//table->verticalHeader()->setResizeMode( QHeaderView::ResizeToContents );
 }
 
 void ElfGenericHeader::AddHeader_V()
