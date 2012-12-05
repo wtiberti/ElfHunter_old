@@ -172,4 +172,24 @@
 		{ 0x10, 8 }
 	};
 	
+	/** @brief Rel and Rela Tables SelectionInfo structs (64bit) */
+	const SelectionInfo reltbl_selection_info64[] =
+	{
+		{ 0, 0 }, // DUMMY
+		{ 0, 0 }, // DUMMY
+		{ 0, 8 },
+		{ 8, 8 },
+		{ 0x10, 8 }
+	};
+	
+	/** @brief Rel and Rela Tables SelectionInfo structs */
+	const SelectionInfo reltbl_selection_info[] =
+	{
+		{ 0, 0 }, // DUMMY
+		{ 0, 0 }, // DUMMY
+		{ 0, 4 },
+		{ 4, 4 },
+		{ 0, 0 } // DUMMY
+	};
+	
 #endif

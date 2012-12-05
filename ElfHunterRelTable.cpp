@@ -314,6 +314,50 @@ void ElfHunterRelTable::SetValues( int index )
 
 void ElfHunterRelTable::InvokeSelection( int row, int column )
 {
-	//TODO
-	emit S_selection_changed( 0, column );
+	unsigned int spin_value = spin->value();
+	
+	__uint64_t offset = ss[spin_value].offset;
+	__uint64_t size = 0;
+	
+
+	if( column == 0 )
+	{
+		// Selects the whole section
+
+		size = ss[spin_value].size;
+	}
+	else
+	{
+		// NOTE: A Rel Section does not have r_addend!
+		if( column == 1 || (column==4 && !isRela[spin_value]) )
+		{
+			// Selects the whole entry in the table
+			
+			if( is64bit )
+				size = (isRela[spin_value]==true)?sizeof(Elf64_Rela):sizeof(Elf64_Rel);
+			else
+				size = (isRela[spin_value]==true)?sizeof(Elf32_Rela):sizeof(Elf32_Rel);
+			
+			offset += row*size;
+		}
+		else
+		{
+			if( is64bit )
+				size = (isRela[spin_value]==true)?sizeof(Elf64_Rela):sizeof(Elf64_Rel);
+			else
+				size = (isRela[spin_value]==true)?sizeof(Elf32_Rela):sizeof(Elf32_Rel);
+			
+			if( is64bit )
+			{
+				offset += (row*size) + reltbl_selection_info64[column].start;
+				size = reltbl_selection_info64[column].size;
+			}
+			else
+			{
+				offset += (row*size) + reltbl_selection_info[column].start;
+				size = reltbl_selection_info[column].size;
+			}
+		}
+	}
+	emit S_selection_changed( offset, size );
 }
