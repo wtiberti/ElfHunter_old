@@ -36,8 +36,10 @@ ElfHunterRelTable::ElfHunterRelTable() : ElfMultiHeader( 0, 5 )
 	table->horizontalHeaderItem(0)->setText( "[SECT#]" );
 	table->horizontalHeaderItem(1)->setText( "[OFFSET]" );
 	table->horizontalHeaderItem(2)->setText( "r_offset" );
-	table->horizontalHeaderItem(3)->setText( "r_info" );
+
 	table->horizontalHeaderItem(4)->setText( "r_addend" );
+	
+	table->horizontalHeader()->setStretchLastSection( true );
 }
 
 ElfHunterRelTable::~ElfHunterRelTable()
@@ -63,6 +65,11 @@ void ElfHunterRelTable::SelectData( char *data )
 	base = (unsigned char *) data;
 	
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
+	
+	if( is64bit )
+		table->horizontalHeaderItem(3)->setText( "r_info(sym:type:special)" );
+	else
+		table->horizontalHeaderItem(3)->setText( "r_info(sym:type)" );
 	
 	if( is64bit )
 	{	
@@ -120,10 +127,12 @@ void ElfHunterRelTable::SelectData( char *data )
 	
 	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
-	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	if( ss.size()>0 )
+	{
+		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
+	}
 }
 
 void ElfHunterRelTable::SetValues( int index )
@@ -161,10 +170,9 @@ void ElfHunterRelTable::SetValues( int index )
 				
 				temp_string.setNum( rela64->r_offset, 16 );
 				temp_string = temp_string.toUpper().prepend( "0x" );
-				stringlist << temp_string;;
+				stringlist << temp_string;
 				
-				temp_string.setNum( rela64->r_info, 16 );
-				temp_string = temp_string.toUpper().prepend( "0x" );
+				temp_string = Parse_Info_Field( rela64->r_info );
 				valueslist << temp_string;
 				
 				temp_string.setNum( rela64->r_addend, 16 );
@@ -189,8 +197,7 @@ void ElfHunterRelTable::SetValues( int index )
 				temp_string = temp_string.toUpper().prepend( "0x" );
 				stringlist << temp_string;
 				
-				temp_string.setNum( rela->r_info, 16 );
-				temp_string = temp_string.toUpper().prepend( "0x" );
+				temp_string = Parse_Info_Field( rela->r_info );
 				valueslist << temp_string;
 				
 				temp_string.setNum( rela->r_addend, 16 );
@@ -281,7 +288,7 @@ void ElfHunterRelTable::SetValues( int index )
 			table->setItem( i, 4, table_item );
 		}
 	}
-	
+	table->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
 }
 
 void ElfHunterRelTable::InvokeSelection( int row, int column )
@@ -332,4 +339,25 @@ void ElfHunterRelTable::InvokeSelection( int row, int column )
 		}
 	}
 	emit S_selection_changed( offset, size );
+}
+
+QString ElfHunterRelTable::Parse_Info_Field( __uint64_t value )
+{
+	QString result;
+	
+	if( is64bit )
+	{
+		result = "0x%1 - 0x%2 - 0x%3";
+		result = result.arg( QString::number(value>>32, 16).toUpper(), 8, '0' ) // Symbol Index
+						.arg( QString::number((value&0xFFFFFF), 16).toUpper(), 6, '0' ) // Type 3, 2 and 1 bytes
+						.arg( QString::number(((value>>24)&0xFF), 16).toUpper(), 2, '0' ); // Special Symbol
+	}
+	else
+	{
+		result = "0x%1 - 0x%2";
+		result = result.arg(QString::number(value&0xFF, 16).toUpper(), 2, '0' )
+							.arg(QString::number((value>>8)&0xFF, 16).toUpper(), 2, '0' );
+	}
+	
+	return result;
 }

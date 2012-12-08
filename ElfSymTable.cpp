@@ -34,6 +34,7 @@ ElfSymTable::ElfSymTable() : ElfMultiHeader( 8, 2 )
 	sym_strtable = NULL;
 	
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
+	table->horizontalHeader()->setStretchLastSection( true );
 }
 
 ElfSymTable::~ElfSymTable()
@@ -295,6 +296,8 @@ void ElfSymTable::SelectData( char *data )
 				temp_s.addr = (char *)(base + temp_s.offset);
 				temp_s.size = sect64[i].sh_size;
 				ss.push_back( temp_s );
+				
+				sym_strtable = data+sect64[sect64[i].sh_link].sh_offset;
 			}
 		}
 		else
@@ -307,6 +310,8 @@ void ElfSymTable::SelectData( char *data )
 				temp_s.addr = (char *)(base + temp_s.offset);
 				temp_s.size = sect[i].sh_size;
 				ss.push_back( temp_s );
+				
+				sym_strtable = data+sect[sect[i].sh_link].sh_offset;
 			}
 		}
 	}
@@ -331,14 +336,15 @@ void ElfSymTable::SelectData( char *data )
 		table->verticalHeaderItem( 7 )->setText( "st_shndx" );
 	}
 
-	sym_strtable = GetSymNameStrTable( data );
-
 	spin->setMaximum( (ss.size()==0)?0:ReadSymbols()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
-	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+	
 	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	if( ss.size()>0 )
+	{
+		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
+	}
 }
 
 unsigned int ElfSymTable::ReadSymbols()
@@ -386,65 +392,6 @@ unsigned int ElfSymTable::ReadSymbols()
 			}
 		}
 		return sym32.symv.size();
-	}
-}
-
-char *ElfSymTable::GetSymNameStrTable( char *elf )
-{
-	/* The situation is this: we have got a lot
-	 * of symbols. Each symbol has a st_name field
-	 * which specify the offset in "the string table"
-	 * where the symbol name is located.
-	 *
-	 * The question is: Which one ?
-	 *
-	 * ...so here, i (even if i do not like this method)
-	 * try to search for the ".strtab" section
-	 * expecting it to be the "one" - WT
-	 */
-
-	bool is64bitElf = false;
-	char *temp_name = NULL;
-
-	Elf32_Ehdr *header = (Elf32_Ehdr *)elf;
-	Elf64_Ehdr *header64 = (Elf64_Ehdr *)elf;
-
-	Elf64_Shdr *sect64;
-	Elf32_Shdr *sect;
-
-	is64bitElf = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
-
-	if( is64bitElf )
-	{
-		sect64 = (Elf64_Shdr *)(elf + header64->e_shoff);
-
-		for( int i=0; i<header64->e_shnum; i++ )
-		{
-			temp_name = ElfSectionHeaderWidget::GetSectionName( elf, i );
-
-			if( strncmp( temp_name, ".strtab", 7 )==0 )
-			{
-				temp_name = elf + (sect64[i].sh_offset);
-				return temp_name;
-			}
-		}
-		return NULL;
-	}
-	else
-	{
-		sect = (Elf32_Shdr *)(elf + header->e_shoff);
-
-		for( int i=0; i<header->e_shnum; i++ )
-		{
-			temp_name = ElfSectionHeaderWidget::GetSectionName( elf, i );
-
-			if( strncmp( temp_name, ".strtab", 7 )==0 )
-			{
-				temp_name = elf + (sect[i].sh_offset);
-				return temp_name;
-			}
-		}
-		return NULL;
 	}
 }
 

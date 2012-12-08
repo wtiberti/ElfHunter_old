@@ -53,9 +53,6 @@
 		/** @brief Read all the symbols and fills up the sym32 or sym64 */
 		unsigned int ReadSymbols();
 
-		/** @brief Search for the symbol name string table section */
-		char *GetSymNameStrTable( char *elf );
-
 	protected:
 		void SetValues( int index ); ///< @ref ElfMultiHeader::SetValues
 

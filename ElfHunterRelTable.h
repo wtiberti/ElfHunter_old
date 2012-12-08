@@ -40,6 +40,8 @@
 		QStringList addendlist;
 		std::vector< SectStruct > ss;
 		std::vector< bool > isRela;
+		
+		QString Parse_Info_Field( __uint64_t value );
 	
 	protected:
 		void SetValues( int index );///< @ref ElfMultiHeader::SetValues

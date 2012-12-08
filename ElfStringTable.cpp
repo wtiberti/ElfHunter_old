@@ -35,8 +35,8 @@ ElfStringTable::ElfStringTable() : ElfMultiHeader( 0, 2 )
 	table->horizontalHeaderItem( 1 )->setText( str_table_h_hdr[1] );
 
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
-	table->horizontalHeader()->resizeSection( 0, 100 );
-	table->horizontalHeader()->resizeSection( 1, 300 );
+	table->horizontalHeaderItem( 1 )->setTextAlignment( Qt::AlignLeft );
+	table->horizontalHeader()->setStretchLastSection( true );
 }
 
 ElfStringTable::~ElfStringTable()
@@ -82,6 +82,8 @@ void ElfStringTable::SetValues( int index )
 			table_item->setFlags( (Qt::ItemFlag)37 );
 			table->setItem( i, 1, table_item );
 		}
+		
+		table->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
 	}
 }
 
@@ -146,12 +148,14 @@ void ElfStringTable::SelectData( char *data )
 
 	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
-	
-	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+
 	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	
 	if( ss.size()>0 )
+	{
+		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
+	}
 }
 
 void ElfStringTable::AddString( QString v, QString s )

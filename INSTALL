@@ -2,10 +2,10 @@
 #                         ElfHunter INSTALLATION                              #
 ###############################################################################
 #  Author: Walter Tiberti <wtuniv@gmail.com>                                  #
-#  Last update: 2012-11-01 16:20 CET                                          #
+#  Last update: 2012-12-05 05:31 CET                                          #
 ###############################################################################
 
-- Generate documentation
+----- Generate documentation -------------------
 Assuming that Doxygen is installed on your system, to generate documentation
 for the source code, the only thing you need to do is (from the source dir):
 
@@ -14,20 +14,20 @@ for the source code, the only thing you need to do is (from the source dir):
  And then, a Doc directory will appear, containing all the documentation
 
 
-- Pre-compiled x64 ElfHunter
- As you can see, a x64 precompiled version of ElfHunter binary has been
+----- Pre-compiled x64 ElfHunter ---------------
+ As you can see, a x64 precompiled testing version of ElfHunter binary has been
  shipped with the code. Using it or re-compile it from the source is your
  choise. Nothing change
 
 
-- Compiling from source code:
+----- Compiling from source code: --------------
  The makefile is included in the source code distribution. So, all you need
  to do is
 
 	$ make all
 
 
-- Compiling faster:
+----- Compiling faster: ------------------------
  If you have a multi-processor/multi-core processor, you should use:
 
 	$ make -jn
@@ -38,8 +38,15 @@ for the source code, the only thing you need to do is (from the source dir):
 	$ make -j4
 
 
+----- Common Problems --------------------------
 
-- Installation
+ ** Cannot locate libokteta **
+	In this case, you can try to change the INCLUDEPATH variable inside
+	the ElfHunter project to point to the right path
+
+
+
+----- Installation -----------------------------
  After compiling, the ElfHunter binary should be available. If you wish to
  install it, you can (from the source code directory):
 

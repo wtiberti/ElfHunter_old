@@ -29,7 +29,7 @@ AboutWidget::AboutWidget()
 {
 	QVBoxLayout l;
 
-	// TODO: change to something else depending on content
+	// TODO
 	resize( 250, 140 );
 	
 	// TODO: Add logo and restyle

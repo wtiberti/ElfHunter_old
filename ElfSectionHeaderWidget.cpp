@@ -177,30 +177,8 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_value = sect->sh_link;
 	temp_string.setNum( temp_value, 16 );
 	valueslist << temp_string.toUpper().prepend( "0x" );
-	
-	switch( temp_value )
-	{
-		case SHT_DYNAMIC:
-			stringlist << "Dynamic";
-			break;
-		case SHT_HASH:
-			stringlist << "Hash";
-			break;
-		case SHT_REL:
-			stringlist << "Rel";
-			break;
-		case SHT_RELA:
-			stringlist << "Rela";
-			break;
-		case SHT_SYMTAB:
-			stringlist << "SymTab";
-			break;
-		case SHT_DYNSYM:
-			stringlist << "DynSym";
-			break;
-		default:
-			stringlist << "[Undefined]";
-	}
+	stringlist << "";
+	// TODO : Per-section identification
 
 	// sh_info
 	if( is64bit )
@@ -209,6 +187,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		temp_string.setNum( sect->sh_info, 16 );
 	valueslist << temp_string.toUpper().prepend( "0x" );
 	stringlist << "";
+	// TODO : Per-section identification
 
 	// sh_addralign
 	if( is64bit )
