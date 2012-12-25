@@ -23,6 +23,11 @@
 *
 */
 
+/** @file ElfHunterRelTable.h
+ * @brief Definition of ElfHunterRelTable class
+ */
+
+
 #ifndef ElfHunterRelTable_H
 	#define ElfHunterRelTable_H
 	
@@ -31,24 +36,29 @@
 	
 	#include <vector>
 	
+	/** @class ElfHunterRelTable
+	 * @brief Searches for all the ELF relocation sections and show their entries */
 	class ElfHunterRelTable : public ElfMultiHeader
 	{
 	Q_OBJECT
 	
 	private:
-		QStringList offsetlist;
-		QStringList addendlist;
-		std::vector< SectStruct > ss;
-		std::vector< bool > isRela;
+		QStringList offsetlist; ///< Contains the relocation entries offsets as QStrings
+		QStringList addendlist; ///< Contains the r_addend fields as QStrings (Only .Rela sections)
+		std::vector< SectStruct > ss; ///< Vector containing all the .rel and .rela sections
+		std::vector< bool > isRela; ///< Contains the type of the sections in @ref ss
 		
+		/** @brief Gets the r_info subfield
+		 * @param[in] value The r_info value to be analyzed
+		 * @return A QString in the form x-x-x or (is 32bit) x-x */
 		QString Parse_Info_Field( __uint64_t value );
 	
 	protected:
 		void SetValues( int index );///< @ref ElfMultiHeader::SetValues
 		
 	public:
-		ElfHunterRelTable();
-		~ElfHunterRelTable();
+		ElfHunterRelTable(); ///< Constructor
+		~ElfHunterRelTable(); ///< Destructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 		
 	private slots:

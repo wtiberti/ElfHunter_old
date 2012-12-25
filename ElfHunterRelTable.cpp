@@ -23,6 +23,7 @@
 *
 */
 
+#include "ElfSectionHeaderWidget.h"
 #include "ElfHunterRelTable.h"
 #include <elf.h>
 
@@ -66,10 +67,7 @@ void ElfHunterRelTable::SelectData( char *data )
 	
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
 	
-	if( is64bit )
-		table->horizontalHeaderItem(3)->setText( "r_info(sym:type:special)" );
-	else
-		table->horizontalHeaderItem(3)->setText( "r_info(sym:type)" );
+	table->horizontalHeaderItem(3)->setText( "r_info(sym:type)" );
 	
 	if( is64bit )
 	{	
@@ -137,7 +135,7 @@ void ElfHunterRelTable::SelectData( char *data )
 
 void ElfHunterRelTable::SetValues( int index )
 {
-	QString section_n;
+	QString section;
 	QString temp_string;
 	__uint64_t reloc_start = (__uint64_t)ss[index].addr;
 	__uint64_t cursor = ss[index].offset;
@@ -148,7 +146,8 @@ void ElfHunterRelTable::SetValues( int index )
 	valuelist <- r_info
 	addendlist <- r_addend */
 	
-	section_n.setNum( ss[index].sect_n );
+	section = QString( ElfSectionHeaderWidget::GetSectionName( (char*)base, ss[index].sect_n ) );
+	section += " ( " + QString::number( ss[index].sect_n ) + " )";
 	
 	stringlist.clear();
 	valueslist.clear();
@@ -265,7 +264,7 @@ void ElfHunterRelTable::SetValues( int index )
 	{
 		AddRow();
 		
-		table_item = new QTableWidgetItem( section_n );
+		table_item = new QTableWidgetItem( section );
 		table_item->setFlags( (Qt::ItemFlag)37 );
 		table->setItem( i, 0, table_item );
 		
@@ -347,10 +346,9 @@ QString ElfHunterRelTable::Parse_Info_Field( __uint64_t value )
 	
 	if( is64bit )
 	{
-		result = "0x%1 - 0x%2 - 0x%3";
+		result = "0x%1 - 0x%2";
 		result = result.arg( QString::number(value>>32, 16).toUpper(), 8, '0' ) // Symbol Index
-						.arg( QString::number((value&0xFFFFFF), 16).toUpper(), 6, '0' ) // Type 3, 2 and 1 bytes
-						.arg( QString::number(((value>>24)&0xFF), 16).toUpper(), 2, '0' ); // Special Symbol
+						.arg( QString::number((value&0xFFFFFFFF), 16).toUpper(), 8, '0' ); // Type
 	}
 	else
 	{

@@ -39,6 +39,7 @@
 	#include "ElfStringTable.h"
 	#include "ElfSymTable.h"
 	#include "ElfHunterRelTable.h"
+	#include "ElfHunterExec.h"
 
 	#include <vector>
 	

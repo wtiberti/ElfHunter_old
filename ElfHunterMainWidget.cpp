@@ -246,6 +246,28 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		tree_elem.push_back( temp_treeitem );
 		connect( temp_rlctbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 	}
+	
+	ElfHunterExec *temp_ehexec1 = new ElfHunterExec( "objdump", long_file_name );
+	sidewidget->addTab( (QWidget *)temp_ehexec1, temp_ehexec1->GetCommand().prepend("Exec: ") );
+	temp_treeitem = new QTreeWidgetItem();
+	temp_treeitem->setText( 0, temp_ehexec1->GetCommand().prepend("Exec: ") );
+	widget_selector->addTopLevelItem( temp_treeitem );
+	tree_elem.push_back( temp_treeitem );
+	
+	ElfHunterExec *temp_ehexec2 = new ElfHunterExec( "readelf", long_file_name );
+	sidewidget->addTab( (QWidget *)temp_ehexec2, temp_ehexec2->GetCommand().prepend("Exec: ") );
+	temp_treeitem = new QTreeWidgetItem();
+	temp_treeitem->setText( 0, temp_ehexec2->GetCommand().prepend("Exec: ") );
+	widget_selector->addTopLevelItem( temp_treeitem );
+	tree_elem.push_back( temp_treeitem );
+
+	ElfHunterExec *temp_ehexec3 = new ElfHunterExec( "hexdump", long_file_name );
+	sidewidget->addTab( (QWidget *)temp_ehexec3, temp_ehexec3->GetCommand().prepend("Exec: ") );
+	temp_treeitem = new QTreeWidgetItem();
+	temp_treeitem->setText( 0, temp_ehexec3->GetCommand().prepend("Exec: ") );
+	widget_selector->addTopLevelItem( temp_treeitem );
+	tree_elem.push_back( temp_treeitem );
+
 
 	hexdump->SetData( filedata, size );
 	user_can_show_hex = true;
