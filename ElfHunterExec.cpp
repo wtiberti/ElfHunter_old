@@ -26,34 +26,38 @@
 
 ElfHunterExec::ElfHunterExec()
 {
+	command = "";
+	target = "";
 	args.clear();
 	
-	bt_execute = new QPushButton( "Execute", this );
-	lb_command = new QLabel( "---", this );
-	le_args = new QLineEdit( this );
-	te_output = new QPlainTextEdit( this );
+	bt_execute = new QPushButton( "Execute" );
+	lb_command = new QLabel( "---" );
+	le_args = new QLineEdit();
+	te_output = new QPlainTextEdit();
 	
 	le_args->setPlaceholderText( "<arguments>" );
 	te_output->setLineWrapMode( QPlainTextEdit::NoWrap );
 	te_output->setReadOnly( true );
+	te_output->setFont( QFont( "Monospace", 8 ) );
 	
-	layout = new QGridLayout( this );
+	layout = new QGridLayout();
 	layout->addWidget( lb_command, 0, 0 );
 	layout->addWidget( le_args, 0, 1 );
 	layout->addWidget( bt_execute, 0, 2 );
 	layout->addWidget( te_output, 1, 0, 1, 3 );
 	
 	setLayout( layout );
+	
+	last_return_value = 0;
 }
 
 ElfHunterExec::ElfHunterExec( QString cmd, QString filefullpath ) : ElfHunterExec()
 {
 	SetCommand( cmd ); // TODO: verify the command string
-	lb_command->setText( cmd ); // TODO idem
-	SetTarget( filefullpath );
+	lb_command->setText( cmd );
+	SetTarget( filefullpath ); // TODO idem
 	
-	// DEBUG
-	te_output->setPlainText( target );
+	connect( bt_execute, SIGNAL(clicked()), this, SLOT(Execute()) );
 }
 
 ElfHunterExec::~ElfHunterExec()
@@ -89,8 +93,48 @@ QString ElfHunterExec::GetTarget() const
 	return this->target;
 }
 
-int ElfHunterExec::Exec()
+void ElfHunterExec::Execute()
 {
-	// TODO
-	return 0;
+	QProcess process;
+	QString buffer;
+	
+	ParseArguments();
+	
+	//process.setWorkingDIrectory( ); //TODO
+	process.setProcessChannelMode( QProcess::MergedChannels );
+	
+	args << target;
+	
+	//qDebug() << args;
+	
+	process.start( command, args );
+	
+	buffer = "[ELFHUNTER CMD]: ";
+	buffer.append( command );
+	for( int i=0; i<args.size(); i++ )
+	{
+		buffer..append( " " ).append( args[i] );
+	};
+	buffer.append( "\n\n" );
+	
+	while( process.waitForReadyRead() )
+	{
+		buffer.append( process.readAll() );
+	}
+	te_output->setPlainText( buffer );
+	last_return_value = process.exitCode();
+	
+	process.close();
+}
+
+int ElfHunterExec::GetLastRetValue() const
+{
+	return last_return_value;
+}
+
+void ElfHunterExec::ParseArguments()
+{
+	//TODO: insert a tab with checkboxes instead
+	args.clear();
+	args = le_args->text().split(" ");
 }

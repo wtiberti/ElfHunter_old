@@ -34,12 +34,15 @@
 		QString command;
 		QString target;
 		QStringList args;
+		int last_return_value;
 		
 		QGridLayout *layout;
 		QPushButton *bt_execute;
 		QLabel *lb_command;
 		QLineEdit *le_args;
 		QPlainTextEdit *te_output;
+		
+		void ParseArguments();
 
 	public:
 		ElfHunterExec();
@@ -49,8 +52,9 @@
 		QString GetCommand() const;
 		QString SetTarget( QString filefullpath );
 		QString GetTarget() const;
+		int GetLastRetValue() const;
 		
 	public slots:
-		int Exec();
+		void Execute();
 	};
 #endif
