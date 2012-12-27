@@ -34,8 +34,8 @@
 	 * and the size of members of the various ELF structure */
 	typedef struct
 	{
-		__uint64_t start; /// Start of range
-		__uint64_t size; /// Size
+		__uint64_t start; ///< Start of range
+		__uint64_t size; ///< Size
 	} SelectionInfo;
 	
 	/** @brief ELF file header SelectionInfo structs */

@@ -34,23 +34,23 @@
 	#include "ElfHunterMainWidget.h"
 	
 
-	#define A_EXIT 0
-	#define A_OPEN 1
-	#define A_CLOSE 2
-	#define A_ABOUT 3
-	#define A_TOGGLEHEX 4
-	#define A_TOGGLETREE 5
-	#define A_GOTOOFFSET 6
+	#define A_EXIT 0 ///< Exit Action id
+	#define A_OPEN 1 ///< Open Action id
+	#define A_CLOSE 2 ///< Close Action id
+	#define A_ABOUT 3 ///< About Action id
+	#define A_TOGGLEHEX 4 ///< ToggleHex Action id
+	#define A_TOGGLETREE 5 ///< ToggleTree Action id
+	#define A_GOTOOFFSET 6 ///< GotoOffset Action id
 	// etc..
 	
-	#define M_FILE 0
-	#define M_INFO 1
+	#define M_FILE 0 ///< "File" Menu id
+	#define M_INFO 1 ///< "View" Menu id
 	// etc..
 	
-	
-	#define STBAR_FILENAME 1
-	#define STBAR_FILESIZE 3
-	#define STBAR_OFFSET 5
+	// Note: even number are for label widget!
+	#define STBAR_FILENAME 1 ///< "Filename" status widget
+	#define STBAR_FILESIZE 3 ///< "Filename" status widget
+	#define STBAR_OFFSET 5 ///< "Filename" status widget
 	
 	/** @class ElfHunterWindow
 	 * @brief ElfHunter Main Window class
@@ -66,7 +66,7 @@
 		QToolBar *main_toolbar; ///< Toolbar
 		std::vector< QAction * > actions; ///< Actions vector. All actions are stored here
 		std::vector< QMenu * > menus; ///< Menu vector. All the top level menus are stored here
-		std::vector< QWidget * > status_widgets;
+		std::vector< QWidget * > status_widgets; ///< Status bar widget vector
 
 		/** @brief  Creates all the needed actions */
 		void Init_Actions();

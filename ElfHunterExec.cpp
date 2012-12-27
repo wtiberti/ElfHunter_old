@@ -26,9 +26,16 @@
 
 ElfHunterExec::ElfHunterExec()
 {
+	Init();
+}
+
+void ElfHunterExec::Init()
+{
 	command = "";
 	target = "";
 	args.clear();
+	
+	append_filename = false;
 	
 	bt_execute = new QPushButton( "Execute" );
 	lb_command = new QLabel( "---" );
@@ -51,11 +58,14 @@ ElfHunterExec::ElfHunterExec()
 	last_return_value = 0;
 }
 
-ElfHunterExec::ElfHunterExec( QString cmd, QString filefullpath ) : ElfHunterExec()
+ElfHunterExec::ElfHunterExec( QString cmd, QString filefullpath, bool wantfilename )
 {
+	Init();
 	SetCommand( cmd ); // TODO: verify the command string
 	lb_command->setText( cmd );
 	SetTarget( filefullpath ); // TODO idem
+	
+	append_filename = wantfilename;
 	
 	connect( bt_execute, SIGNAL(clicked()), this, SLOT(Execute()) );
 }
@@ -71,9 +81,7 @@ ElfHunterExec::~ElfHunterExec()
 
 QString ElfHunterExec::SetCommand( QString command )
 {
-	//QString old_command = this->command;
 	return this->command = command;
-	//return old_command;
 }
 
 QString ElfHunterExec::GetCommand() const
@@ -83,9 +91,7 @@ QString ElfHunterExec::GetCommand() const
 
 QString ElfHunterExec::SetTarget( QString filefullpath )
 {
-	//QString old_target = target;
 	return target = filefullpath;
-	//return old_target;
 }
 
 QString ElfHunterExec::GetTarget() const
@@ -103,17 +109,16 @@ void ElfHunterExec::Execute()
 	//process.setWorkingDIrectory( ); //TODO
 	process.setProcessChannelMode( QProcess::MergedChannels );
 	
-	args << target;
-	
-	//qDebug() << args;
+	if( append_filename )
+		args << target;
 	
 	process.start( command, args );
 	
 	buffer = "[ELFHUNTER CMD]: ";
-	buffer.append( command );
+	buffer.append( command ).append(" ");
 	for( int i=0; i<args.size(); i++ )
 	{
-		buffer..append( " " ).append( args[i] );
+		buffer.append( " " ).append( args[i] );
 	};
 	buffer.append( "\n\n" );
 	

@@ -43,15 +43,15 @@
 
 	#include <vector>
 	
-	#define MAX_PATH 256
+	#define MAX_PATH 256 ///< Maximum size of the filename buffer
 	
-	#define ELFSIGNATURE 0x464C457F
+	#define ELFSIGNATURE 0x464C457F ///< ELF signature
 	
-	#define ERR_OPEN_FILE_NOT_EXISTS 1
-	#define ERR_OPEN_FILE_OPEN_ERROR 2
+	#define ERR_OPEN_FILE_NOT_EXISTS 1 ///< Error code 1
+	#define ERR_OPEN_FILE_OPEN_ERROR 2 ///< Error code 2
 	
-	#define ERR_READ_FILE_NOT_OPEN 1
-	#define ERR_READ_INVALID_SIG 2
+	#define ERR_READ_FILE_NOT_OPEN 1 ///< Read Error code 1
+	#define ERR_READ_INVALID_SIG 2 ///< Read Error code 2
 
 	/** @class ElfHunterMainWidget
 	 * @brief Handles the internal widget set

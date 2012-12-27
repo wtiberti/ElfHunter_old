@@ -35,8 +35,7 @@
 	
 	#include "SelectionInfo.h"
 
-	//Makes item being enabled, selectable and drag-able
-	#define EHW_ITEMFLAGS (Qt::ItemFlag)37
+	#define EHW_ITEMFLAGS (Qt::ItemFlag)37 ///< Makes item being enabled, selectable and drag-able
 
 	/** Array of QString used as horizontal labels in the table  */
 	const QString generic_horizontal_labels[] =
