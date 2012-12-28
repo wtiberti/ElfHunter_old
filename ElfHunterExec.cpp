@@ -68,6 +68,7 @@ ElfHunterExec::ElfHunterExec( QString cmd, QString filefullpath, bool wantfilena
 	append_filename = wantfilename;
 	
 	connect( bt_execute, SIGNAL(clicked()), this, SLOT(Execute()) );
+	connect( le_args, SIGNAL(returnPressed()), this, SLOT(Execute()) );
 }
 
 ElfHunterExec::~ElfHunterExec()

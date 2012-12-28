@@ -35,7 +35,7 @@ AboutWidget::AboutWidget()
 	// TODO: Add logo and restyle
 	
 	abouttext = new QLabel(
-		"ElfHunter v0.15\n"
+		"ElfHunter v0.16\n"
 		"An ELF file format analyzer\n\n"
 
 		"Released under GNU GPL license.\n"

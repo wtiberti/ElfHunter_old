@@ -86,71 +86,61 @@ void ElfHunterWindow::CleanUp()
 void ElfHunterWindow::Init_Actions()
 {
 	QAction *temp;
-	
 	actions.clear();
 	
-	/*FIXME
+	/* FIXME maybe!
 	This workaround is used to enable the right action
 	when the filename is passed via command line. */
 	extern QString cmdline_file2open;
 	bool fromcmdline = (cmdline_file2open=="")?false:true;
 	//--
 	
-	temp = new QAction( QIcon( "icons/application-exit.png" ), "E&xit", this );
+	temp = new QAction( QIcon( ":/icons/application-exit.png" ), "E&xit", this );
 	temp->setShortcuts( QKeySequence::Quit );
 	temp->setStatusTip( "Exit the application" );
 	connect( temp, SIGNAL(triggered()), this, SLOT(CleanUp()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( QIcon( "icons/document-open.png" ), "&Open", this );
+	temp = new QAction( QIcon( ":/icons/document-open.png" ), "&Open", this );
 	temp->setStatusTip( "Open an ELF file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(SetFile()) );
+	temp->setEnabled( !fromcmdline );
 	actions.push_back( temp );
-	//FIXME
-	if( fromcmdline ) temp->setEnabled( false );
-	//--
 	
-	temp = new QAction( QIcon( "icons/document-close.png" ), "&Close", this );
+	temp = new QAction( QIcon( ":/icons/document-close.png" ), "&Close", this );
 	temp->setStatusTip( "Close current file" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(CloseFile()) );
-	temp->setEnabled( false );
+	temp->setEnabled( fromcmdline );
 	actions.push_back( temp );
-	//FIXME
-	if( fromcmdline ) temp->setEnabled( true );
-	//--
 	
-	temp = new QAction( QIcon( "icons/help-about.png" ), "&About", this );
+	temp = new QAction( QIcon( ":/icons/help-about.png" ), "&About", this );
 	temp->setStatusTip( "Show ElfHunter information" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(DisplayAbout()) );
 	actions.push_back( temp );
 	
-	temp = new QAction( QIcon( "icons/view-expenses-categories.png" ), "Toggle Hex Dump", this );
+	temp = new QAction( QIcon( ":/icons/view-expenses-categories.png" ), "Toggle Hex Dump", this );
 	temp->setStatusTip( "Show/Hide hex dump panel" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleHexView()) );
-	temp->setEnabled( false );
+	temp->setEnabled( fromcmdline );
 	actions.push_back( temp );
-	//FIXME
-	if( fromcmdline ) temp->setEnabled( true );
-	//--
 	
-	temp = new QAction( QIcon( "icons/view-list-tree.png" ), "Toggle Table Selector", this );
+	temp = new QAction( QIcon( ":/icons/view-list-tree.png" ), "Toggle Table Selector", this );
 	temp->setStatusTip( "Show/Hide table selector" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(ToggleWidgetTree()) );
-	temp->setEnabled( false );
+	temp->setEnabled( fromcmdline );
 	actions.push_back( temp );
-	//FIXME
-	if( fromcmdline ) temp->setEnabled( true );
-	//--
 	
-	temp = new QAction( QIcon( "icons/arrow-right-double.png" ), "&Go To Offset", this );
+	temp = new QAction( QIcon( ":/icons/arrow-right-double.png" ), "&Go To Offset", this );
 	temp->setStatusTip( "Go to a selected offset in the hexdump window" );
 	connect( temp, SIGNAL(triggered()), mw, SLOT(Hexdump_GoToOffset()) );
-	temp->setEnabled( false );
+	temp->setEnabled( fromcmdline );
 	actions.push_back( temp );
-	//FIXME
-	if( fromcmdline ) temp->setEnabled( true );
-	//--
 	
+	temp = new QAction( QIcon( ":/icons/edit-find.png" ), "Find String/Symbol", this );
+	temp->setStatusTip( "Searches for a string or a symbol" );
+	//connect( temp, SIGNAL(triggered()), mw, SLOT(Hexdump_GoToOffset()) );
+	temp->setEnabled( fromcmdline );
+	actions.push_back( temp );
 }
 
 void ElfHunterWindow::Init_MenuBar()
@@ -170,6 +160,11 @@ void ElfHunterWindow::Init_MenuBar()
 	temp->addAction( actions[A_TOGGLETREE] );
 	temp->addAction( actions[A_TOGGLEHEX] );
 	temp->addAction( actions[A_GOTOOFFSET] );
+	menus.push_back( temp );
+	
+	temp = menuBar()->addMenu( "&Find" );
+	temp->addAction( actions[A_FIND] );
+	menus.push_back( temp );
 	
 	temp = menuBar()->addMenu( "&?" );
 	temp->addAction( actions[A_ABOUT] );
@@ -184,6 +179,7 @@ void ElfHunterWindow::Init_ToolBar()
 	main_toolbar->addAction( actions[A_TOGGLETREE] );
 	main_toolbar->addAction( actions[A_TOGGLEHEX] );
 	main_toolbar->addAction( actions[A_GOTOOFFSET] );
+	main_toolbar->addAction( actions[A_FIND] );
 }
 
 void ElfHunterWindow::Init_StatusBar()

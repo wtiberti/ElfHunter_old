@@ -46,3 +46,6 @@ SOURCES += elfhunter.cpp \
 
 # Okteta widget need these
 LIBS += -lokteta1core -lokteta1gui
+
+# Resources (icons)
+RESOURCES += ElfHunter.qrc

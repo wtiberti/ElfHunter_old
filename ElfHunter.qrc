@@ -1,0 +1,13 @@
+ <!DOCTYPE RCC>
+ <RCC version="1.0">
+ <qresource>
+	<file>icons/application-exit.png</file>
+	<file>icons/arrow-right-double.png</file>
+	<file>icons/document-close.png</file>
+	<file>icons/document-open.png</file>
+	<file>icons/edit-find.png</file>
+	<file>icons/help-about.png</file>
+	<file>icons/view-expenses-categories.png</file>
+	<file>icons/view-list-tree.png</file>
+ </qresource>
+ </RCC>
