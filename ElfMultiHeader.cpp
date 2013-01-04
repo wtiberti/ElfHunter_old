@@ -29,16 +29,43 @@
 ElfMultiHeader::ElfMultiHeader( int r, int c, bool h ) : ElfGenericHeader( r, c, h )
 {
 	spin = new QSpinBox();
-	layout->setDirection( QBoxLayout::BottomToTop );
-	layout->addWidget( spin );
+	le_search = new QLineEdit();
+	le_search->setPlaceholderText( "< ...Regex Search... >" );
+	layout->insertWidget( 0, spin );
+	layout->addWidget( le_search );
+	connect( le_search, SIGNAL(editingFinished()), this, SLOT(SearchStringChanged()) );
 }
 
 ElfMultiHeader::~ElfMultiHeader()
 {
+	delete le_search;
 	delete spin;
 }
 
 void ElfMultiHeader::Changed()
 {
 	SetValues( spin->value() );
+}
+
+void ElfMultiHeader::SearchStringChanged()
+{
+	QPalette palette;
+	QBrush brush_green( QColor( 0, 85, 0, 255) );
+	QBrush brush_red( QColor(85, 0, 0, 255) );
+	
+	search_regex.setPattern( le_search->text() );
+
+	if( search_regex.isValid() )
+	{
+		palette.setBrush( QPalette::Active, QPalette::Text, brush_green );
+		le_search->setPalette( palette );
+		emit S_SearchRegexReady();
+	}
+	else
+	{
+		search_regex.setPattern( "" );
+		palette.setBrush( QPalette::Active, QPalette::Text, brush_red );
+		le_search->setPalette( palette );
+	}
+	
 }

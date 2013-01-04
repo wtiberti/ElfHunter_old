@@ -30,6 +30,8 @@ ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfMultiHeader( PROGHDRTABLEROWS, P
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Program Header # " );
+	
+	le_search->hide();
 }
 
 ElfProgHeaderWidget::~ElfProgHeaderWidget()

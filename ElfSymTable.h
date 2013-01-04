@@ -46,6 +46,8 @@
 	private:
 		std::vector< SectStruct > ss; ///< Vector containing all the symbol table sections
 		char *sym_strtable; ///< Pointer to the symbol name string table section
+		
+		std::vector< int > sym_whitelist; ///< Holds the index of the symbols that match the @ref search_regex
 
 		SymData32 sym32; ///< Symbols structure (32-bit)
 		SymData64 sym64; ///< Symbols structure (64-bit)
@@ -64,5 +66,10 @@
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
+		
+		/** @brief Generate a sublist of symbols which match the search_regex
+		 * 
+		 * @ref search_regex */
+		void GenerateWhiteList();
 	};
 #endif

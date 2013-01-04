@@ -45,7 +45,10 @@
 
 	protected:
 		QSpinBox *spin; ///< QSpinBox widget to switch between headers
-
+		QLineEdit *le_search; ///< QLineEdit containing the searching regex
+		
+		QRegExp search_regex; ///< QRegExp object used to filter tables elements
+		
 		unsigned char *base; ///< base address of header table
 		int entry_size; ///< Size of a single header
 		__uint64_t offset; ///< offset inside the file of the header table
@@ -80,5 +83,13 @@
 		 * After user change the value inside the QSpinBox widget, it calls
 		 * @ref SetValues with the index specified by user */
 		void Changed();
+		
+		/** @brief Update the QRegExp search object
+		 * 
+		 * Update the QRegExp @ref search_regex object */
+		void SearchStringChanged();
+		
+	signals:
+		void S_SearchRegexReady();
 	};
 #endif

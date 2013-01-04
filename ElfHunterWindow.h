@@ -41,7 +41,6 @@
 	#define A_TOGGLEHEX 4 ///< ToggleHex Action id
 	#define A_TOGGLETREE 5 ///< ToggleTree Action id
 	#define A_GOTOOFFSET 6 ///< GotoOffset Action id
-	#define A_FIND 7 ///< Find action id
 	// etc..
 	
 	#define M_FILE 0 ///< "File" Menu id

@@ -32,6 +32,8 @@ ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfMultiHeader( SECTHDRTABLER
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Section Header # " );
 
+	le_search->hide();
+	
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 		table->verticalHeaderItem( i )->setText( secthdr_field_names[i] );
 }

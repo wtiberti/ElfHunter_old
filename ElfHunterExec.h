@@ -34,7 +34,7 @@
 	
 	/** @class ElfHunterExec
 	 * @brief Executes a shell command, showing (standard) output and error*/
-	class ElfHunterExec : QWidget
+	class ElfHunterExec : public QWidget
 	{
 	Q_OBJECT
 	private:

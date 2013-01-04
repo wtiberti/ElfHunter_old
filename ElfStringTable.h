@@ -55,11 +55,15 @@
 	private:
 		char *hdrstrings;///< Pointer to headers string table
 		std::vector< SectStruct > ss; ///< One SectStruct for string section
-
+		
 		/** @brief Add a string to the table
 		 * @param[in] v Offset of the string
 		 * @param[in] s Pointer to the string */
 		void AddString( QString v, QString s );
+		
+		/** @brief Searxhes for strings and fills data structures
+		 * @param[in] index Index int the @ref ss vector */
+		void ParseStrings( int index );
 
 	protected:
 		void SetValues( int index );///< @ref ElfMultiHeader::SetValues
@@ -68,9 +72,10 @@
 		ElfStringTable(); ///< Constructor
 		~ElfStringTable(); ///< Destructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
-	
+
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
+		
 	};
 #endif

@@ -41,6 +41,8 @@ ElfHunterRelTable::ElfHunterRelTable() : ElfMultiHeader( 0, 5 )
 	table->horizontalHeaderItem(4)->setText( "r_addend" );
 	
 	table->horizontalHeader()->setStretchLastSection( true );
+	
+	le_search->hide();
 }
 
 ElfHunterRelTable::~ElfHunterRelTable()

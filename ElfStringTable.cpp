@@ -37,6 +37,8 @@ ElfStringTable::ElfStringTable() : ElfMultiHeader( 0, 2 )
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 	table->horizontalHeaderItem( 1 )->setTextAlignment( Qt::AlignLeft );
 	table->horizontalHeader()->setStretchLastSection( true );
+	
+	connect( this, SIGNAL(S_SearchRegexReady()), this, SLOT(Changed()) );
 }
 
 ElfStringTable::~ElfStringTable()
@@ -44,12 +46,11 @@ ElfStringTable::~ElfStringTable()
 	ss.clear();
 }
 
-void ElfStringTable::SetValues( int index )
+void ElfStringTable::ParseStrings( int index )
 {
-	QTableWidgetItem *table_item;
 	QString temp_string;
 	QString str_off;
-
+	
 	stringlist.clear();
 	valueslist.clear();
 	
@@ -64,12 +65,22 @@ void ElfStringTable::SetValues( int index )
 		{
 			str_off.setNum( (ss[index].offset)+i, 16 );
 			temp_string = (char *)(ss[index].addr+i);
-
-			AddString( str_off.toUpper().prepend("0x"), temp_string );
+			
+			if( search_regex.isValid() && search_regex.indexIn( temp_string )!=-1 )
+				AddString( str_off.toUpper().prepend("0x"), temp_string );
 
 			i += temp_string.length() + 1;
 		}
+	}
+}
 
+void ElfStringTable::SetValues( int index )
+{
+	QTableWidgetItem *table_item;
+	
+	if( ss.size()>0 )
+	{
+		ParseStrings( index );
 		ClearRows();
 		for( int i=0; i<valueslist.size(); i++ )
 		{

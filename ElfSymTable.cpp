@@ -33,12 +33,17 @@ ElfSymTable::ElfSymTable() : ElfMultiHeader( 8, 2 )
 	spin->setPrefix( "Symbol # " );
 	sym_strtable = NULL;
 	
+	//le_search->hide();
+	
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 	table->horizontalHeader()->setStretchLastSection( true );
 }
 
 ElfSymTable::~ElfSymTable()
-{}
+{
+	ss.clear();
+	sym_whitelist.clear();
+}
 
 void ElfSymTable::SetValues( int index )
 {
@@ -46,6 +51,9 @@ void ElfSymTable::SetValues( int index )
 
 	stringlist.clear();
 	valueslist.clear();
+	
+	if( sym_whitelist.size()>0 && index<sym_whitelist.size() )
+		index = sym_whitelist[ index ];
 
 	if( ss.size()>0 )
 	{
@@ -345,6 +353,8 @@ void ElfSymTable::SelectData( char *data )
 		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
 	}
+	
+	connect( this, SIGNAL(S_SearchRegexReady()), this, SLOT(GenerateWhiteList()) );
 }
 
 unsigned int ElfSymTable::ReadSymbols()
@@ -403,11 +413,17 @@ void ElfSymTable::InvokeSelection( int row, int column )
 	
 	if( is64bit )
 	{
-		start_offset = sym64.offsets[ spin->value() ];
+		if( sym_whitelist.size()==0 )
+			start_offset = sym64.offsets[ spin->value() ];
+		else
+			start_offset = sym64.offsets[ sym_whitelist[spin->value()] ];
 	}
 	else
 	{
-		start_offset = sym32.offsets[ spin->value() ];
+		if( sym_whitelist.size()==0 )
+			start_offset = sym32.offsets[ spin->value() ];
+		else
+			start_offset = sym32.offsets[ sym_whitelist[spin->value()] ];
 	}
 
 	if( row > 1 )
@@ -426,4 +442,39 @@ void ElfSymTable::InvokeSelection( int row, int column )
 	}
 
 	emit S_selection_changed( start_offset, size );
+}
+
+void ElfSymTable::GenerateWhiteList()
+{
+	sym_whitelist.clear();
+	
+	if( search_regex.isValid() )
+	{
+		if( is64bit )
+		{	
+			for( int i=0; i<sym64.symv.size(); i++ )
+			{
+				
+				if( search_regex.indexIn( (sym_strtable+sym64.symv[i]->st_name) )!=-1 )
+				{
+					sym_whitelist.push_back( i );
+				}
+			}
+		}
+		else
+		{
+			for( int i=0; i<sym32.symv.size(); i++ )
+			{
+				if( search_regex.indexIn( (sym_strtable+sym32.symv[i]->st_name) )!=-1 )
+					sym_whitelist.push_back( i );
+			}
+		}
+		
+		if( sym_whitelist.size() > 0 )
+		{
+			spin->setMaximum( (ss.size()==0)?0:sym_whitelist.size()-1 );
+			spin->setSuffix( " of " + QString::number( spin->maximum() ) );
+		}
+	}
+	SetValues( spin->value() );
 }

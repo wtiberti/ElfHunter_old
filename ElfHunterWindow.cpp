@@ -135,12 +135,6 @@ void ElfHunterWindow::Init_Actions()
 	connect( temp, SIGNAL(triggered()), mw, SLOT(Hexdump_GoToOffset()) );
 	temp->setEnabled( fromcmdline );
 	actions.push_back( temp );
-	
-	temp = new QAction( QIcon( ":/icons/edit-find.png" ), "Find String/Symbol", this );
-	temp->setStatusTip( "Searches for a string or a symbol" );
-	//connect( temp, SIGNAL(triggered()), mw, SLOT(Hexdump_GoToOffset()) );
-	temp->setEnabled( fromcmdline );
-	actions.push_back( temp );
 }
 
 void ElfHunterWindow::Init_MenuBar()
@@ -162,10 +156,6 @@ void ElfHunterWindow::Init_MenuBar()
 	temp->addAction( actions[A_GOTOOFFSET] );
 	menus.push_back( temp );
 	
-	temp = menuBar()->addMenu( "&Find" );
-	temp->addAction( actions[A_FIND] );
-	menus.push_back( temp );
-	
 	temp = menuBar()->addMenu( "&?" );
 	temp->addAction( actions[A_ABOUT] );
 	menus.push_back( temp );
@@ -179,7 +169,6 @@ void ElfHunterWindow::Init_ToolBar()
 	main_toolbar->addAction( actions[A_TOGGLETREE] );
 	main_toolbar->addAction( actions[A_TOGGLEHEX] );
 	main_toolbar->addAction( actions[A_GOTOOFFSET] );
-	main_toolbar->addAction( actions[A_FIND] );
 }
 
 void ElfHunterWindow::Init_StatusBar()

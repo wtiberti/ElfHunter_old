@@ -269,7 +269,6 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 	widget_selector->addTopLevelItem( temp_treeitem );
 	tree_elem.push_back( temp_treeitem );
 
-
 	hexdump->SetData( filedata, size );
 	user_can_show_hex = true;
 	
