@@ -29,6 +29,7 @@
 	#define ElfSectionHeaderWidget_H
 
 	#include "ElfMultiHeader.h"
+	#include <vector>
 
 	/** Section Header fields */
 	const QString secthdr_field_names[] =
@@ -61,7 +62,10 @@
 		unsigned int strsectnx; ///< Index of the section headers' string table
 		__uint64_t str_offset; ///<  Offset to the section headers' string table
 		void GetShStrTable(); ///< Gets the offset to the section headers' string table
-
+		unsigned int number_of_sections; ///< Holds the number of sections
+		
+		std::vector< int > sect_whitelist; ///< Holds the index of the sections that match the @ref search_regex
+		
 	protected:
 		void SetValues( int index ); ///< @ref ElfMultiHeader::SetValues
 
@@ -69,6 +73,7 @@
 		ElfSectionHeaderWidget(); ///< Constructor
 		~ElfSectionHeaderWidget(); ///< Destructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
+
 
 		/** @brief Retrieve the section name
 		 * @param[in] elf Pointer to allocated ELF file
@@ -78,5 +83,10 @@
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
+		
+		/** @brief Generate a sublist of sections which match the search_regex
+		 * 
+		 * @ref search_regex */
+		void GenerateWhiteList();
 	};
 #endif

@@ -30,12 +30,8 @@ ElfProgHeaderWidget::ElfProgHeaderWidget() : ElfMultiHeader( PROGHDRTABLEROWS, P
 {
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Program Header # " );
-	
 	le_search->hide();
 }
-
-ElfProgHeaderWidget::~ElfProgHeaderWidget()
-{}
 
 void ElfProgHeaderWidget::SetValues( int index )
 {
@@ -222,7 +218,6 @@ void ElfProgHeaderWidget::SelectData( char *data )
 		table->verticalHeaderItem( 4 )->setText( "p_paddr" );
 		table->verticalHeaderItem( 5 )->setText( "p_filesz" );
 		table->verticalHeaderItem( 6 )->setText( "p_memsz" );
-		table->verticalHeaderItem( 7 )->setText( "p_align" );
 	}
 	else
 	{
@@ -232,8 +227,8 @@ void ElfProgHeaderWidget::SelectData( char *data )
 		table->verticalHeaderItem( 4 )->setText( "p_filesz" );
 		table->verticalHeaderItem( 5 )->setText( "p_memsz" );
 		table->verticalHeaderItem( 6 )->setText( "p_flags" );
-		table->verticalHeaderItem( 7 )->setText( "p_align" );
 	}
+	table->verticalHeaderItem( 7 )->setText( "p_align" );
 	SetValues( 0 );
 }
 

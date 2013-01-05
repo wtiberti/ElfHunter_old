@@ -46,8 +46,6 @@
 
 	public:
 		ElfProgHeaderWidget(); ///< Constructor
-		~ElfProgHeaderWidget(); ///< Destructor
-
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 		
 	private slots:

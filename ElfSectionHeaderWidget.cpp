@@ -29,17 +29,21 @@
 
 ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfMultiHeader( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS )
 {
+	number_of_sections = 0;
+	
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Section Header # " );
-
-	le_search->hide();
 	
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 		table->verticalHeaderItem( i )->setText( secthdr_field_names[i] );
+	sect_whitelist.clear();
+	
 }
 
 ElfSectionHeaderWidget::~ElfSectionHeaderWidget()
-{}
+{
+	sect_whitelist.clear();
+}
 
 void ElfSectionHeaderWidget::SetValues( int index )
 {
@@ -48,8 +52,16 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	Elf32_Shdr *sect = (Elf32_Shdr *)base;
 	__uint64_t temp_value = 0;
 
-	sect += index;
-	sect64 += index;
+	if( sect_whitelist.size()!=0 )
+	{
+		sect += sect_whitelist[index];
+		sect64 += sect_whitelist[index];
+	}
+	else
+	{
+		sect += index;
+		sect64 += index;
+	}
 
 	stringlist.clear();
 	valueslist.clear();
@@ -229,14 +241,7 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 		base += offset;
 		entry_size = header64->e_shentsize;
 		strsectnx = header64->e_shstrndx;
-
-		if( header64->e_shnum==0 )
-		{
-			spin->setMaximum( 0 );
-			return;
-		}
-
-		spin->setMaximum( header64->e_shnum-1 );
+		number_of_sections = header64->e_shnum;
 	}
 	else
 	{
@@ -244,22 +249,23 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 		base += offset;
 		entry_size = header->e_shentsize;
 		strsectnx = header->e_shstrndx;
-
-		if( header->e_shnum==0 )
-		{
-			spin->setMaximum( 0 );
-			return;
-		}
-
-		spin->setMaximum( header->e_shnum-1 );
+		number_of_sections = header->e_shnum;
 	}
-
-	GetShStrTable();
-
-	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
-	connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
-	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
-	SetValues( 0 );
+	
+	if( number_of_sections > 0 )
+	{
+		GetShStrTable();
+		
+		spin->setMaximum( number_of_sections-1 );
+		spin->setSuffix( " of " + QString::number( spin->maximum() ) );
+		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
+		connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
+		SetValues( 0 );
+		
+		connect( this, SIGNAL(S_SearchRegexReady()), this, SLOT(GenerateWhiteList()) );
+	}
+	else
+		spin->setMaximum( 0 );
 }
 
 
@@ -323,8 +329,12 @@ void ElfSectionHeaderWidget::InvokeSelection( int row, int column )
 	__uint64_t start_offset = this->offset;
 	__uint64_t size;
 	
-	
-	start_offset += spin->value()*entry_size;
+	if( sect_whitelist.size()!=0 )
+	{
+		start_offset += sect_whitelist[spin->value()]*entry_size;
+	}
+	else
+		start_offset += spin->value()*entry_size;
 	
 	if( row == 0 )
 	{
@@ -345,4 +355,29 @@ void ElfSectionHeaderWidget::InvokeSelection( int row, int column )
 	}
 	
 	emit S_selection_changed( start_offset, size );
+}
+
+void ElfSectionHeaderWidget::GenerateWhiteList()
+{
+	QString temp = " ";
+	
+	sect_whitelist.clear();
+	
+	for( int i=0; i<number_of_sections; i++ )
+	{
+		temp = QString( GetSectionName( (char*)(base-offset), i ) );
+		
+		if( temp != NULL && search_regex.indexIn( temp )!=-1 )
+			sect_whitelist.push_back( i );
+	}
+	
+	if( sect_whitelist.size() > 0 )
+	{
+		spin->setMaximum( sect_whitelist.size()-1 );
+		spin->setSuffix( " of " + QString::number( spin->maximum() ) );
+		SetValues( spin->value() );
+		
+		if( table->selectedItems().size()>0 )
+			InvokeSelection( table->selectedItems().first()->row(), 0 ); // column not needed
+	}
 }

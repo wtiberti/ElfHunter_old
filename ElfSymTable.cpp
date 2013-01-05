@@ -33,8 +33,6 @@ ElfSymTable::ElfSymTable() : ElfMultiHeader( 8, 2 )
 	spin->setPrefix( "Symbol # " );
 	sym_strtable = NULL;
 	
-	//le_search->hide();
-	
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
 	table->horizontalHeader()->setStretchLastSection( true );
 }
@@ -347,9 +345,9 @@ void ElfSymTable::SelectData( char *data )
 	spin->setMaximum( (ss.size()==0)?0:ReadSymbols()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	
-	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
-	if( ss.size()>0 )
+	if( ss.size()>0 && spin->maximum()!=-1 )
 	{
+		connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
 	}
@@ -447,34 +445,32 @@ void ElfSymTable::InvokeSelection( int row, int column )
 void ElfSymTable::GenerateWhiteList()
 {
 	sym_whitelist.clear();
-	
-	if( search_regex.isValid() )
-	{
-		if( is64bit )
-		{	
-			for( int i=0; i<sym64.symv.size(); i++ )
-			{
-				
-				if( search_regex.indexIn( (sym_strtable+sym64.symv[i]->st_name) )!=-1 )
-				{
-					sym_whitelist.push_back( i );
-				}
-			}
-		}
-		else
+
+	if( is64bit )
+	{	
+		for( int i=0; i<sym64.symv.size(); i++ )
 		{
-			for( int i=0; i<sym32.symv.size(); i++ )
+			if( search_regex.indexIn( (sym_strtable+sym64.symv[i]->st_name) )!=-1 )
 			{
-				if( search_regex.indexIn( (sym_strtable+sym32.symv[i]->st_name) )!=-1 )
-					sym_whitelist.push_back( i );
+				sym_whitelist.push_back( i );
 			}
-		}
-		
-		if( sym_whitelist.size() > 0 )
-		{
-			spin->setMaximum( (ss.size()==0)?0:sym_whitelist.size()-1 );
-			spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 		}
 	}
-	SetValues( spin->value() );
+	else
+	{
+		for( int i=0; i<sym32.symv.size(); i++ )
+		{
+			if( search_regex.indexIn( (sym_strtable+sym32.symv[i]->st_name) )!=-1 )
+				sym_whitelist.push_back( i );
+		}
+	}
+	
+	if( sym_whitelist.size() > 0 )
+	{
+		spin->setMaximum( (ss.size()==0)?0:sym_whitelist.size()-1 );
+		spin->setSuffix( " of " + QString::number( spin->maximum() ) );
+		SetValues( spin->value() );
+		if( table->selectedItems().size()>0 )
+			InvokeSelection( table->selectedItems().first()->row(), 0 ); // column not needed
+	}
 }

@@ -127,9 +127,9 @@ void ElfHunterRelTable::SelectData( char *data )
 	
 	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
-	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 	if( ss.size()>0 )
 	{
+		connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		SetValues( 0 );
 	}
