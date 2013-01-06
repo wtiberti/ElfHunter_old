@@ -22,10 +22,11 @@
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
-//#include "ElfHunterMainWidget.h"
 #include "ElfHunterWindow.h"
+#include "ElfHunterConfStruct.h"
 
 extern QString cmdline_file2open;
+extern ElfHunterConfStruct conf_struct;
 
 ElfHunterMainWidget::ElfHunterMainWidget( QWidget *parent ) : QWidget(parent)
 {
@@ -248,26 +249,15 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		connect( temp_rlctbl, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 	}
 	
-	ElfHunterExec *temp_ehexec1 = new ElfHunterExec( "objdump", long_file_name );
-	sidewidget->addTab( (QWidget *)temp_ehexec1, temp_ehexec1->GetCommand().prepend("Exec: ") );
-	temp_treeitem = new QTreeWidgetItem();
-	temp_treeitem->setText( 0, temp_ehexec1->GetCommand().prepend("Exec: ") );
-	widget_selector->addTopLevelItem( temp_treeitem );
-	tree_elem.push_back( temp_treeitem );
-	
-	ElfHunterExec *temp_ehexec2 = new ElfHunterExec( "readelf", long_file_name );
-	sidewidget->addTab( (QWidget *)temp_ehexec2, temp_ehexec2->GetCommand().prepend("Exec: ") );
-	temp_treeitem = new QTreeWidgetItem();
-	temp_treeitem->setText( 0, temp_ehexec2->GetCommand().prepend("Exec: ") );
-	widget_selector->addTopLevelItem( temp_treeitem );
-	tree_elem.push_back( temp_treeitem );
-
-	ElfHunterExec *temp_ehexec3 = new ElfHunterExec( "hexdump", long_file_name );
-	sidewidget->addTab( (QWidget *)temp_ehexec3, temp_ehexec3->GetCommand().prepend("Exec: ") );
-	temp_treeitem = new QTreeWidgetItem();
-	temp_treeitem->setText( 0, temp_ehexec3->GetCommand().prepend("Exec: ") );
-	widget_selector->addTopLevelItem( temp_treeitem );
-	tree_elem.push_back( temp_treeitem );
+	for( unsigned int i=0; i<conf_struct.exec_mods.size(); i++ )
+	{
+		ElfHunterExec *temp_ehexec = new ElfHunterExec( conf_struct.exec_mods[i].name, long_file_name, conf_struct.exec_mods[i].append==1?true:false );
+		sidewidget->addTab( (QWidget *)temp_ehexec, temp_ehexec->GetCommand().prepend("Exec: ") );
+		temp_treeitem = new QTreeWidgetItem();
+		temp_treeitem->setText( 0, temp_ehexec->GetCommand().prepend("Exec: ") );
+		widget_selector->addTopLevelItem( temp_treeitem );
+		tree_elem.push_back( temp_treeitem );
+	}
 
 	hexdump->SetData( filedata, size );
 	user_can_show_hex = true;

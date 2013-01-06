@@ -94,7 +94,7 @@ void ElfHunterHexWidget::GoToOffset( __uint64_t offset )
 {
 	Okteta::AddressRange ar( offset, 1 );
 	
-	if( offset < (okteta_widget->byteArrayModel())->size() )
+	if( offset < (__uint64_t)(okteta_widget->byteArrayModel())->size() )
 	{
 		okteta_widget->setFocus( Qt::OtherFocusReason );
 		okteta_widget->ensureVisible( ar, true );

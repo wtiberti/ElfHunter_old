@@ -142,5 +142,6 @@ void ElfHunterExec::ParseArguments()
 {
 	//TODO: insert a tab with checkboxes instead
 	args.clear();
-	args = le_args->text().split(" ");
+	if( le_args->text() != "" )
+		args = le_args->text().split(" ");
 }

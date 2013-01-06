@@ -50,7 +50,7 @@ void ElfSymTable::SetValues( int index )
 	stringlist.clear();
 	valueslist.clear();
 	
-	if( sym_whitelist.size()>0 && index<sym_whitelist.size() )
+	if( sym_whitelist.size()>0 && index<(int)sym_whitelist.size() )
 		index = sym_whitelist[ index ];
 
 	if( ss.size()>0 )
@@ -448,7 +448,7 @@ void ElfSymTable::GenerateWhiteList()
 
 	if( is64bit )
 	{	
-		for( int i=0; i<sym64.symv.size(); i++ )
+		for( unsigned int i=0; i<sym64.symv.size(); i++ )
 		{
 			if( search_regex.indexIn( (sym_strtable+sym64.symv[i]->st_name) )!=-1 )
 			{
@@ -458,7 +458,7 @@ void ElfSymTable::GenerateWhiteList()
 	}
 	else
 	{
-		for( int i=0; i<sym32.symv.size(); i++ )
+		for( unsigned int i=0; i<sym32.symv.size(); i++ )
 		{
 			if( search_regex.indexIn( (sym_strtable+sym32.symv[i]->st_name) )!=-1 )
 				sym_whitelist.push_back( i );

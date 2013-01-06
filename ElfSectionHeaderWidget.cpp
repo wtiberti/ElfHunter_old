@@ -363,7 +363,7 @@ void ElfSectionHeaderWidget::GenerateWhiteList()
 	
 	sect_whitelist.clear();
 	
-	for( int i=0; i<number_of_sections; i++ )
+	for( unsigned int i=0; i<number_of_sections; i++ )
 	{
 		temp = QString( GetSectionName( (char*)(base-offset), i ) );
 		

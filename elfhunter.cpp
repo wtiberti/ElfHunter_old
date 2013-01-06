@@ -22,36 +22,94 @@
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
+#include <iostream>
+#include <getopt.h>
 
 #include <QtGui>
-#include <getopt.h>
+#include <QtXml/QDomDocument>
+
 #include "ElfHunterWindow.h"
+#include "ElfHunterConfStruct.h"
 
-#include <iostream>
+/* CONSTANTS SECTION */
+#define CONF_FILE_PATH "./ElfHunter.conf"
 
-bool cmdline_onlyreport = false;
-QString cmdline_file2open;
 
+/* COMMAND LINE SECTION */
+bool cmdline_onlyreport = false; ///< Generate a report about the file without show ui
+QString cmdline_file2open; ///< Filename passed through command line
+
+
+/* CONFIGURATION FILE SECTION */
+QFile conf_file( CONF_FILE_PATH );
+QDomDocument conf_file_dom;
+bool conf_file_valid = true;
+ElfHunterConfStruct conf_struct;
+
+
+/** @brief ElfHunter program Entry Point */
 int main( int argc, char *argv[] )
 {
 	bool cmdline_valid = true;
 	char cmdline_option = '\0';
+	
+	if( conf_file.open( QIODevice::ReadOnly ) )
+	{
+		if( conf_file_dom.setContent( &conf_file ) )
+		{
+			QDomNodeList conf_nodes;
+			QDomElement conf_element = conf_file_dom.documentElement();
+			
+			/* ExecModules parsing */
+			conf_nodes = conf_element.elementsByTagName("ExecModules").at(0).toElement().elementsByTagName("mod");
+			conf_struct.exec_mods.clear();
+			for( int i=0; i<conf_nodes.count(); i++ )
+			{
+				_execmod tempmod;
+				tempmod.name = conf_nodes.at(i).attributes().namedItem("cmd").nodeValue();
+				tempmod.append = conf_nodes.at(i).attributes().namedItem("appendfile").nodeValue().toInt();
+				conf_struct.exec_mods.push_back( tempmod );
+			}
+			
+			//TODO: other options
+			
+			
+			//TEST
+			for( unsigned int i=0; i<conf_struct.exec_mods.size(); i++ )
+			{
+				qDebug() << "[DEBUG]: Added " << conf_struct.exec_mods[i].name << " exec module ( wantfilename=" << conf_struct.exec_mods[i].append << ")";
+			}
+			
+		}
+		else
+			conf_file_valid = false;
+		
+		conf_file.close();
+	}
+	else
+		conf_file_valid = false;
+	
+	if( !conf_file_valid )
+	{
+		// TODO: re-create a default configuration file
+		qDebug() << "[DEBUG]: Configuration not found! (path: \"" << CONF_FILE_PATH << "\" )";
+	}
 	
 	QApplication main_app( argc, argv );
 	main_app.setApplicationName( "ElfHunter" );
 	
 	while( cmdline_option != -1 )
 	{
-		cmdline_option = getopt( argc, argv, "hro:" );
+		cmdline_option = getopt( argc, argv, "hr:o:" );
 		switch( cmdline_option )
 		{
 			case 'r':
 				//TODO recursive report about all files in the specified dir
-				//qDebug() << "Option \'r\' recognized!";
+				qDebug() << "[DEBUG]: Option \'r\' recognized with arg:" << optarg;
 				break;
 			case 'o':
 				//TODO report to file
-				//qDebug() << "Option \'o\' recognized with arg:" << optarg;
+				qDebug() << "[DEBUG]: Option \'o\' recognized with arg:" << optarg;
 				break;
 			case 'h':
 			case '?':
