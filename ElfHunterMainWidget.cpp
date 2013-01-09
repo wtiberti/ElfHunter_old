@@ -208,6 +208,16 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		elfhdr_treeitem->addChild( proghdr_treeitem );
 		tree_elem.push_back( proghdr_treeitem );
 		connect( temp_proghdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
+		
+		ElfHunterDyn *temp_dynhdr = new ElfHunterDyn();
+		temp_dynhdr->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_dynhdr, "Dynamic Info" );
+		temp_treeitem = new QTreeWidgetItem();
+		temp_treeitem->setText( 0, "Dynamic Info" );
+		proghdr_treeitem->addChild( temp_treeitem );
+		tree_elem.push_back( temp_treeitem );
+		connect( temp_dynhdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
+		
 	}
 
 	if( ElfGenericHeader::HasSections( filedata ) )
@@ -220,6 +230,15 @@ void ElfHunterMainWidget::Populate( char *filedata, unsigned long size )
 		elfhdr_treeitem->addChild( secthdr_treeitem );
 		tree_elem.push_back( secthdr_treeitem );
 		connect( temp_secthdr, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
+		
+		ElfHunterDyn *temp_dynsect = new ElfHunterDyn( false );
+		temp_dynsect->SelectData( filedata );
+		sidewidget->addTab( (QWidget *)temp_dynsect, "Dynamic Info (section)" );
+		temp_treeitem = new QTreeWidgetItem();
+		temp_treeitem->setText( 0, "Dynamic Info (section)" );
+		secthdr_treeitem->addChild( temp_treeitem );
+		tree_elem.push_back( temp_treeitem );
+		connect( temp_dynsect, SIGNAL( S_selection_changed(__uint64_t,__uint64_t) ), hexdump, SLOT( Select(__uint64_t,__uint64_t) ) );
 
 		ElfStringTable *temp_strtbl = new ElfStringTable();
 		temp_strtbl->SelectData( filedata );

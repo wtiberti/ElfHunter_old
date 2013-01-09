@@ -40,6 +40,7 @@
 	#include "ElfSymTable.h"
 	#include "ElfHunterRelTable.h"
 	#include "ElfHunterExec.h"
+	#include "ElfHunterDyn.h"
 
 	#include <vector>
 	

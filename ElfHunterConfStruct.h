@@ -18,7 +18,7 @@
 */
 
 /*
-* Filename: ElfHunterConfStruct.h.cpp
+* Filename: ElfHunterConfStruct.h
 * Author: Walter Tiberti <wtuniv@gmail.com>
 *
 */
