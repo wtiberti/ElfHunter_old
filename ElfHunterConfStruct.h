@@ -29,13 +29,13 @@
 /** @brief Structure holding ElfHunterExec modules information */
 struct _execmod
 {
-	QString name;
-	int append;
+	QString name; ///< command name
+	int append; ///< append file after the arguments? (1: true, 0:false)
 };
 
 /** @brief Contains the current ElfHunter configuration options */
 struct ElfHunterConfStruct
 {
-	std::vector< _execmod > exec_mods;
+	std::vector< _execmod > exec_mods; ///< Exec modules list
 	// ....
 };

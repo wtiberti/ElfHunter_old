@@ -90,6 +90,7 @@
 		void SearchStringChanged();
 		
 	signals:
+		/** @brief Signal. Thrown when used stop writing in the search text box */
 		void S_SearchRegexReady();
 	};
 #endif

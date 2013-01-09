@@ -35,27 +35,27 @@
 	#include "ElfAuxTypes.h"
 	#include <vector>
 	
+	/** @class ElfHunterDyn
+	 * @brief Shows the dynamic linking info from program headers or sections */
 	class ElfHunterDyn : public ElfMultiHeader
 	{
 	Q_OBJECT
 		
 	private:
-		bool SegmentDyn;
-		std::vector< SectStruct > ss;
+		bool SegmentDyn; ///< "true" if the source is a segment ( from the program header )
+		std::vector< SectStruct > ss; ///<  Vector containing all the dynamic sections/segment
 		QStringList offsetlist; ///< Contains the entry offsets as QStrings
 	
 	protected:
 		void SetValues( int index );///< @ref ElfMultiHeader::SetValues
 		
 	public:
-		ElfHunterDyn( bool segment_dyn = true );
-		~ElfHunterDyn();
+		ElfHunterDyn( bool segment_dyn = true ); ///< Constructor
+		~ElfHunterDyn(); ///< Desctructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 		
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
-	
-		
 	};
 #endif
