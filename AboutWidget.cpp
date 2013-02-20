@@ -31,11 +31,11 @@ AboutWidget::AboutWidget()
 
 	// TODO
 	resize( 250, 140 );
-	
+
 	// TODO: Add logo and restyle
-	
+
 	abouttext = new QLabel(
-		"ElfHunter v0.16\n"
+		"ElfHunter v0.17\n"
 		"An ELF file format analyzer\n\n"
 
 		"Released under GNU GPL license.\n"
@@ -46,7 +46,7 @@ AboutWidget::AboutWidget()
 		"website: http://wtprojects.site88.net", this );
 
 	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
-	
+
 	l.addWidget( abouttext );
 	setLayout( &l );
 }

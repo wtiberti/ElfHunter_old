@@ -130,6 +130,8 @@ void ElfStringTable::SelectData( char *data )
 	sect = (Elf32_Shdr *)(data+sectoff);
 	sect64 = (Elf64_Shdr *)(data+sectoff);
 
+	ss.clear();
+	
 	for( unsigned int i=0; i<sectnum; i++ )
 	{
 		if( is64bit )
@@ -197,4 +199,9 @@ void ElfStringTable::InvokeSelection( int row, int column )
 	}
 	
 	emit S_selection_changed( str_offset, len );
+}
+
+void ElfStringTable::Update( char *data )
+{
+	SelectData( data );
 }

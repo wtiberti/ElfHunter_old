@@ -95,6 +95,11 @@
 		 * @param[in] size Size in bytes of data */
 		static QString *ToHexString( unsigned char *stream, unsigned int size );
 		
+	public slots:
+		/** @brief Update the inner data structures
+		 * @param[in] data Data source (in-memory file) */
+		virtual void Update( char *data ) = 0;
+		
 	signals:
 		/** @brief QT Signal. Notify when user select a different inner widget */
 		void S_selection_changed( __uint64_t, __uint64_t );

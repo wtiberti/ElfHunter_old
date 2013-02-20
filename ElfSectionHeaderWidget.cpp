@@ -30,14 +30,14 @@
 ElfSectionHeaderWidget::ElfSectionHeaderWidget() : ElfMultiHeader( SECTHDRTABLEROWS, SECTHDRTABLECOLUMNS )
 {
 	number_of_sections = 0;
-	
+
 	spin->setMinimum( 0 );
 	spin->setPrefix( "Section Header # " );
-	
+
 	for( int i=0; i<SECTHDRTABLEROWS; i++ )
 		table->verticalHeaderItem( i )->setText( secthdr_field_names[i] );
 	sect_whitelist.clear();
-	
+
 }
 
 ElfSectionHeaderWidget::~ElfSectionHeaderWidget()
@@ -81,7 +81,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 	QString *temp_sect_name = new QString( (char*)(str_offset+name_index) );
 	stringlist << *temp_sect_name;
 	delete temp_sect_name;
-	
+
 	//sh_type
 	__uint64_t secttype;
 	if( is64bit )
@@ -90,44 +90,44 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		secttype = sect->sh_type;
 	temp_string.setNum( secttype, 16 );
 	valueslist << temp_string.toUpper().prepend( "0x" );
-	
+
 	switch( secttype )
 	{
 		case SHT_NULL:
-			temp_string = "[Undefined]";
+			temp_string = "SHT_NULL";
 			break;
 		case SHT_PROGBITS:
-			temp_string = "Program-defined data";
+			temp_string = "SHT_PROGBITS";
 			break;
 		case SHT_SYMTAB:
-			temp_string = "Symbol Table";
+			temp_string = "SHT_SYMTAB";
 			break;
 		case SHT_STRTAB:
-			temp_string = "String Table";
+			temp_string = "SHT_STRTAB";
 			break;
 		case SHT_RELA:
-			temp_string = "Relocation entries (explicit)";
+			temp_string = "SHT_RELA";
 			break;
 		case SHT_HASH:
-			temp_string = "Symbol Hash Table";
+			temp_string = "SHT_HASH";
 			break;
 		case SHT_DYNAMIC:
-			temp_string = "Dynamic Linking Info";
+			temp_string = "SHT_DYNAMIC";
 			break;
 		case SHT_NOTE:
-			temp_string = "Auxiliary Info";
+			temp_string = "SHT_NOTE";
 			break;
 		case SHT_NOBITS:
-			temp_string = "Program-defined data (no space occupied)";
+			temp_string = "SHT_NOBITS";
 			break;
 		case SHT_REL:
-			temp_string = "Relocation entries (implicit)";
+			temp_string = "SHT_REL";
 			break;
 		case SHT_SHLIB:
-			temp_string = "Unspecified";
+			temp_string = "SHT_SHLIB";
 			break;
 		case SHT_DYNSYM:
-			temp_string = "Dynamic linking symbols";
+			temp_string = "SHT_DYNSYM";
 			break;
 		default:
 			if( sect->sh_type>=SHT_LOPROC )
@@ -150,7 +150,7 @@ void ElfSectionHeaderWidget::SetValues( int index )
 		sectflags = sect->sh_flags;
 	temp_string.setNum( sectflags, 16 );
 	valueslist << temp_string.toUpper().prepend( "0x" );
-	
+
 	temp_string = "";
 	if( sectflags & SHF_WRITE )
 		temp_string.push_back( "Writeable " );
@@ -251,17 +251,17 @@ void ElfSectionHeaderWidget::SelectData( char *data )
 		strsectnx = header->e_shstrndx;
 		number_of_sections = header->e_shnum;
 	}
-	
+
 	if( number_of_sections > 0 )
 	{
 		GetShStrTable();
-		
+
 		spin->setMaximum( number_of_sections-1 );
 		spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 		connect( spin, SIGNAL(valueChanged(int)), this, SLOT(Changed()) );
 		connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 		SetValues( 0 );
-		
+
 		connect( this, SIGNAL(S_SearchRegexReady()), this, SLOT(GenerateWhiteList()) );
 	}
 	else
@@ -328,20 +328,20 @@ void ElfSectionHeaderWidget::InvokeSelection( int row, int column )
 {
 	__uint64_t start_offset = this->offset;
 	__uint64_t size;
-	
+
 	if( sect_whitelist.size()!=0 )
 	{
 		start_offset += sect_whitelist[spin->value()]*entry_size;
 	}
 	else
 		start_offset += spin->value()*entry_size;
-	
+
 	if( row == 0 )
 	{
 		size = entry_size;
 	}
 	else
-	{	
+	{
 		if( is64bit )
 		{
 			start_offset += secthdr_selection_info64[ row ].start;
@@ -353,31 +353,37 @@ void ElfSectionHeaderWidget::InvokeSelection( int row, int column )
 			size = secthdr_selection_info[ row ].size;
 		}
 	}
-	
+
 	emit S_selection_changed( start_offset, size );
 }
 
 void ElfSectionHeaderWidget::GenerateWhiteList()
 {
 	QString temp = " ";
-	
+
 	sect_whitelist.clear();
-	
+
 	for( unsigned int i=0; i<number_of_sections; i++ )
 	{
 		temp = QString( GetSectionName( (char*)(base-offset), i ) );
-		
+
 		if( temp != NULL && search_regex.indexIn( temp )!=-1 )
 			sect_whitelist.push_back( i );
 	}
-	
+
 	if( sect_whitelist.size() > 0 )
 	{
 		spin->setMaximum( sect_whitelist.size()-1 );
 		spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 		SetValues( spin->value() );
-		
+
 		if( table->selectedItems().size()>0 )
 			InvokeSelection( table->selectedItems().first()->row(), 0 ); // column not needed
 	}
+}
+
+void ElfSectionHeaderWidget::Update( char *data )
+{
+	sect_whitelist.clear();
+	SelectData( data );
 }

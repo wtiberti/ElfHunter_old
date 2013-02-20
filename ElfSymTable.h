@@ -71,5 +71,8 @@
 		 * 
 		 * @ref search_regex */
 		void GenerateWhiteList();
+		
+	public slots:
+		virtual void Update( char *data ); ///< @ref ElfGenericHeader::Update
 	};
 #endif

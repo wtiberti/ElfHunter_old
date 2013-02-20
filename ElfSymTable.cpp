@@ -289,6 +289,8 @@ void ElfSymTable::SelectData( char *data )
 
 	sect = (Elf32_Shdr *)(data+sectoff);
 	sect64 = (Elf64_Shdr *)(data+sectoff);
+	
+	ss.clear();
 
 	for( unsigned int i=0; i<sectnum; i++ )
 	{
@@ -473,4 +475,10 @@ void ElfSymTable::GenerateWhiteList()
 		if( table->selectedItems().size()>0 )
 			InvokeSelection( table->selectedItems().first()->row(), 0 ); // column not needed
 	}
+}
+
+void ElfSymTable::Update( char *data )
+{
+	sym_whitelist.clear();
+	SelectData( data );
 }

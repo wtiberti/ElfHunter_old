@@ -48,6 +48,9 @@
 		ElfProgHeaderWidget(); ///< Constructor
 		void SelectData( char *data ); ///< @ref ElfMultiHeader::SelectData
 		
+	public slots:
+		virtual void Update( char *data ); ///< @ref ElfGenericHeader::Update
+	
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );

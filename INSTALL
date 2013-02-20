@@ -2,7 +2,7 @@
 #                         ElfHunter INSTALLATION                              #
 ###############################################################################
 #  Author: Walter Tiberti <wtuniv@gmail.com>                                  #
-#  Last update: 2012-12-28 22:21 CET                                          #
+#  Last update: 2013-02-20 12:32 CET                                          #
 ###############################################################################
 
 ----- Generate documentation -------------------
@@ -51,7 +51,7 @@ for the source code, the only thing you need to do is (from the source dir):
 
 ----- Installation -----------------------------
  After compiling, the ElfHunter binary should be available. If you wish to
- install it, you can (from the source code directory):
+ install it, you can for example (from the source code directory):
 
 	# cp ./ElfHunter /usr/local/bin/
 

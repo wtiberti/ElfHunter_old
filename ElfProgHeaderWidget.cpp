@@ -55,29 +55,29 @@ void ElfProgHeaderWidget::SetValues( int index )
 
 	temp_value.setNum( prgtype, 16 );
 	valueslist << temp_value.toUpper().prepend( "0x" );
-	
+
 	switch( prgtype )
 	{
 		case PT_NULL:
-			temp_string = "Unused / Ignored";
+			temp_string = "PT_NULL";
 			break;
 		case PT_LOAD:
-			temp_string = "Loadable Segment";
+			temp_string = "PT_LOAD";
 			break;
 		case PT_DYNAMIC:
-			temp_string = "Dynamic Linking Information";
+			temp_string = "PT_DYNAMIC";
 			break;
 		case PT_INTERP:
-			temp_string = "Path to Interpreter";
+			temp_string = "PT_INTERP";
 			break;
 		case PT_NOTE:
-			temp_string = "Auxiliary Information";
+			temp_string = "PT_NOTE";
 			break;
 		case PT_SHLIB:
-			temp_string = "Reserved / non-ABI";
+			temp_string = "PT_SHLIB";
 			break;
 		case PT_PHDR:
-			temp_string = "Program Header Info";
+			temp_string = "PT_PHDR";
 			break;
 		default:
 			if( prgtype>=PT_LOOS && prgtype<=PT_HIOS )
@@ -86,7 +86,7 @@ void ElfProgHeaderWidget::SetValues( int index )
 				if( prgtype>=PT_LOPROC && prgtype<=PT_HIPROC )
 					temp_string = "Processor-specific";
 				else
-					temp_string = "[Invalid]";
+					temp_string = "[unknown]";
 	}
 	stringlist << temp_string;
 
@@ -236,10 +236,10 @@ void ElfProgHeaderWidget::InvokeSelection( int row, int column )
 {
 	__uint64_t start_offset = this->offset;
 	__uint64_t size;
-	
-	
+
+
 	start_offset += entry_size * spin->value();
-	
+
 	if( is64bit )
 	{
 		start_offset += proghdr_selection_info64[ row ].start;
@@ -250,6 +250,11 @@ void ElfProgHeaderWidget::InvokeSelection( int row, int column )
 		start_offset += proghdr_selection_info[ row ].start;
 		size = proghdr_selection_info[ row ].size;
 	}
-	
+
 	emit S_selection_changed( start_offset, size );
+}
+
+void ElfProgHeaderWidget::Update( char *data )
+{
+	SelectData( data );
 }

@@ -85,6 +85,8 @@ void ElfHunterRelTable::SelectData( char *data )
 	sect = (Elf32_Shdr *)(data+sectoff);
 	sect64 = (Elf64_Shdr *)(data+sectoff);
 	
+	ss.clear();
+	
 	for( unsigned int i=0; i<sectnum; i++ )
 	{
 		if( is64bit )
@@ -360,4 +362,9 @@ QString ElfHunterRelTable::Parse_Info_Field( __uint64_t value )
 	}
 	
 	return result;
+}
+
+void ElfHunterRelTable::Update( char *data )
+{
+	SelectData( data );
 }

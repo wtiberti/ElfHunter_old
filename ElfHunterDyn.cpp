@@ -71,6 +71,8 @@ void ElfHunterDyn::SelectData( char *data )
 	base = (unsigned char *) data;
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
 	
+	ss.clear();
+	
 	if( SegmentDyn )
 	{
 		Elf64_Phdr *prog64;
@@ -381,5 +383,9 @@ void ElfHunterDyn::InvokeSelection( int row, int column )
 			break;
 	}
 	emit S_selection_changed( offset, size );
-	
 };
+
+void ElfHunterDyn::Update( char *data )
+{
+	SelectData( data );
+}

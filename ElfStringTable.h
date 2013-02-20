@@ -77,5 +77,8 @@
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );
 		
+	public slots:
+		virtual void Update( char *data ); ///< @ref ElfGenericHeader::Update
+		
 	};
 #endif

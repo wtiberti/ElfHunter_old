@@ -41,11 +41,13 @@
 	#define A_TOGGLEHEX 4 ///< ToggleHex Action id
 	#define A_TOGGLETREE 5 ///< ToggleTree Action id
 	#define A_GOTOOFFSET 6 ///< GotoOffset Action id
+	#define A_RELOADFILE 7 ///< ReloadFile Action id
 	// etc..
 	
 	#define M_FILE 0 ///< "File" Menu id
-	#define M_VIEW 1 ///< "View" Menu id
-	#define M_FIND 2 ///< "Find" Menu id
+	#define M_EDIT 1 ///< "Edit" Menu id
+	#define M_VIEW 2 ///< "View" Menu id
+	#define M_FIND 3 ///< "Find" Menu id
 	// etc..
 	
 	// Note: even number are for label widget!

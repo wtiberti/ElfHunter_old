@@ -55,7 +55,7 @@
 		"e_shnum",
 		"e_shstrndx"
 	};
-		
+
 
 	/** @class ElfELFHeaderWidget
 	 * @brief ELF Header widget class
@@ -70,9 +70,13 @@
 		~ElfELFHeaderWidget(); ///< Destructor
 
 		/** @brief Insert ELF values in the table
-		 * @param[in] elfheader Pointer to the ELF file data */
-		void SetElfValues( char *elfheader );
-		
+		 * @param[in] elfheader Pointer to the ELF file data
+		 * @param[in] updating "True" on data uploading */
+		void SetElfValues( char *elfheader, bool updating=false );
+
+	public slots:
+		virtual void Update( char *data );
+
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */
 		void InvokeSelection( int row, int column );

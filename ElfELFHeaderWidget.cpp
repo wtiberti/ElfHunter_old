@@ -34,7 +34,7 @@ ElfELFHeaderWidget::ElfELFHeaderWidget() : ElfGenericHeader( 20, 1 )
 ElfELFHeaderWidget::~ElfELFHeaderWidget()
 {}
 
-void ElfELFHeaderWidget::SetElfValues( char *elfheader )
+void ElfELFHeaderWidget::SetElfValues( char *elfheader, bool updating )
 {
 	QTableWidgetItem *temp_item;
 	QString temp_string;
@@ -287,11 +287,19 @@ void ElfELFHeaderWidget::SetElfValues( char *elfheader )
 
 	for( int i=0; i<stringlist.size(); i++ )
 	{
-		temp_item = new QTableWidgetItem( stringlist[i] );
-		temp_item->setFlags( EHW_ITEMFLAGS );
-		table->setItem( i, 0, temp_item );
+		if( updating )
+		{
+			table->item( i, 0 )->setText( stringlist[i] );
+		}
+		else
+		{
+			temp_item = new QTableWidgetItem( stringlist[i] );
+			temp_item->setFlags( EHW_ITEMFLAGS );
+			table->setItem( i, 0, temp_item );
+		}
 	}
-	
+
+	stringlist.clear();
 	connect( table, SIGNAL(cellClicked(int, int)), this, SLOT(InvokeSelection(int,int)) );
 }
 
@@ -299,7 +307,7 @@ void ElfELFHeaderWidget::InvokeSelection( int row, int column )
 {
 	__uint64_t offset = 0;
 	__uint64_t size = 0;
-	
+
 	if( row < table->rowCount() )
 	{
 		if( is64bit )
@@ -314,4 +322,9 @@ void ElfELFHeaderWidget::InvokeSelection( int row, int column )
 		}
 		emit S_selection_changed( offset, size );
 	}
+}
+
+void ElfELFHeaderWidget::Update( char *data )
+{
+	SetElfValues( data, true );
 }

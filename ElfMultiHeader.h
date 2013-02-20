@@ -88,6 +88,8 @@
 		 * 
 		 * Update the QRegExp @ref search_regex object */
 		void SearchStringChanged();
+
+		virtual void Update( char *data ) = 0; ///< @ref ElfGenericHeader::Update
 		
 	signals:
 		/** @brief Signal. Thrown when used stop writing in the search text box */
