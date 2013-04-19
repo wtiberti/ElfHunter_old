@@ -75,7 +75,7 @@
 		void SetElfValues( char *elfheader, bool updating=false );
 
 	public slots:
-		virtual void Update( char *data );
+		virtual void Update( char *data ); ///< @ref ElfGenericHeader::Update
 
 	private slots:
 		/** @brief Invoke raw data highlighting in the hexdump widget */

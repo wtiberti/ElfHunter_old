@@ -28,10 +28,10 @@
 ElfHunterDyn::ElfHunterDyn( bool segment_dyn ) : ElfMultiHeader( 0, 4 )
 {
 	SegmentDyn = segment_dyn;
-	
+
 	spin->setMinimum( 0 );
 	table->horizontalHeader()->setResizeMode( QHeaderView::Interactive );
-	
+
 	if( SegmentDyn )
 	{
 		table->horizontalHeaderItem(0)->setText( "[SEGMENT]" );
@@ -42,11 +42,11 @@ ElfHunterDyn::ElfHunterDyn( bool segment_dyn ) : ElfMultiHeader( 0, 4 )
 		table->horizontalHeaderItem(0)->setText( "[SECTION]" );
 		spin->setPrefix( "Dynamic Section # " );
 	}
-	
+
 	table->horizontalHeaderItem(1)->setText( "[OFFSET]" );
 	table->horizontalHeaderItem(2)->setText( "d_tag" );
 	table->horizontalHeaderItem(3)->setText( "d_val / d_ptr" );
-	
+
 	table->horizontalHeader()->setStretchLastSection( true );
 
 	le_search->hide();
@@ -62,22 +62,22 @@ void ElfHunterDyn::SelectData( char *data )
 	SectStruct temp_s;
 	__uint64_t hdroff;
 	unsigned int hdrnum;
-	
+
 	ss.clear();
-	
+
 	Elf32_Ehdr *header = (Elf32_Ehdr *)data;
 	Elf64_Ehdr *header64 = (Elf64_Ehdr *)data;
-	
+
 	base = (unsigned char *) data;
 	is64bit = header->e_ident[EI_CLASS]==ELFCLASS64?true:false;
-	
+
 	ss.clear();
-	
+
 	if( SegmentDyn )
 	{
 		Elf64_Phdr *prog64;
 		Elf32_Phdr *prog;
-		
+
 		if( is64bit )
 		{
 			hdroff = header64->e_phoff;
@@ -88,10 +88,10 @@ void ElfHunterDyn::SelectData( char *data )
 			hdroff = header->e_phoff;
 			hdrnum = header->e_phnum;
 		}
-		
+
 		prog = (Elf32_Phdr *)(data+hdroff);
 		prog64 = (Elf64_Phdr *)(data+hdroff);
-		
+
 		for( unsigned int i=0; i<hdrnum; i++ )
 		{
 			if( is64bit )
@@ -124,7 +124,7 @@ void ElfHunterDyn::SelectData( char *data )
 	{
 		Elf64_Shdr *sect64;
 		Elf32_Shdr *sect;
-		
+
 		if( is64bit )
 		{
 			hdroff = header64->e_shoff;
@@ -135,10 +135,10 @@ void ElfHunterDyn::SelectData( char *data )
 			hdroff = header->e_shoff;
 			hdrnum = header->e_shnum;
 		}
-		
+
 		sect = (Elf32_Shdr *)(data+hdroff);
 		sect64 = (Elf64_Shdr *)(data+hdroff);
-		
+
 		for( unsigned int i=0; i<hdrnum; i++ )
 		{
 			if( is64bit )
@@ -167,7 +167,7 @@ void ElfHunterDyn::SelectData( char *data )
 			}
 		}
 	}
-	
+
 	spin->setMaximum( (ss.size()==0)?0:ss.size()-1 );
 	spin->setSuffix( " of " + QString::number( spin->maximum() ) );
 	if( ss.size()>0 )
@@ -188,7 +188,7 @@ void ElfHunterDyn::SetValues( int index )
 	offsetlist.clear();
 	stringlist.clear();
 	valueslist.clear();
-	
+
 	if( SegmentDyn )
 	{
 		hdr_name = QString( "Prog Header #" );
@@ -198,18 +198,18 @@ void ElfHunterDyn::SetValues( int index )
 	{
 		hdr_name = QString( ElfSectionHeaderWidget::GetSectionName( (char*)base, ss[index].sect_n ) );
 	}
-	
+
 	Elf32_Dyn *cur = (Elf32_Dyn *)(ss[index].addr);
 	Elf64_Dyn *cur64 = (Elf64_Dyn *)(ss[index].addr);
-	
+
 	while( cursor < ss[index].size )
 	{
 		temp_string = QString::number( cursor+ss[index].offset, 16 );
 		temp_string = temp_string.toUpper().prepend( "0x" );
 		offsetlist << temp_string;
-		
+
 		temp_value = is64bit?cur64->d_tag:cur->d_tag;
-		
+
 		switch( temp_value )
 		{
 			case DT_NULL:
@@ -299,9 +299,9 @@ void ElfHunterDyn::SetValues( int index )
 			case DT_FINI_ARRAYSZ:
 				stringlist << "DT_FINIT_ARRAYSZ";
 				break;
-				
+
 			// TODO add other
-				
+
 			default:
 				if( temp_value >= DT_LOPROC )
 				{
@@ -325,52 +325,52 @@ void ElfHunterDyn::SetValues( int index )
 					}
 				}
 		}
-		
+
 		temp_value = is64bit?(cur64->d_un.d_val):(cur->d_un.d_val);
 		temp_string = QString::number( temp_value, 16 );
 		temp_string = temp_string.toUpper().prepend( "0x" );
 		valueslist << temp_string;
-		
+
 		cur++;
 		cur64++;
 		cursor += is64bit?sizeof(Elf64_Dyn):sizeof(Elf32_Dyn);
 	}
-	
-	
+
+
 	ClearRows();
 	QTableWidgetItem *table_item;
-	
+
 	for( int i=0; i<offsetlist.size(); i++ )
 	{
 		AddRow();
-		
+
 		table_item = new QTableWidgetItem( hdr_name );
 		table_item->setFlags( (Qt::ItemFlag)37 );
 		table->setItem( i, 0, table_item );
-		
+
 		table_item = new QTableWidgetItem( offsetlist[i] );
 		table_item->setFlags( (Qt::ItemFlag)37 );
 		table->setItem( i, 1, table_item );
-		
+
 		table_item = new QTableWidgetItem( stringlist[i] );
 		table_item->setFlags( (Qt::ItemFlag)37 );
 		table->setItem( i, 2, table_item );
-		
+
 		table_item = new QTableWidgetItem( valueslist[i] );
 		table_item->setFlags( (Qt::ItemFlag)37 );
 		table->setItem( i, 3, table_item );
 	}
-	
+
 	table->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
 };
 
 void ElfHunterDyn::InvokeSelection( int row, int column )
 {
 	unsigned int spin_value = spin->value();
-	
+
 	__uint64_t offset = ss[spin_value].offset;
 	__uint64_t size = is64bit?sizeof(Elf64_Dyn):sizeof(Elf32_Dyn);
-	
+
 	offset += row*size;
 	switch( column )
 	{

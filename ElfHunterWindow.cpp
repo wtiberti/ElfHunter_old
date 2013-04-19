@@ -26,7 +26,10 @@
 
 ElfHunterWindow::ElfHunterWindow()
 {
-	resize( 750, 600 ); //TODO
+	resize( 750, 600 );
+
+	// QIcon window_icon( ":/icons/elf.svg" );
+	// setWindowIcon( window_icon );
 
 	Init_StatusBar(); // Must be called before creating the main widget
 

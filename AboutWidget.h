@@ -34,13 +34,14 @@
 	/** @class AboutWidget
 	 * @brief Shows the "about" dialog
 	 *
-	 * Create a QDialog and put some info on it.
-	 * At the moment, it only contains a QLabel with dummy text, but in the
-	 * future, will be also a picture and maybe scrolling text*/
+	 * Create a QDialog and put some info on it */
 	class AboutWidget : public QDialog
 	{
 	private:
-		QLabel *abouttext; ///< A label that contains the about text
+		QHBoxLayout *l; ///< Layout
+		QLabel *banner_container; ///< Image container
+		QLabel *infos; ///< ElfHunter Informations
+		QPixmap *banner; ///< ElfHunter Banner
 
 	public:
 		/** @brief Constructor

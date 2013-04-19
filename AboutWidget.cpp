@@ -27,31 +27,29 @@
 
 AboutWidget::AboutWidget()
 {
-	QVBoxLayout l;
+	l = new QHBoxLayout();
 
-	// TODO
-	resize( 250, 140 );
+	banner = new QPixmap( ":/banner.png" );
+	banner_container = new QLabel();
+	banner_container->setScaledContents( true );
+	banner_container->setPixmap( *banner );
 
-	// TODO: Add logo and restyle
+	infos = new QLabel( "Version 0.17\n\n"
+						"Author: Walter Tiberti\n"
+						"email: wtuniv@gmail.com\n"
+						"website: wtprojects.site88.net" );
 
-	abouttext = new QLabel(
-		"ElfHunter v0.17\n"
-		"An ELF file format analyzer\n\n"
+	l->addWidget( banner_container );
+	l->addWidget( infos );
 
-		"Released under GNU GPL license.\n"
-		"Copyright (C) 2012 Walter Tiberti\n\n"
-
-		"Email: <wtuniv@gmail.com>\n\n"
-
-		"website: http://wtprojects.site88.net", this );
-
-	abouttext->setAlignment( Qt::AlignHCenter|Qt::AlignVCenter );
-
-	l.addWidget( abouttext );
-	setLayout( &l );
+	setLayout( l );
+	resize( sizeHint() );
 }
 
 AboutWidget::~AboutWidget()
 {
-	delete abouttext;
+	delete l;
+	delete banner_container;
+	delete banner;
+	delete infos;
 }

@@ -47,8 +47,11 @@ SOURCES += elfhunter.cpp \
            ElfHunterExec.cpp \
            ElfHunterDyn.cpp
 
-# Okteta widget needs these
-LIBS += -lokteta1core -lokteta1gui -lQtXml
+# Qt modules
+QT += xml
 
-# Resources (icons)
+# Okteta widget needs these
+LIBS += -lokteta1core -lokteta1gui
+
+# Resources
 RESOURCES += ElfHunter.qrc

@@ -1,6 +1,7 @@
- <!DOCTYPE RCC>
- <RCC version="1.0">
- <qresource>
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+	<file>banner.png</file>
 	<file>icons/application-exit.png</file>
 	<file>icons/arrow-right-double.png</file>
 	<file>icons/document-close.png</file>
@@ -9,5 +10,5 @@
 	<file>icons/view-expenses-categories.png</file>
 	<file>icons/view-list-tree.png</file>
 	<file>icons/view-refresh.png</file>
- </qresource>
- </RCC>
+</qresource>
+</RCC>

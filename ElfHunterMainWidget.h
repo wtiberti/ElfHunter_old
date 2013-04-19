@@ -144,6 +144,7 @@
 		/** @brief Shows the "Go To Offset" dialog box */
 		void Hexdump_GoToOffset();
 
+		/** @brief Reload active file */
 		void Reload_Active_File();
 
 	signals:
