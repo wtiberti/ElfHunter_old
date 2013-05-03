@@ -32,6 +32,7 @@
 #include "ElfHunterConfStruct.h"
 
 /* CONSTANTS SECTION */
+// TODO: using a more standard path
 #define CONF_FILE_PATH "./ElfHunter.conf"
 
 

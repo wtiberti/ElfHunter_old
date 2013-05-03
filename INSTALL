@@ -2,7 +2,7 @@
 #                         ElfHunter INSTALLATION                              #
 ###############################################################################
 #  Author: Walter Tiberti <wtuniv@gmail.com>                                  #
-#  Last update: 2013-02-20 12:32 CET                                          #
+#  Last update: 2013-05-03 18:16 CEST                                          #
 ###############################################################################
 
 ----- Generate documentation -------------------
@@ -56,3 +56,7 @@ for the source code, the only thing you need to do is (from the source dir):
 	# cp ./ElfHunter /usr/local/bin/
 
  (You can change /usr/local/bin as you prefer)
+ [NOTE] Installing in this way, ElfHunter will surely not be able to
+        retrieve its configuration file. So, until i provide a better
+        installation mechanism, you should execute ElfHunter from
+        its directory.
